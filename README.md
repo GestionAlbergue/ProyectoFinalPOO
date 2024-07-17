@@ -1,5 +1,5 @@
 # Proyecto Final - POO 2024 
-Proyecto de Curso - Software para gestión de Albergue de Animales 
+Proyecto de Curso - Software para Gestión de Albergue de Animales 
 
 Grupo 3
 Antony Barrios
