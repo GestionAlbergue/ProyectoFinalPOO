@@ -20,6 +20,10 @@ public class Volunteer {
         return hoursWorked;
     }
 
+    public void addHours(int hours){
+        this.hoursWorked = hoursWorked + hours;
+    }
+
 
 
 }
