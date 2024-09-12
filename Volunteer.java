@@ -12,5 +12,14 @@ public class Volunteer {
         return name;
     }
 
+    public String getContactInfo(){
+        return contactInfo;
+    }
+    
+    public int getHoursWorked(){
+        return hoursWorked;
+    }
+
+
 
 }
