@@ -21,28 +21,73 @@ public class Animal {
     private String description;  // Descripción del animal
     private boolean adopted;     // Estado de adopción (true si está adoptado, false si no)
 
-    public String getName(){
+    /**
+     * Constructor de la clase Animal.
+     * 
+     * @param name        El nombre del animal.
+     * @param breed       La raza del animal.
+     * @param age         La edad del animal.
+     * @param description Una breve descripción del animal.
+     */
+    public Animal(String name, String breed, int age, String description) {
+        this.name = name;                 // Inicializa el nombre
+        this.breed = breed;               // Inicializa la raza
+        this.age = age;                   // Inicializa la edad
+        this.description = description;   // Inicializa la descripción
+        this.adopted = false;             // Inicializa el estado de adopción como no adoptado
+    }
+
+    /**
+     * Obtiene el nombre del animal.
+     * 
+     * @return El nombre del animal.
+     */
+    public String getName() {
         return name;
     }
 
-    public String getBreed(){
+    /**
+     * Obtiene la raza del animal.
+     * 
+     * @return La raza del animal.
+     */
+    public String getBreed() {
         return breed;
     }
-    
-    public int getAge(){
+
+    /**
+     * Obtiene la edad del animal.
+     * 
+     * @return La edad del animal.
+     */
+    public int getAge() {
         return age;
     }
 
-    public String getDescription(){
+    /**
+     * Obtiene la descripción del animal.
+     * 
+     * @return La descripción del animal.
+     */
+    public String getDescription() {
         return description;
     }
-    
-    public boolean isAdopted(){
+
+    /**
+     * Verifica si el animal ha sido adoptado.
+     * 
+     * @return true si el animal está adoptado, false en caso contrario.
+     */
+    public boolean isAdopted() {
         return adopted;
     }
-    
-    public void setAdopted(boolean adopted){
+
+    /**
+     * Establece el estado de adopción del animal.
+     * 
+     * @param adopted true si el animal ha sido adoptado, false si no.
+     */
+    public void setAdopted(boolean adopted) {
         this.adopted = adopted;
     }
-
 }
