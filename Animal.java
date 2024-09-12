@@ -15,10 +15,10 @@
 
 public class Animal {
     // Atributos de la clase Animal
-    private String name;         // Nombre del animal
-    private String breed;        // Raza del animal
+    private String name,         // Nombre del animal
+                   breed,        // Raza del animal
+                   description;  // Descripción del animal
     private int age;             // Edad del animal
-    private String description;  // Descripción del animal
     private boolean adopted;     // Estado de adopción (true si está adoptado, false si no)
 
     /**
