@@ -24,5 +24,16 @@ public class Animal {
         return age;
     }
 
+    public String getDescription(){
+        return description;
+    }
+    
+    public boolean isAdopted(){
+        return adopted;
+    }
+    
+    public void setAdopted(boolean adopted){
+        this.adopted = adopted;
+    }
 
 }
