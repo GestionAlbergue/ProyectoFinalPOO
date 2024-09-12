@@ -15,5 +15,14 @@ public class Animal {
     public String getName(){
         return name;
     }
+
+    public String getBreed(){
+        return breed;
+    }
     
+    public int getAge(){
+        return age;
+    }
+
+
 }
