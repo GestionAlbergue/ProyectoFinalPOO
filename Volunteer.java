@@ -19,27 +19,51 @@ public class Volunteer {
                    contactInfo;  // Información de contacto del voluntario
     private int hoursWorked;     // Cantidad de horas trabajadas por el voluntario
 
-    public Volunteer(String name, String contactInfo){
-        this.name = name;
-        this.contactInfo = contactInfo;
+    /**
+     * Constructor de la clase Volunteer.
+     * 
+     * @param name        El nombre del voluntario.
+     * @param contactInfo La información de contacto del voluntario.
+     */
+    public Volunteer(String name, String contactInfo) {
+        this.name = name;                   // Inicializa el nombre del voluntario
+        this.contactInfo = contactInfo;     // Inicializa la información de contacto
+        this.hoursWorked = 0;               // Inicializa las horas trabajadas en 0
     }
-    
-    public String getName(){
+
+    /**
+     * Obtiene el nombre del voluntario.
+     * 
+     * @return El nombre del voluntario.
+     */
+    public String getName() {
         return name;
     }
 
-    public String getContactInfo(){
+    /**
+     * Obtiene la información de contacto del voluntario.
+     * 
+     * @return La información de contacto del voluntario.
+     */
+    public String getContactInfo() {
         return contactInfo;
     }
-    
-    public int getHoursWorked(){
+
+    /**
+     * Obtiene la cantidad de horas trabajadas por el voluntario.
+     * 
+     * @return La cantidad de horas trabajadas.
+     */
+    public int getHoursWorked() {
         return hoursWorked;
     }
 
-    public void addHours(int hours){
-        this.hoursWorked = hoursWorked + hours;
+    /**
+     * Añade horas al registro de horas trabajadas por el voluntario.
+     * 
+     * @param hours Las horas que se añadirán al total de horas trabajadas.
+     */
+    public void addHours(int hours) {
+        this.hoursWorked += hours;  // Suma las horas trabajadas a las actuales
     }
-
-
-
 }
