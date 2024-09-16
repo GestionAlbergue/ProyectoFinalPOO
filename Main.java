@@ -44,5 +44,16 @@ public class Main {
         animals.add(animal);
         System.out.println("Animal registrado exitosamente.");
     }
+
+    public void addVolunteer(Scanner scanner) {
+        System.out.print("Ingrese el nombre del voluntario: ");
+        String name = scanner.nextLine();
+        System.out.print("Ingrese la información de contacto del voluntario: ");
+        String contactInfo = scanner.nextLine();
+
+        Volunteer volunteer = new Volunteer(name, contactInfo);
+        volunteers.add(volunteer);
+        System.out.println("Voluntario registrado exitosamente.");
+    }
     
 }
