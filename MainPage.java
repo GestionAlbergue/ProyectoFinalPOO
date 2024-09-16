@@ -13,25 +13,27 @@ public class MainPage {
         System.out.print("** Seleccione una opción: ");
     }
 
-    public void navigate(String option, Main main, Scanner scanner) {
+    public void navigate(String option, Scanner sc, Main main) {
         switch (option) {
             case "1":
-                main.addAnimal(scanner);
+                main.addAnimal(sc);
                 break;
             case "2":
-                main.addVolunteer(scanner);
+                main.addVolunteer(sc);
                 break;
             case "3":
-                main.registerAdoption(scanner);
+                main.registerAdoption(sc);
                 break;
             case "4":
-                main.addResource(scanner);
+                main.addResource(sc);
                 break;
             case "5":
-                System.out.println("Saliendo del programa...");
+                System.out.println("Saliendo del sistema. ¡Adiós!");
+                System.exit(0);
                 break;
             default:
-                System.out.println("Opción no válida. Intente nuevamente.");
+                System.out.println("Opción no válida. Por favor, selecciona una opción correcta.");
         }
     }
 }
+
