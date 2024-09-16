@@ -86,5 +86,19 @@ public class Main {
         adoptions.add(adoption);
         System.out.println("Adopción registrada exitosamente.");
     }
+
+    public void addResource(Scanner scanner) {
+        System.out.print("Ingrese el nombre del recurso: ");
+        String resourceName = scanner.nextLine();
+        System.out.print("Ingrese la cantidad de recursos disponibles: ");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();  // Consume la nueva línea
+        System.out.print("Ingrese la descripción del recurso: ");
+        String description = scanner.nextLine();
+
+        Resource resource = new Resource(resourceName, quantity, description);
+        resources.add(resource);
+        System.out.println("Recurso registrado exitosamente.");
+    }
     
 }
