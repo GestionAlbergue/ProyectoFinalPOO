@@ -28,5 +28,21 @@ public class Main {
         
         scanner.close();
     }
+
+    public void addAnimal(Scanner scanner) {
+        System.out.print("Ingrese el nombre del animal: ");
+        String name = scanner.nextLine();
+        System.out.print("Ingrese la raza del animal: ");
+        String breed = scanner.nextLine();
+        System.out.print("Ingrese la edad del animal: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();  // Consume la nueva línea
+        System.out.print("Ingrese la descripción del animal: ");
+        String description = scanner.nextLine();
+
+        Animal animal = new Animal(name, breed, age, description);
+        animals.add(animal);
+        System.out.println("Animal registrado exitosamente.");
+    }
     
 }
