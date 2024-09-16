@@ -1,83 +1,91 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private List<Animal> animals;
     private List<Volunteer> volunteers;
-    //private List<Adoption> adoptions;
-    //private List<Resource> resources;
+    private List<Adoption> adoptions;
+    private List<Resource> resources;
 
     public Main() {
         animals = new ArrayList<>();
         volunteers = new ArrayList<>();
-        //adoptions = new ArrayList<>();
-        //resources = new ArrayList<>();
+        adoptions = new ArrayList<>();
+        resources = new ArrayList<>();
     }
 
     public void run() {
         Scanner sc = new Scanner(System.in);
         MainPage mainPage = new MainPage();
 
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             mainPage.displayOptions();
             String option = sc.nextLine();
-            
-            try {
-                mainPage.navigate(option, sc, this);
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Entrada inválida. Intenta nuevamente.");
-                sc.nextLine(); // Limpiar el buffer
-            } catch (Exception e) {
-                System.out.println("Error inesperado: " + e.getMessage());
+
+            switch (option) {
+                case "1":
+                    addAnimal(sc);
+                    break;
+                case "2":
+                    addVolunteer(sc);
+                    break;
+                case "3":
+                    registerAdoption(sc);
+                    break;
+                case "4":
+                    addResource(sc);
+                    break;
+                case "5":
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intenta nuevamente.");
             }
         }
     }
 
-    public void addAnimal(Scanner sc) {
+    private void addAnimal(Scanner sc) {
         try {
             System.out.print("Nombre del animal: ");
             String name = sc.nextLine();
-
-            System.out.print("Raza: ");
+            System.out.print("Raza del animal: ");
             String breed = sc.nextLine();
-
-            System.out.print("Edad: ");
-            int age = sc.nextInt();
-            sc.nextLine(); // Limpiar el buffer
-
-            System.out.print("Descripción: ");
+            System.out.print("Edad del animal: ");
+            int age = Integer.parseInt(sc.nextLine());
+            System.out.print("Descripción del animal: ");
             String description = sc.nextLine();
 
             Animal animal = new Animal(name, breed, age, description);
             animals.add(animal);
-            System.out.println("Animal registrado exitosamente.");
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Entrada inválida para la edad. Intenta nuevamente.");
-            sc.nextLine(); // Limpiar el buffer
+            System.out.println("Animal agregado exitosamente.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error en el formato de la edad. Debe ser un número entero.");
         } catch (Exception e) {
-            System.out.println("Error inesperado al añadir el animal: " + e.getMessage());
+            System.out.println("Error inesperado al agregar el animal: " + e.getMessage());
         }
     }
 
-    public void addVolunteer(Scanner sc) {
+    private void addVolunteer(Scanner sc) {
         try {
             System.out.print("Nombre del voluntario: ");
             String name = sc.nextLine();
-
-            System.out.print("Información de contacto: ");
+            System.out.print("Información de contacto del voluntario: ");
             String contactInfo = sc.nextLine();
 
             Volunteer volunteer = new Volunteer(name, contactInfo);
             volunteers.add(volunteer);
-            System.out.println("Voluntario registrado exitosamente.");
+            System.out.println("Voluntario agregado exitosamente.");
         } catch (Exception e) {
-            System.out.println("Error inesperado al añadir el voluntario: " + e.getMessage());
+            System.out.println("Error inesperado al agregar el voluntario: " + e.getMessage());
         }
     }
 
-    public void registerAdoption(Scanner sc) {
+    private void registerAdoption(Scanner sc) {
         try {
             System.out.print("Nombre del animal a adoptar: ");
             String animalName = sc.nextLine();
@@ -96,7 +104,14 @@ public class Main {
             }
 
             System.out.print("Fecha de adopción (DD/MM/AAAA): ");
-            String adoptionDate = sc.nextLine();
+            String dateInput = sc.nextLine();
+            LocalDate adoptionDate;
+            try {
+                adoptionDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Fecha en formato incorrecto. Debe ser DD/MM/AAAA.");
+                return;
+            }
 
             Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
             adoptions.add(adoption);
@@ -107,30 +122,26 @@ public class Main {
         }
     }
 
-    public void addResource(Scanner sc) {
+    private void addResource(Scanner sc) {
         try {
             System.out.print("Nombre del recurso: ");
             String resourceName = sc.nextLine();
-
             System.out.print("Cantidad disponible: ");
-            int quantity = sc.nextInt();
-            sc.nextLine(); // Limpiar el buffer
-
-            System.out.print("Descripción: ");
+            int quantity = Integer.parseInt(sc.nextLine());
+            System.out.print("Descripción del recurso: ");
             String description = sc.nextLine();
 
             Resource resource = new Resource(resourceName, quantity, description);
             resources.add(resource);
-            System.out.println("Recurso registrado exitosamente.");
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Entrada inválida para la cantidad. Intenta nuevamente.");
-            sc.nextLine(); // Limpiar el buffer
+            System.out.println("Recurso agregado exitosamente.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error en el formato de la cantidad. Debe ser un número entero.");
         } catch (Exception e) {
-            System.out.println("Error inesperado al añadir el recurso: " + e.getMessage());
+            System.out.println("Error inesperado al agregar el recurso: " + e.getMessage());
         }
     }
 
-    public Animal findAnimalByName(String name) {
+    private Animal findAnimalByName(String name) {
         for (Animal animal : animals) {
             if (animal.getName().equalsIgnoreCase(name)) {
                 return animal;
@@ -139,7 +150,7 @@ public class Main {
         return null;
     }
 
-    public Volunteer findVolunteerByName(String name) {
+    private Volunteer findVolunteerByName(String name) {
         for (Volunteer volunteer : volunteers) {
             if (volunteer.getName().equalsIgnoreCase(name)) {
                 return volunteer;
