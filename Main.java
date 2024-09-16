@@ -15,8 +15,18 @@ public class Main {
         // resources = new ArrayList<>();
     }
     
-    public static void main(String[] args) {
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        MainPage mainPage = new MainPage();
+        String option;
 
+        do {
+            mainPage.displayOptions();
+            option = scanner.nextLine();
+            mainPage.navigate(option, this, scanner);
+        } while (!option.equals("exit"));
+        
+        scanner.close();
     }
     
 }
