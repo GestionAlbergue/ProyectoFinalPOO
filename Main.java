@@ -55,5 +55,36 @@ public class Main {
         volunteers.add(volunteer);
         System.out.println("Voluntario registrado exitosamente.");
     }
+
+    public void registerAdoption(Scanner scanner) {
+        System.out.println("Lista de animales:");
+        for (int i = 0; i < animals.size(); i++) {
+            if (!animals.get(i).isAdopted()) {
+                System.out.println(i + ". " + animals.get(i).getName());
+            }
+        }
+        System.out.print("Seleccione el número del animal a adoptar: ");
+        int animalIndex = scanner.nextInt();
+        scanner.nextLine();  // Consume la nueva línea
+
+        System.out.println("Lista de voluntarios:");
+        for (int i = 0; i < volunteers.size(); i++) {
+            System.out.println(i + ". " + volunteers.get(i).getName());
+        }
+        System.out.print("Seleccione el número del voluntario que gestionará la adopción: ");
+        int volunteerIndex = scanner.nextInt();
+        scanner.nextLine();  // Consume la nueva línea
+
+        System.out.print("Ingrese la fecha de adopción (dd/mm/yyyy): ");
+        String adoptionDate = scanner.nextLine();
+
+        Animal adoptedAnimal = animals.get(animalIndex);
+        adoptedAnimal.setAdopted(true);
+        Volunteer adopter = volunteers.get(volunteerIndex);
+
+        Adoption adoption = new Adoption(adoptedAnimal, adopter, adoptionDate);
+        adoptions.add(adoption);
+        System.out.println("Adopción registrada exitosamente.");
+    }
     
 }
