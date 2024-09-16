@@ -11,6 +11,13 @@ public class Main {
     private List<Adoption> adoptions;
     private List<Resource> resources;
 
+    // Método principal para iniciar el programa
+    public static void main(String[] args) {
+        Main program = new Main();
+        program.run();  // Llama al método que controla el flujo del programa
+    }
+    
+    // Constructor de la clase Main
     public Main() {
         animals = new ArrayList<>();
         volunteers = new ArrayList<>();
@@ -18,6 +25,7 @@ public class Main {
         resources = new ArrayList<>();
     }
 
+    // Control del flujo principal del programa
     public void run() {
         Scanner sc = new Scanner(System.in);
         MainPage mainPage = new MainPage();
@@ -49,6 +57,7 @@ public class Main {
         }
     }
 
+    // Método para agregar un nuevo animal
     private void addAnimal(Scanner sc) {
         try {
             System.out.print("Nombre del animal: ");
@@ -70,6 +79,7 @@ public class Main {
         }
     }
 
+    // Método para agregar un nuevo voluntario
     private void addVolunteer(Scanner sc) {
         try {
             System.out.print("Nombre del voluntario: ");
@@ -85,6 +95,7 @@ public class Main {
         }
     }
 
+    // Método para registrar una nueva adopción
     private void registerAdoption(Scanner sc) {
         try {
             System.out.print("Nombre del animal a adoptar: ");
@@ -122,6 +133,7 @@ public class Main {
         }
     }
 
+    // Método para agregar un recurso
     private void addResource(Scanner sc) {
         try {
             System.out.print("Nombre del recurso: ");
