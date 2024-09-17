@@ -17,7 +17,9 @@ public class Volunteer {
     // Atributos de la clase Volunteer
     private String name,         // Nombre del voluntario
                    contactInfo;  // Información de contacto del voluntario
-    private int hoursWorked;     // Cantidad de horas trabajadas por el voluntario
+    private int hoursWorked,     // Cantidad de horas trabajadas por el voluntario
+                id;              // ID del voluntario
+    private static int idCounter = 1; // ID único ascendiente                 
 
     /**
      * Constructor de la clase Volunteer.
@@ -26,6 +28,7 @@ public class Volunteer {
      * @param contactInfo La información de contacto del voluntario.
      */
     public Volunteer(String name, String contactInfo) {
+        this.id = idCounter++;              // Asignar ID único y aumentar el contador
         this.name = name;                   // Inicializa el nombre del voluntario
         this.contactInfo = contactInfo;     // Inicializa la información de contacto
         this.hoursWorked = 0;               // Inicializa las horas trabajadas en 0
@@ -65,5 +68,14 @@ public class Volunteer {
      */
     public void addHours(int hours) {
         this.hoursWorked += hours;  // Suma las horas trabajadas a las actuales
+    }
+
+    /**
+     * Obtiene ID el voluntario.
+     * 
+     * @return ID del Voluntario.
+     */
+    public int getId() {
+        return id;
     }
 }
