@@ -1,16 +1,16 @@
 /**
-* Universidad del Valle de Guatemala - Segundo Semestre 2024
-* Programación Orientada a Objetos (POO)
-* Proyecto Final
-* 
-* Clase MainPage
-* 
-* La clase MainPage representa la página principal y gestiona la navegación.
-* 
-* @author Daniela Navas
-* Fecha de creación: 16/09/2024 
-* Última modificación: 16/09/2024
-*/
+ * Universidad del Valle de Guatemala - Segundo Semestre 2024
+ * Programación Orientada a Objetos (POO)
+ * Proyecto Final
+ * 
+ * Clase MainPage
+ * 
+ * La clase MainPage representa la página principal y gestiona la navegación.
+ * 
+ * @author Daniela Navas
+ * Fecha de creación: 16/09/2024 
+ * Última modificación: 17/09/2024
+ */
 
 import java.util.Scanner;
 

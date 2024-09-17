@@ -9,7 +9,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024 
- * Última modificación: 16/09/2024
+ * Última modificación: 17/09/2024
  */
 
 import java.time.LocalDate;
@@ -22,8 +22,8 @@ import java.util.Scanner;
 public class Main {
     private List<Animal> animals;
     private List<Volunteer> volunteers;
-    // private List<Adoption> adoptions;
-    // private List<Resource> resources;
+    private List<Adoption> adoptions;
+    private List<Resource> resources;
     private List<Task> tasks;
     private Report report;  // Referencia al objeto Report
     private MainPage mainPage;  // Referencia a la clase MainPage para navegar en el sistema
@@ -145,8 +145,8 @@ public class Main {
             System.out.print("Descripción del recurso: ");
             String description = sc.nextLine();
 
-            // Resource resource = new Resource(resourceName, quantity, description);
-            // resources.add(resource);
+            Resource resource = new Resource(resourceName, quantity, description);
+            resources.add(resource);
             System.out.println("Recurso agregado exitosamente.");
         } catch (NumberFormatException e) {
             System.out.println("Error en el formato de la cantidad. Debe ser un número entero.");
