@@ -124,8 +124,8 @@ public class Main {
                 return;
             }
 
-            // Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
-            // adoptions.add(adoption);
+            Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
+            adoptions.add(adoption);
             animal.setAdopted(true);
             System.out.println("Adopción registrada exitosamente.");
         } catch (NumberFormatException e) {

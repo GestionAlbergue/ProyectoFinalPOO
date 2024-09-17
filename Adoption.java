@@ -17,16 +17,16 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Adoption {
-    // Atributos de la clase que almacenan la información relevante de la adopción
-    private String animalName;    // Nombre del animal que será adoptado
-    private String adopterName;   // Nombre de la persona que adoptará al animal
-    private Date adoptionDate;    // Fecha en la que se realizó la adopción
+    // Atributos de la clase Adoption
+    private Animal animal;             // El animal que ha sido adoptado
+    private Volunteer adopter;         // El voluntario que gestionó la adopción
+    private String adoptionDate;       // La fecha de adopción
 
     // Se encarga de inicializar los valores de los atributos
-    public Adoption(String animalName, String adopterName, Date adoptionDate) {
-        this.animalName = animalName;         // Asignamos el nombre del animal
-        this.adopterName = adopterName;       // Asignamos el nombre del adoptante
-        this.adoptionDate = adoptionDate;     // Asignamos la fecha de adopción
+    public Adoption(Animal animal, Volunteer adopter, String adoptionDate) {
+        this.animal = animal;                 // Inicializa el animal adoptado
+        this.adopter = adopter;               // Inicializa el voluntario que gestionó la adopción
+        this.adoptionDate = adoptionDate;     // Inicializa la fecha de adopción
     }
 
     /**
