@@ -27,7 +27,7 @@ public class MainPage {
         System.out.println("****************************************************");
         System.out.println("***                   REPORTES                   ***");
         System.out.println("** 1. Reporte de Adopciones                       **");
-        System.out.println("** 2. Reporte de Animales sin adoptar             **");
+        System.out.println("** 2. Reporte de Animales                         **");
         System.out.println("** 3. Reporte de Voluntarios                      **");
         System.out.println("** 4. Reporte de Recursos                         **");
         System.out.println("** 5. Reporte de Tareas                           **");
@@ -71,10 +71,10 @@ public class MainPage {
                 System.out.println(report.generateAdoptionReport());  // Mostrar el reporte de adopciones
                 break;
             case "2":
-               // Mostrar el reporte de animales sin adoptar
+                System.out.println(report.generateAnimalStats());
                 break;
             case "3":
-                // Mostrar el reporte de voluntarios
+                System.out.println(report.generateVolunteerReport());
                 break;
             case "4":
                 // Mostrar el reporte de recursos
