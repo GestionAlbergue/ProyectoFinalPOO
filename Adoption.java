@@ -13,9 +13,6 @@
  * Última modificación: 17/09/2024
  */
 
-import java.util.Date; 
-import java.util.Scanner;
-
 public class Adoption {
     // Atributos de la clase Adoption
     private Animal animal;             // El animal que ha sido adoptado
@@ -30,33 +27,45 @@ public class Adoption {
     }
 
     /**
-     * Método estático que confirma y registra una nueva adopción.
-     * @param scanner
-     * @return
+     * Obtiene el animal adoptado.
+     * 
+     * @return El animal que ha sido adoptado.
      */
-    public static Adoption confirmAdoption(Scanner scanner) {
-        // Pedimos el nombre del animal a adoptar
-        System.out.println("Ingrese el nombre del animal a adoptar:");
-        String animalName = scanner.nextLine();  // Leemos el nombre del animal
-
-        // Pedimos el nombre del adoptante
-        System.out.println("Ingrese el nombre del adoptante:");
-        String adopterName = scanner.nextLine(); // Leemos el nombre del adoptante
-
-        // Creamos un objeto Date que almacena la fecha actual como la fecha de adopción
-        Date adoptionDate = new Date();  // La fecha de adopción será la actual
-
-        // Devolvemos una nueva instancia de la clase Adoption con los datos proporcionados
-        return new Adoption(animalName, adopterName, adoptionDate);
+    public Animal getAnimal() {
+        return animal;
     }
 
     /**
-     * Método que muestra en consola los detalles de la adopción.
+     * Obtiene el voluntario que gestionó la adopción.
+     * 
+     * @return El voluntario que gestionó la adopción.
      */
-    public void displayAdoptionDetails() {
-        System.out.println("Detalles de la adopción:");
-        System.out.println("Animal: " + animalName);        // Muestra el nombre del animal
-        System.out.println("Adoptante: " + adopterName);    // Muestra el nombre del adoptante
-        System.out.println("Fecha de adopción: " + adoptionDate); // Muestra la fecha de adopción
+    public Volunteer getAdopter() {
+        return adopter;
+    }
+
+    /**
+     * Obtiene la fecha de adopción.
+     * 
+     * @return La fecha en la que se realizó la adopción.
+     */
+    public String getAdoptionDate() {
+        return adoptionDate;
+    }
+
+    /**
+     * Retorna los detalles de la adopción en formato de String.
+     * Incluye información sobre el animal, el voluntario y la fecha de adopción.
+     * 
+     * @return Los detalles de la adopción en un formato legible.
+     */
+    public String displayAdoptionDetails() {
+        return "Detalles de la Adopción:\n" +
+               "Animal adoptado: " + animal.getName() + " (ID: " + animal.getId() + ")\n" +
+               "Raza: " + animal.getBreed() + "\n" +
+               "Edad: " + animal.getAge() + " años\n" +
+               "Descripción: " + animal.getDescription() + "\n" +
+               "Gestionado por el voluntario: " + adopter.getName() + " (ID: " + adopter.getId() + ")\n" +
+               "Fecha de adopción: " + adoptionDate;
     }
 }
