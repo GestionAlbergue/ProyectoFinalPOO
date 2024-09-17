@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Main {
     private List<Animal> animals;
     private List<Volunteer> volunteers;
-    private List<Adoption> adoptions;
-    private List<Resource> resources;
+    // private List<Adoption> adoptions;
+    // private List<Resource> resources;
 
     // Método principal para iniciar el programa
     public static void main(String[] args) {
@@ -21,8 +21,8 @@ public class Main {
     public Main() {
         animals = new ArrayList<>();
         volunteers = new ArrayList<>();
-        adoptions = new ArrayList<>();
-        resources = new ArrayList<>();
+        // adoptions = new ArrayList<>();
+        // resources = new ArrayList<>();
     }
 
     // Control del flujo principal del programa
@@ -49,6 +49,8 @@ public class Main {
                     addResource(sc);
                     break;
                 case "5":
+                    //
+                case "6":
                     exit = true;
                     break;
                 default:
@@ -58,7 +60,7 @@ public class Main {
     }
 
     // Método para agregar un nuevo animal
-    private void addAnimal(Scanner sc) {
+    public void addAnimal(Scanner sc) {
         try {
             System.out.print("Nombre del animal: ");
             String name = sc.nextLine();
@@ -80,7 +82,7 @@ public class Main {
     }
 
     // Método para agregar un nuevo voluntario
-    private void addVolunteer(Scanner sc) {
+    public void addVolunteer(Scanner sc) {
         try {
             System.out.print("Nombre del voluntario: ");
             String name = sc.nextLine();
@@ -96,7 +98,7 @@ public class Main {
     }
 
     // Método para registrar una nueva adopción
-    private void registerAdoption(Scanner sc) {
+    public void registerAdoption(Scanner sc) {
         try {
             System.out.print("Nombre del animal a adoptar: ");
             String animalName = sc.nextLine();
@@ -124,8 +126,8 @@ public class Main {
                 return;
             }
 
-            Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
-            adoptions.add(adoption);
+            // Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
+            // adoptions.add(adoption);
             animal.setAdopted(true);
             System.out.println("Adopción registrada exitosamente.");
         } catch (Exception e) {
@@ -134,7 +136,7 @@ public class Main {
     }
 
     // Método para agregar un recurso
-    private void addResource(Scanner sc) {
+    public void addResource(Scanner sc) {
         try {
             System.out.print("Nombre del recurso: ");
             String resourceName = sc.nextLine();
@@ -143,8 +145,8 @@ public class Main {
             System.out.print("Descripción del recurso: ");
             String description = sc.nextLine();
 
-            Resource resource = new Resource(resourceName, quantity, description);
-            resources.add(resource);
+            // Resource resource = new Resource(resourceName, quantity, description);
+            // resources.add(resource);
             System.out.println("Recurso agregado exitosamente.");
         } catch (NumberFormatException e) {
             System.out.println("Error en el formato de la cantidad. Debe ser un número entero.");
