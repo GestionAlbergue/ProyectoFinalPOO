@@ -54,7 +54,7 @@ public class Main {
             option = sc.next();
             sc.nextLine();  // Consumir el salto de línea pendiente
             mainPage.navigate(option, sc, this);
-        } while (!option.equals("8"));
+        } while (!option.equals("10"));
     }
 
     // Método para agregar un nuevo animal
@@ -197,6 +197,17 @@ public class Main {
         } else {
             System.out.println("Número de tarea inválido. Por favor, selecciona un número válido.");
         }
+    }
+
+    public void registerMedicalRecord(Scanner sc) {
+        // Código para ingresar un nuevo registro médico
+        // Esta parte quedará vacía hasta que tengas la clase `MedicalRecord` o equivalente
+    }
+
+    // Función 8: Visualizar récord médico
+    public void viewMedicalRecord(Scanner sc) {
+        // Código para visualizar el récord médico
+        // Esta parte quedará vacía hasta que tengas la clase `MedicalRecord` o equivalente
     }
 
     private Animal findAnimalById(int id) {
