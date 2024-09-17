@@ -57,9 +57,29 @@ public class Report {
 
     /**
      * Genera estadísticas sobre los animales del albergue.
+     * 
+     * Imprime el número total de animales, el número de animales adoptados
+     * y el número de animales pendientes de adopción.
      */
     public void generateAnimalStats() {
-        System.out.println("Generando estadísticas de animales...");
+        int totalAnimals = animals.size();
+        int adoptedAnimals = 0;
+        int pendingAdoptions = 0;
+
+        // Recorrer la lista de animales para contar adoptados y pendientes
+        for (Animal animal : animals) {
+            if (animal.isAdopted()) {
+                adoptedAnimals++;
+            } else {
+                pendingAdoptions++;
+            }
+        }
+
+        // Imprimir las estadísticas
+        System.out.println("Estadísticas de animales:");
+        System.out.println("Total de animales: " + totalAnimals);
+        System.out.println("Animales adoptados: " + adoptedAnimals);
+        System.out.println("Animales pendientes de adopción: " + pendingAdoptions);
     }
 
     /**
