@@ -1,3 +1,17 @@
+/**
+ * Universidad del Valle de Guatemala - Segundo Semestre 2024
+ * Programación Orientada a Objetos (POO)
+ * Proyecto Final
+ * 
+ * Clase Main
+ * 
+ * La clase Main tiene el punto de Entrada y solo ejecuta las clases
+ * 
+ * @author Daniela Navas
+ * Fecha de creación: 16/09/2024 
+ * Última modificación: 16/09/2024
+ */
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

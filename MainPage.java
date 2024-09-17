@@ -1,3 +1,17 @@
+/**
+ * Universidad del Valle de Guatemala - Segundo Semestre 2024
+ * Programación Orientada a Objetos (POO)
+ * Proyecto Final
+ * 
+ * Clase MainPage
+ * 
+ * La clase MainPage representa la página principal y gestiona la navegación.
+ * 
+ * @author Daniela Navas
+ * Fecha de creación: 16/09/2024 
+ * Última modificación: 16/09/2024
+ */
+
 import java.util.Scanner;
 
 public class MainPage {
@@ -17,8 +31,10 @@ public class MainPage {
         System.out.println("** 2. Registrar Voluntario                        **");
         System.out.println("** 3. Registrar Adopción                          **");
         System.out.println("** 4. Registrar Recurso                           **");
-        System.out.println("** 5. Informes                                    **");
-        System.out.println("** 6. Salir                                       **");
+        System.out.println("** 5. Registrar Tarea                             **");
+        System.out.println("** 6. Completar una Tarea                         **");
+        System.out.println("** 7. Informes                                    **");
+        System.out.println("** 8. Salir                                       **");
         System.out.print("** Seleccione una opción: ");
     }
 
@@ -51,11 +67,14 @@ public class MainPage {
                 main.addResource(sc);  // Registrar un nuevo recurso
                 break;
             case "5":
+                // 
+                break;
+            case "6":
                 this.displayOptionsReport();
                 String reportOption = sc.next();
                 this.navigateReport(reportOption);
                 break;
-            case "6":
+            case "7":
                 System.out.println("== SALIENDO DEL SISTEMA... ==");
                 System.exit(0);  // Salir del programa
                 break;
