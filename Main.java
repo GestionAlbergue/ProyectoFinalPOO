@@ -82,17 +82,17 @@ public class Main {
     // Método para registrar una nueva adopción
     public void registerAdoption(Scanner sc) {
         try {
-            System.out.print("Nombre del animal a adoptar: ");
-            String animalName = sc.nextLine();
-            Animal animal = findAnimalByName(animalName);
+            System.out.print("ID del animal a adoptar: ");
+            int animalId = Integer.parseInt(sc.nextLine());
+            Animal animal = findAnimalById(animalId);
             if (animal == null) {
                 System.out.println("Animal no encontrado.");
                 return;
             }
 
-            System.out.print("Nombre del voluntario que gestiona la adopción: ");
-            String volunteerName = sc.nextLine();
-            Volunteer volunteer = findVolunteerByName(volunteerName);
+            System.out.print("ID del voluntario que gestiona la adopción: ");
+            int volunteerId = Integer.parseInt(sc.nextLine());
+            Volunteer volunteer = findVolunteerById(volunteerId);
             if (volunteer == null) {
                 System.out.println("Voluntario no encontrado.");
                 return;
@@ -112,6 +112,8 @@ public class Main {
             // adoptions.add(adoption);
             animal.setAdopted(true);
             System.out.println("Adopción registrada exitosamente.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error en el formato del ID. Debe ser un número entero.");
         } catch (Exception e) {
             System.out.println("Error inesperado al registrar la adopción: " + e.getMessage());
         }
@@ -137,18 +139,18 @@ public class Main {
         }
     }
 
-    private Animal findAnimalByName(String name) {
+    private Animal findAnimalById(int id) {
         for (Animal animal : animals) {
-            if (animal.getName().equalsIgnoreCase(name)) {
+            if (animal.getId() == id) {
                 return animal;
             }
         }
         return null;
     }
 
-    private Volunteer findVolunteerByName(String name) {
+    private Volunteer findVolunteerById(int id) {
         for (Volunteer volunteer : volunteers) {
-            if (volunteer.getName().equalsIgnoreCase(name)) {
+            if (volunteer.getId() == id) {
                 return volunteer;
             }
         }
