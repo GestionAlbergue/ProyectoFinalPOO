@@ -128,6 +128,9 @@ public class Main {
             adoptions.add(adoption);
             animal.setAdopted(true);
             System.out.println("Adopción registrada exitosamente.");
+            System.out.println("======= Detalles ========");
+            System.out.println(adoption.displayAdoptionDetails());
+            System.out.println("=========================");
         } catch (NumberFormatException e) {
             System.out.println("Error en el formato del ID. Debe ser un número entero.");
         } catch (Exception e) {

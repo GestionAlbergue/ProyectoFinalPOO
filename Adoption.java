@@ -13,14 +13,17 @@
  * Última modificación: 17/09/2024
  */
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Adoption {
     // Atributos de la clase Adoption
     private Animal animal;             // El animal que ha sido adoptado
     private Volunteer adopter;         // El voluntario que gestionó la adopción
-    private String adoptionDate;       // La fecha de adopción
+    private LocalDate adoptionDate;       // La fecha de adopción
 
     // Se encarga de inicializar los valores de los atributos
-    public Adoption(Animal animal, Volunteer adopter, String adoptionDate) {
+    public Adoption(Animal animal, Volunteer adopter, LocalDate adoptionDate) {
         this.animal = animal;                 // Inicializa el animal adoptado
         this.adopter = adopter;               // Inicializa el voluntario que gestionó la adopción
         this.adoptionDate = adoptionDate;     // Inicializa la fecha de adopción
@@ -49,7 +52,7 @@ public class Adoption {
      * 
      * @return La fecha en la que se realizó la adopción.
      */
-    public String getAdoptionDate() {
+    public LocalDate getAdoptionDate() {
         return adoptionDate;
     }
 
@@ -60,12 +63,13 @@ public class Adoption {
      * @return Los detalles de la adopción en un formato legible.
      */
     public String displayAdoptionDetails() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "Detalles de la Adopción:\n" +
                "Animal adoptado: " + animal.getName() + " (ID: " + animal.getId() + ")\n" +
                "Raza: " + animal.getBreed() + "\n" +
                "Edad: " + animal.getAge() + " años\n" +
                "Descripción: " + animal.getDescription() + "\n" +
                "Gestionado por el voluntario: " + adopter.getName() + " (ID: " + adopter.getId() + ")\n" +
-               "Fecha de adopción: " + adoptionDate;
+               "Fecha de adopción: " + adoptionDate.format(formatter);
     }
 }
