@@ -18,7 +18,9 @@ public class Animal {
     private String name,         // Nombre del animal
                    breed,        // Raza del animal
                    description;  // Descripción del animal
-    private int age;             // Edad del animal
+    private int age,             // Edad del animal
+                id;              // ID del animal
+    private static int idCounter = 1; // ID único ascendiente 
     private boolean adopted;     // Estado de adopción (true si está adoptado, false si no)
 
     /**
@@ -30,6 +32,7 @@ public class Animal {
      * @param description Una breve descripción del animal.
      */
     public Animal(String name, String breed, int age, String description) {
+        this.id = idCounter++;        // Asignar ID único y aumentar el contador
         this.name = name;                 // Inicializa el nombre
         this.breed = breed;               // Inicializa la raza
         this.age = age;                   // Inicializa la edad
@@ -89,5 +92,14 @@ public class Animal {
      */
     public void setAdopted(boolean adopted) {
         this.adopted = adopted;
+    }
+
+    /**
+     * Obtiene ID del animal.
+     * 
+     * @return ID del animal.
+     */
+    public int getId() {
+        return id;
     }
 }
