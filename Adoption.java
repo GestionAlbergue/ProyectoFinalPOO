@@ -1,3 +1,18 @@
+/**
+ * Universidad del Valle de Guatemala - Segundo Semestre 2024
+ * Programación Orientada a Objetos (POO)
+ * Proyecto Final
+ * 
+ * Clase Adoption
+ * 
+ * La clase Adoption representa el proceso de adopción de un
+ * animal en el Albegue
+ * 
+ * @author Antony Barrios 
+ * Fecha de creación: 17/09/2024 
+ * Última modificación: 17/09/2024
+ */
+
 import java.util.Date; 
 import java.util.Scanner;
 
