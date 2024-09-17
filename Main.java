@@ -155,6 +155,17 @@ public class Main {
         }
     }
 
+    // Método para registrar una tarea
+    public void registerTask(Scanner sc) {
+        System.out.print("Ingrese el nombre de la tarea: ");
+        String name = sc.nextLine();
+        System.out.print("Ingrese la descripción de la tarea: ");
+        String description = sc.nextLine();
+        Task newTask = new Task(name, description);
+        tasks.add(newTask);
+        System.out.println("Tarea registrada exitosamente.");
+    }
+
     // Método para marcar una tarea como completada
     public void completeTask(Scanner sc) {
         if (tasks.isEmpty()) {
