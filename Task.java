@@ -66,9 +66,9 @@ public class Task {
     /**
      * Muestra los detalles de la tarea.
      */
-    public void displayTask() {
-        System.out.println("Tarea: " + taskName);
-        System.out.println("Descripción: " + description);
-        System.out.println("Estado: " + (isCompleted ? "Completada" : "Pendiente"));
+    public String displayTask() {
+        return "Tarea: " + taskName + "\n" +
+               "Descripción: " + description + "\n" +
+               "Estado: " + (isCompleted ? "Completada" : "Pendiente");
     }
 }

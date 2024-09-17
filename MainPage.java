@@ -9,7 +9,20 @@ public class MainPage {
         System.out.println("** 2. Registrar Voluntario                        **");
         System.out.println("** 3. Registrar Adopción                          **");
         System.out.println("** 4. Registrar Recurso                           **");
-        System.out.println("** 5. Salir                                       **");
+        System.out.println("** 5. Informes                                    **");
+        System.out.println("** 6. Salir                                       **");
+        System.out.print("** Seleccione una opción: ");
+    }
+
+    public void displayOptionsReport() {
+        System.out.println("****************************************************");
+        System.out.println("***                   REPORTES                   ***");
+        System.out.println("** 1. Reporte de Adopciones                       **");
+        System.out.println("** 2. Reporte de Animales sin adoptar             **");
+        System.out.println("** 3. Reporte de Voluntarios                      **");
+        System.out.println("** 4. Reporte de Recursos                         **");
+        System.out.println("** 5. Reporte de Tareas                           **");
+        System.out.println("** 6. Regresar                                    **");
         System.out.print("** Seleccione una opción: ");
     }
 
@@ -28,7 +41,10 @@ public class MainPage {
                 main.addResource(sc);
                 break;
             case "5":
-                System.out.println("Saliendo del sistema. ¡Adiós!");
+                //
+                break;
+            case "6":
+                System.out.println("== SALIENDO DEL SISTEMA... ==");
                 System.exit(0);
                 break;
             default:
