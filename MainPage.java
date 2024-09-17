@@ -2,6 +2,13 @@ import java.util.Scanner;
 
 public class MainPage {
 
+    private Report report;  // Asignar el objeto Report
+
+    // Constructor para inicializar la clase con el Report
+    public MainPage(Report report) {
+        this.report = report;
+    }
+
     // Mostrar las opciones principales del menú
     public void displayOptions() {
         System.out.println("****************************************************");
@@ -44,8 +51,9 @@ public class MainPage {
                 main.addResource(sc);  // Registrar un nuevo recurso
                 break;
             case "5":
-                this.displayOptionsReport();  // Mostrar el menú de reportes
-                navigateReport(sc, main);  // Manejar las opciones de reportes
+                this.displayOptionsReport();
+                String reportOption = sc.next();
+                this.navigateReport(reportOption);
                 break;
             case "6":
                 System.out.println("== SALIENDO DEL SISTEMA... ==");
@@ -57,31 +65,27 @@ public class MainPage {
     }
 
     // Manejar las opciones del menú de reportes
-    public void navigateReport(Scanner sc, Main main) {
-        String reportOption = sc.nextLine();
-        switch (reportOption) {
+    public void navigateReport(String option) {
+        switch (option) {
             case "1":
-                main.displayAdoptionReport();  // Mostrar el reporte de adopciones
+                System.out.println(report.generateAdoptionReport());  // Mostrar el reporte de adopciones
                 break;
             case "2":
-                main.displayUnadoptedAnimalsReport();  // Mostrar el reporte de animales sin adoptar
+               // Mostrar el reporte de animales sin adoptar
                 break;
             case "3":
-                main.displayVolunteerReport();  // Mostrar el reporte de voluntarios
+                // Mostrar el reporte de voluntarios
                 break;
             case "4":
-                main.displayResourceReport();  // Mostrar el reporte de recursos
+                // Mostrar el reporte de recursos
                 break;
             case "5":
-                main.displayTaskReport();  // Mostrar el reporte de tareas
+                // Mostrar el reporte de tareas
                 break;
             case "6":
-                System.out.println("Regresando al menú principal...");
                 break;
             default:
-                System.out.println("Opción de reporte no válida. Intenta nuevamente.");
-                displayOptionsReport();
-                handleReportOptions(sc, main);
+                System.out.println("Opción no válida. Por favor, selecciona una opción correcta.");
         }
     }
 }

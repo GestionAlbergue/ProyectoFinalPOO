@@ -10,6 +10,8 @@ public class Main {
     private List<Volunteer> volunteers;
     // private List<Adoption> adoptions;
     // private List<Resource> resources;
+    private Report report;  // Referencia al objeto Report
+    private MainPage mainPage;  // Referencia a la clase MainPage para navegar en el sistema
 
     // Método principal para iniciar el programa
     public static void main(String[] args) {
@@ -23,40 +25,20 @@ public class Main {
         volunteers = new ArrayList<>();
         // adoptions = new ArrayList<>();
         // resources = new ArrayList<>();
+        report = new Report(animals, volunteers, resources);  // Inicializar el objeto Report
+        mainPage = new MainPage(report);  // Inicializar la navegación con el objeto Report
     }
 
     // Control del flujo principal del programa
     public void run() {
         Scanner sc = new Scanner(System.in);
-        MainPage mainPage = new MainPage();
+        String option;
 
-        boolean exit = false;
-        while (!exit) {
+        do {
             mainPage.displayOptions();
-            String option = sc.nextLine();
-
-            switch (option) {
-                case "1":
-                    addAnimal(sc);
-                    break;
-                case "2":
-                    addVolunteer(sc);
-                    break;
-                case "3":
-                    registerAdoption(sc);
-                    break;
-                case "4":
-                    addResource(sc);
-                    break;
-                case "5":
-                    //
-                case "6":
-                    exit = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intenta nuevamente.");
-            }
-        }
+            option = sc.next();
+            mainPage.navigate(option, sc, this);  // Navegar según la opción seleccionada
+        } while (!option.equals("6"));  // Opción "6" es salir del sistema
     }
 
     // Método para agregar un nuevo animal
