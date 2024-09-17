@@ -58,10 +58,10 @@ public class Report {
     /**
      * Genera estadísticas sobre los animales del albergue.
      * 
-     * Imprime el número total de animales, el número de animales adoptados
+     * @return Un String con el número total de animales, el número de animales adoptados
      * y el número de animales pendientes de adopción.
      */
-    public void generateAnimalStats() {
+    public String generateAnimalStats() {
         int totalAnimals = animals.size();
         int adoptedAnimals = 0;
         int pendingAdoptions = 0;
@@ -75,19 +75,42 @@ public class Report {
             }
         }
 
-        // Imprimir las estadísticas
-        System.out.println("Estadísticas de animales:");
-        System.out.println("Total de animales: " + totalAnimals);
-        System.out.println("Animales adoptados: " + adoptedAnimals);
-        System.out.println("Animales pendientes de adopción: " + pendingAdoptions);
+        // Construir el reporte como un String
+        StringBuilder stats = new StringBuilder();
+        stats.append("Estadísticas de animales:\n")
+            .append("Total de animales: ").append(totalAnimals).append("\n")
+            .append("Animales adoptados: ").append(adoptedAnimals).append("\n")
+            .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n");
+
+        return stats.toString();  // Retornar el reporte como String
     }
+
 
     /**
      * Genera un informe sobre los voluntarios del albergue.
+     * 
+     * @return Un String con la información de todos los voluntarios.
      */
-    public void generateVolunteerReport() {
-        System.out.println("Generando informe de voluntarios...");
+    public String generateVolunteerReport() {
+        StringBuilder report = new StringBuilder();
+        report.append("Informe de voluntarios:\n");
+
+        // Verificar si hay voluntarios
+        if (volunteers.isEmpty()) {
+            report.append("No hay voluntarios registrados.\n");
+        } else {
+            // Recorrer la lista de voluntarios e imprimir sus detalles
+            for (Volunteer volunteer : volunteers) {
+                report.append("ID: ").append(volunteer.getId()).append("\n")
+                    .append("Nombre: ").append(volunteer.getName()).append("\n")
+                    .append("Información de contacto: ").append(volunteer.getContactInfo()).append("\n")
+                    .append("=================================\n");
+            }
+        }
+
+        return report.toString();  // Retornar el informe como String
     }
+
 
     /**
      * Genera un informe sobre los recursos del albergue.
