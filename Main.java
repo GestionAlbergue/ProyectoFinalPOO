@@ -24,6 +24,7 @@ public class Main {
     private List<Volunteer> volunteers;
     // private List<Adoption> adoptions;
     // private List<Resource> resources;
+    private List<Task> tasks;
     private Report report;  // Referencia al objeto Report
     private MainPage mainPage;  // Referencia a la clase MainPage para navegar en el sistema
 
@@ -37,10 +38,10 @@ public class Main {
     public Main() {
         animals = new ArrayList<>();
         volunteers = new ArrayList<>();
-        // adoptions = new ArrayList<>();
-        // resources = new ArrayList<>();
-        report = new Report(animals, volunteers, resources);  // Inicializar el objeto Report
-        mainPage = new MainPage(report);  // Inicializar la navegación con el objeto Report
+        resources = new ArrayList<>();
+        tasks = new ArrayList<>();  // Inicializar la lista de tareas
+        report = new Report(animals, volunteers, resources, tasks);  // Inicializar el objeto Report
+        mainPage = new MainPage(report);
     }
 
     // Control del flujo principal del programa
@@ -51,8 +52,9 @@ public class Main {
         do {
             mainPage.displayOptions();
             option = sc.next();
-            mainPage.navigate(option, sc, this);  // Navegar según la opción seleccionada
-        } while (!option.equals("6"));  // Opción "6" es salir del sistema
+            sc.nextLine();  // Consumir el salto de línea pendiente
+            mainPage.navigate(option, sc, this);
+        } while (!option.equals("8"));
     }
 
     // Método para agregar un nuevo animal
@@ -150,6 +152,39 @@ public class Main {
             System.out.println("Error en el formato de la cantidad. Debe ser un número entero.");
         } catch (Exception e) {
             System.out.println("Error inesperado al agregar el recurso: " + e.getMessage());
+        }
+    }
+
+    // Método para marcar una tarea como completada
+    public void completeTask(Scanner sc) {
+        if (tasks.isEmpty()) {
+            System.out.println("No hay tareas disponibles para completar.");
+            return;
+        }
+
+        // Mostrar la lista de tareas numeradas
+        System.out.println("Seleccione el número de la tarea que desea marcar como completada:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.printf("%d. %s - %s (Completada: %s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Sí" : "No");
+        }
+
+        // Leer la opción del usuario
+        System.out.print("Ingrese el número de la tarea: ");
+        int taskNumber = sc.nextInt();
+        sc.nextLine();  // Consumir el salto de línea pendiente
+
+        // Validar y marcar la tarea como completada
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            Task selectedTask = tasks.get(taskNumber - 1);
+            if (!selectedTask.isCompleted()) {
+                selectedTask.completeTask();
+                System.out.println("Tarea marcada como completada.");
+            } else {
+                System.out.println("La tarea ya está completada.");
+            }
+        } else {
+            System.out.println("Número de tarea inválido. Por favor, selecciona un número válido.");
         }
     }
 

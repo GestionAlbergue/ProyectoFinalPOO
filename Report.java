@@ -17,13 +17,14 @@ public class Report {
 
     private List<Animal> animals;
     private List<Volunteer> volunteers;
-    private List<Resource> resources;
+    private List<Task> tasks;  // Añadido para manejar tareas
 
-    // Constructor para inicializar las listas de animales, voluntarios y recursos
-    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources) {
+    // Constructor para inicializar las listas de animales, voluntarios, recursos y tareas
+    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks) {
         this.animals = animals;
         this.volunteers = volunteers;
         this.resources = resources;
+        this.tasks = tasks;
     }
 
     /**
@@ -111,6 +112,30 @@ public class Report {
         return report.toString();  // Retornar el informe como String
     }
 
+    /**
+     * Genera un informe sobre la tarea.
+     * 
+     * @return Un String con la información de la tarea.
+     */
+    public String generateTaskReport() {
+        StringBuilder report = new StringBuilder();
+        report.append("Informe de tareas:\n");
+
+        // Verificar si hay tareas
+        if (tasks.isEmpty()) {
+            report.append("No hay tareas registradas.\n");
+        } else {
+            // Recorrer la lista de tareas e imprimir sus detalles
+            for (Task task : tasks) {
+                report.append("Nombre: ").append(task.getName()).append("\n")
+                      .append("Descripción: ").append(task.getDescription()).append("\n")
+                      .append("Completado: ").append(task.isCompleted() ? "Sí" : "No").append("\n")
+                      .append("=================================\n");
+            }
+        }
+
+        return report.toString();  // Retornar el informe como String
+    }
 
     /**
      * Genera un informe sobre los recursos del albergue.
