@@ -10,9 +10,8 @@
  * con el usuario mediante un menú y coordina las operaciones entre las diferentes clases.
  * 
  * @author Daniela Navas
- * @version 1.0
  * Fecha de creación: 16/09/2024
- * Última modificación: 17/09/2024
+ * Última modificación: 18/09/2024
  */
 
 import java.time.LocalDate;

@@ -73,7 +73,7 @@ public class MedicalHistory {
         } else {
             sb.append("Historial Médico para ").append(animal.getName()).append(":\n");
             for (MedicalRecord record : records) {
-                sb.append(record.displayRecordDetails()).append("\n");
+                sb.append(record.getFullMedicalRecord()).append("\n");
             }
         }
         return sb.toString();

@@ -8,7 +8,7 @@
  * incluyendo adopciones, estadísticas de animales, voluntarios y recursos.
  * 
  * Fecha de creación: 15/09/2024
- * Última modificación: 16/09/2024
+ * Última modificación: 18/09/2024
  * @author Marjori Flores
  */
 import java.util.List;
@@ -18,6 +18,7 @@ public class Report {
     private List<Animal> animals;
     private List<Volunteer> volunteers;
     private List<Task> tasks;  // Añadido para manejar tareas
+    private List<Resource> resources;
 
     // Constructor para inicializar las listas de animales, voluntarios, recursos y tareas
     public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks) {
@@ -117,7 +118,7 @@ public class Report {
         } else {
             // Recorrer la lista de tareas e imprimir sus detalles
             for (Task task : tasks) {
-                report.append("Nombre: ").append(task.getName()).append("\n")
+                report.append("Nombre: ").append(task.getTaskName()).append("\n")
                       .append("Descripción: ").append(task.getDescription()).append("\n")
                       .append("Completado: ").append(task.isCompleted() ? "Sí" : "No").append("\n")
                       .append("=================================\n");
@@ -125,10 +126,32 @@ public class Report {
         }
         return report.toString();  // Retornar el informe como String
     }
+    
     /**
-     * Genera un informe sobre los recursos del albergue.
+     * Genera un informe de todos los recursos disponibles.
+     * 
+     * El informe incluye el nombre del recurso, la cantidad disponible y una descripción
+     * de cada recurso en la lista de recursos.
+     * 
+     * @return Un String que contiene el informe de todos los recursos.
      */
-    public void generateResourceReport() {
-        System.out.printIn("Generando el informe de recursos...");
+    public String generateResourceReport() {
+        StringBuilder report = new StringBuilder(); // Usamos StringBuilder para construir el reporte de forma eficiente
+        report.append("====== Informe de Recursos ======\n");
+
+        // Recorre la lista de recursos
+        for (Resource resource : resources) {
+            report.append("Recurso: ").append(resource.getResourceName()).append("\n");
+            report.append("Cantidad: ").append(resource.getQuantity()).append("\n");
+            report.append("Descripción: ").append(resource.getDescription()).append("\n");
+            report.append("==============================\n");
+        }
+
+        // Si no hay recursos en la lista
+        if (resources.isEmpty()) {
+            report.append("No hay recursos disponibles.\n");
+        }
+
+        return report.toString(); // Retorna el informe como un String
     }
 }

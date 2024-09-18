@@ -1,5 +1,3 @@
-package terceraentrega;
-
 public class MedicalRecord {
     // Atributos de la clase
     private String date;          // Fecha del registro
