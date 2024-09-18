@@ -55,7 +55,6 @@ public class Report {
 
         return report.toString();  // Retornar el reporte como String
     }
-
     /**
      * Genera estadísticas sobre los animales del albergue.
      * 
@@ -66,7 +65,6 @@ public class Report {
         int totalAnimals = animals.size();
         int adoptedAnimals = 0;
         int pendingAdoptions = 0;
-
         // Recorrer la lista de animales para contar adoptados y pendientes
         for (Animal animal : animals) {
             if (animal.isAdopted()) {
@@ -75,7 +73,6 @@ public class Report {
                 pendingAdoptions++;
             }
         }
-
         // Construir el reporte como un String
         StringBuilder stats = new StringBuilder();
         stats.append("Estadísticas de animales:\n")
@@ -85,8 +82,6 @@ public class Report {
 
         return stats.toString();  // Retornar el reporte como String
     }
-
-
     /**
      * Genera un informe sobre los voluntarios del albergue.
      * 
@@ -95,7 +90,6 @@ public class Report {
     public String generateVolunteerReport() {
         StringBuilder report = new StringBuilder();
         report.append("Informe de voluntarios:\n");
-
         // Verificar si hay voluntarios
         if (volunteers.isEmpty()) {
             report.append("No hay voluntarios registrados.\n");
@@ -108,10 +102,8 @@ public class Report {
                     .append("=================================\n");
             }
         }
-
         return report.toString();  // Retornar el informe como String
     }
-
     /**
      * Genera un informe sobre la tarea.
      * 
@@ -133,14 +125,12 @@ public class Report {
                       .append("=================================\n");
             }
         }
-
         return report.toString();  // Retornar el informe como String
     }
-
     /**
      * Genera un informe sobre los recursos del albergue.
      */
     public void generateResourceReport() {
-        System.out.println("Generando informe de recursos...");
+        System.out.printIn("Generando el informe de recursos...");
     }
 }
