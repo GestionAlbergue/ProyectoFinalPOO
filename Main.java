@@ -317,9 +317,70 @@ public class Main {
         }
     }
 
+    /**
+     * Registra un nuevo registro médico para un animal.
+     * Solicita al usuario que ingrese los detalles del registro médico
+     * y lo añade al historial médico del animal.
+     * 
+     * @param sc El objeto Scanner para recibir la entrada del usuario.
+     */
     public void registerMedicalRecord(Scanner sc) {
-        // Código para ingresar un nuevo registro médico
-        // Esta parte quedará vacía hasta que tengas la clase MedicalRecord
+        try {
+            // Solicitar el ID del animal
+            System.out.print("Ingrese el ID del animal: ");
+            int animalId = Integer.parseInt(sc.nextLine());
+            Animal animal = findAnimalById(animalId);
+
+            // Verificar si el animal existe
+            if (animal == null) {
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("== Animal no encontrado         ==");
+                System.out.println("==================================");
+                return;
+            }
+
+            // Solicitar los detalles del nuevo registro médico
+            System.out.print("Ingrese la fecha del registro (DD/MM/AAAA): ");
+            String date = sc.nextLine();
+
+            System.out.print("Ingrese una descripción del Record: ");
+            String description = sc.nextLine();
+
+            System.out.print("Ingrese el tratamiento: ");
+            String treatment = sc.nextLine();
+
+            System.out.print("Ingrese el nombre del veterinario: ");
+            String veterinarian = sc.nextLine();
+
+            // Crear un nuevo registro médico
+            MedicalRecord newRecord = new MedicalRecord(date, description, treatment, veterinarian);
+
+            // Obtener el historial médico del animal
+            MedicalHistory medicalHistory = findMedicalHistoryByAnimal(animal);
+
+            // Si no existe historial médico, crear uno nuevo
+            if (medicalHistory == null) {
+                medicalHistory = new MedicalHistory(animal);
+                histories.add(medicalHistory); // Añadirlo a la lista de historiales
+            }
+
+            // Agregar el nuevo registro al historial médico del animal
+            medicalHistory.addRecord(newRecord);
+            System.out.println("Registro médico añadido exitosamente.");
+
+        } catch (NumberFormatException e) {
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= El ID debe ser un número       =");
+            System.out.println("= entero.                        =");
+            System.out.println("==================================");
+        } catch (Exception e) {
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
+        }
     }
 
     /**
