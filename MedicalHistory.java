@@ -50,9 +50,32 @@ public class MedicalHistory {
     }
 
     /**
-     * Muestra el historial médico completo del animal en la consola.
+     * Devuelve el animal asociado a este historial médico.
+     *
+     * @return El animal al que pertenece este historial médico.
      */
-    public void displayHistory() {
-        // Completar lógica
+    public Animal getAnimal() {
+        return animal;
+    }
+
+
+    /**
+     * Devuelve el historial médico completo del animal como un String.
+     * 
+     * @return Un String que representa el historial médico.
+     */
+    public String displayHistory() {
+        StringBuilder sb = new StringBuilder();
+        if (records.isEmpty()) {
+            sb.append("=============================================")
+              .append("= No hay registros médicos para este animal =")
+              .append("=============================================");
+        } else {
+            sb.append("Historial Médico para ").append(animal.getName()).append(":\n");
+            for (MedicalRecord record : records) {
+                sb.append(record.displayRecordDetails()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

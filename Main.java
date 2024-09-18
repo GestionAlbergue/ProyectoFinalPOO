@@ -24,13 +24,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    private List<Animal> animals;         // Lista de animales del albergue
-    private List<Volunteer> volunteers;   // Lista de voluntarios del albergue
-    private List<Adoption> adoptions;     // Lista de adopciones realizadas
-    private List<Resource> resources;     // Lista de recursos del albergue
-    private List<Task> tasks;             // Lista de tareas para los voluntarios
-    private Report report;                // Referencia al objeto Report para generar informes
-    private MainPage mainPage;            // Referencia a la clase MainPage para navegar en el sistema
+    private List<Animal> animals;           // Lista de animales del albergue
+    private List<Volunteer> volunteers;     // Lista de voluntarios del albergue
+    private List<Adoption> adoptions;       // Lista de adopciones realizadas
+    private List<Resource> resources;       // Lista de recursos del albergue
+    private List<Task> tasks;               // Lista de tareas para los voluntarios
+    private List<MedicalHistory> histories; // Lista de historiales médicos en el sistema
+    private Report report;                  // Referencia al objeto Report para generar informes
+    private MainPage mainPage;              // Referencia a la clase MainPage para navegar en el sistema
 
     /**
      * Método principal que inicia el programa.
@@ -46,12 +47,13 @@ public class Main {
     * adopciones, recursos y tareas. También crea el objeto Report y MainPage.
     */
     public Main() {
-        animals = new ArrayList<>();                                 // Inicializa la lista de animales
-        volunteers = new ArrayList<>();                              // Inicializa la lista de voluntarios
-        resources = new ArrayList<>();                               // Inicializa la lista de recursos
-        tasks = new ArrayList<>();                                   // Inicializa la lista de tareas
-        report = new Report(animals, volunteers, resources, tasks);  // Crea el objeto Report
-        mainPage = new MainPage(report);                             // Crea el objeto MainPage para la navegación
+        this.animals = new ArrayList<>();                                 // Inicializa la lista de Animales
+        this.volunteers = new ArrayList<>();                              // Inicializa la lista de Voluntarios
+        this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
+        this.tasks = new ArrayList<>();                                   // Inicializa la lista de Tareas
+        this.histories = new ArrayList<>();                               // Inicializa la lista de HIstoriales Médicos
+        this.report = new Report(animals, volunteers, resources, tasks);  // Crea el objeto Report
+        this.mainPage = new MainPage(report);                             // Crea el objeto MainPage para la navegación
     }
 
     /**
@@ -321,11 +323,70 @@ public class Main {
         // Esta parte quedará vacía hasta que tengas la clase MedicalRecord
     }
 
-    // Función 8: Visualizar récord médico
+    /**
+     * Muestra el historial médico de un animal dado su ID.
+     * 
+     * Solicita al usuario que ingrese el ID del animal y busca el animal en la base de datos. 
+     * Si el animal se encuentra, busca su historial médico y muestra los detalles. 
+     * Si el animal o el historial médico no se encuentran, se muestra un mensaje de error apropiado.
+     * 
+     * Si el ID ingresado no es un número entero, se muestra un mensaje de error indicando el problema.
+     * 
+     * @param sc El objeto utilizado para la entrada del usuario.
+     */
     public void viewMedicalRecord(Scanner sc) {
-        // Código para visualizar el récord médico
-        // Esta parte quedará vacía hasta que tengas la clase MedicalRecord
+        try {
+            // Solicita al usuario que ingrese el ID del animal
+            System.out.print("Ingrese el ID del animal: ");
+            int animalId = Integer.parseInt(sc.nextLine());  // Lee y convierte el ID a un número entero
+            
+            // Busca el animal en la base de datos usando el ID
+            Animal animal = findAnimalById(animalId);
+
+            // Verifica si el animal fue encontrado
+            if (animal == null) {
+                // Muestra un mensaje de error si el animal no se encuentra
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("== Animal no encontrado         ==");
+                System.out.println("==================================");
+                return;  // Sale del método si el animal no se encuentra
+            }
+
+            // Busca el historial médico del animal
+            MedicalHistory medicalHistory = findMedicalHistoryByAnimal(animal);
+
+            // Verifica si el historial médico fue encontrado
+            if (medicalHistory == null) {
+                // Muestra un mensaje de error si el historial médico no se encuentra
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Historial médico no Encontrado =");
+                System.out.println("==================================");
+                
+                return;  // Sale del método si el historial médico no se encuentra
+            }
+
+            // Obtiene el historial médico como un String y lo muestra en la consola
+            String historyDetails = medicalHistory.displayHistory();
+            System.out.println(historyDetails);
+
+        } catch (NumberFormatException e) {
+            // Maneja el error si el ID ingresado no es un número entero
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= El ID debe ser un número       =");
+            System.out.println("= entero.                        =");
+            System.out.println("==================================");
+        } catch (Exception e) {
+            // Maneja cualquier otra excepción inesperada
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
+        }
     }
+
 
     /**
      * Busca y devuelve un objeto Animal de la lista de animales basado en su ID.
@@ -340,6 +401,21 @@ public class Main {
             }
         }
         return null;
+    }
+
+    /**
+     * Busca el historial médico asociado a un animal específico en la lista de historiales.
+     *
+     * @param animal El animal del que se busca historial médico
+     * @return El historial médico asociado al animal, o null si no se encuentra ningún historial médico para el animal.
+     */
+    private MedicalHistory findMedicalHistoryByAnimal(Animal animal) {
+        for (MedicalHistory history : histories) {
+            if (history.getAnimal().equals(animal)) {
+                return history;
+            }
+        }
+        return null; // Retorna null si no se encuentra el historial médico
     }
 
     /**
