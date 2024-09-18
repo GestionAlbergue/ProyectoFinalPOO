@@ -71,7 +71,8 @@ public class MedicalHistory {
               .append("= No hay registros médicos para este animal =")
               .append("=============================================");
         } else {
-            sb.append("Historial Médico para ").append(animal.getName()).append(":\n");
+            sb.append(" ==================================================== ")
+              .append(" == Historial Médico para ").append(animal.getName()).append(":\n");
             for (MedicalRecord record : records) {
                 sb.append(record.getFullMedicalRecord()).append("\n");
             }

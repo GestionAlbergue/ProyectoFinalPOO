@@ -94,7 +94,7 @@ public class Main {
             animals.add(animal);
             System.out.println("==================================");
             System.out.println("== Animal agregado exitosamente ==");
-            System.out.println("= Su ID es: " + animal.getId());
+            System.out.println("== Número de ID: " + animal.getId());
             System.out.println("==================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si la edad ingresada no es un número válido
@@ -129,7 +129,7 @@ public class Main {
             volunteers.add(volunteer);
             System.out.println("======================================");
             System.out.println("== Voluntario agregado exitosamente ==");
-            System.out.println("= Su ID es: " + volunteer.getId());
+            System.out.println("== Número de ID: " + volunteer.getId());
             System.out.println("======================================");
         } catch (Exception e) {
             // Manejo de cualquier error inesperado
@@ -370,7 +370,9 @@ public class Main {
 
             // Agregar el nuevo registro al historial médico del animal
             medicalHistory.addRecord(newRecord);
-            System.out.println("Registro médico añadido exitosamente.");
+            System.out.println("========================================");
+            System.out.println("= Registro médico añadido exitosamente =");
+            System.err.println("========================================");
 
         } catch (NumberFormatException e) {
             System.out.println("==================================");

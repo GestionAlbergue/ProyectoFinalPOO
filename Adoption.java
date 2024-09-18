@@ -69,7 +69,7 @@ public class Adoption {
                "Raza: " + animal.getBreed() + "\n" +
                "Edad: " + animal.getAge() + " años\n" +
                "Descripción: " + animal.getDescription() + "\n" +
-               "Gestionado por el voluntario: " + adopter.getName() + " (ID: " + adopter.getId() + ")\n" +
-               "Fecha de adopción: " + adoptionDate.format(formatter);
+               "Gestionado por: " + adopter.getName() + " (ID: " + adopter.getId() + ")\n" +
+               "Fecha de Adopción: " + adoptionDate.format(formatter);
     }
 }

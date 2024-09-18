@@ -108,6 +108,8 @@ public class MedicalRecord {
         return "Fecha: " + date +
                "\nDescripción: " + description +
                "\nTratamiento: " + treatment +
-               "\nVeterinario: " + veterinarian;
+               "\nVeterinario: " + veterinarian +
+               "\n-------------------------------------------------";
+
     }
 }
