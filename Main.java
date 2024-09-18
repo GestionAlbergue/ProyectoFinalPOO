@@ -70,7 +70,7 @@ public class Main {
             option = sc.next();                   // Lee la opción seleccionada por el usuario
             sc.nextLine();                        // Limpia el buffer del scanner
             mainPage.navigate(option, sc, this);  // Navega en el sistema según la opción seleccionada
-        } while (!option.equals("10"));  // Repite mientras no se elija la opción de salir (10)
+        } while (!option.equals("11"));  // Repite mientras no se elija la opción de salir (10)
     }
 
     /**
@@ -450,6 +450,61 @@ public class Main {
         }
     }
 
+    /**
+     * Muestra una lista numerada de recursos y permite al usuario seleccionar uno para actualizar su cantidad.
+     * @param sc Scanner para leer la entrada del usuario.
+     */
+    public void updateResourceQuantity(Scanner sc) {
+        if (resources.isEmpty()) {
+            System.out.println("===============================================");
+            System.out.println("= No hay recursos disponibles para actualizar =");
+            System.out.println("===============================================");
+            return;
+        }
+
+        // Mostrar la lista de recursos
+        System.out.println("=========================");
+        System.out.println("= Recursos del Albergue =");
+        System.out.println("=========================");
+        for (int i = 0; i < resources.size(); i++) {
+            Resource resource = resources.get(i);
+            System.out.println((i + 1) + ". " + resource.getResourceName() + " - Cantidad: " + resource.getQuantity());
+        }
+
+        try {
+            System.out.print("Ingrese el número del recurso: ");
+            int resourceIndex = Integer.parseInt(sc.nextLine()) - 1;
+
+            if (resourceIndex < 0 || resourceIndex >= resources.size()) {
+                System.out.println("==============================");
+                System.out.println("===          ERROR         ===");
+                System.out.println("= Número de recurso inválido =");
+                System.out.println("==============================");
+                return;
+            }
+
+            Resource selectedResource = resources.get(resourceIndex);
+
+            System.out.print("Ingrese la nueva cantidad: ");
+            int newQuantity = Integer.parseInt(sc.nextLine());
+
+            selectedResource.updateQuantity(newQuantity);
+
+            // Mostrar mensaje de alerta si la cantidad es baja
+            String alertMessage = selectedResource.getAlertMessage();
+            if (alertMessage != null) {
+                System.out.println(alertMessage);
+            } else {
+                System.out.println("=====================================");
+                System.out.println("= Cantidad actualizada exitosamente =");
+                System.out.println("=====================================");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("=============================================");
+            System.out.println("= Entrada inválida. Debe ingresar un número =");
+            System.out.println("==============================================");
+        }
+    }
 
     /**
      * Busca y devuelve un objeto Animal de la lista de animales basado en su ID.

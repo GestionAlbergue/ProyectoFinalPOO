@@ -41,12 +41,13 @@ public class MainPage {
         System.out.println("** 2. Registrar Voluntario                        **");
         System.out.println("** 3. Registrar Adopción                          **");
         System.out.println("** 4. Registrar Recurso                           **");
-        System.out.println("** 5. Registrar Tarea                             **");
-        System.out.println("** 6. Marcar como completa una Tarea              **");
-        System.out.println("** 7. Ingresar un Nuevo Registro Médico           **");
-        System.out.println("** 8. Visualizar Record Médico                    **");
-        System.out.println("** 9. Informes                                    **");
-        System.out.println("** 10. Salir                                      **");
+        System.out.println("** 5. Actualizar Cantidad de Recurso              **");
+        System.out.println("** 6. Registrar Tarea                             **");
+        System.out.println("** 7. Marcar como completa una Tarea              **");
+        System.out.println("** 8. Ingresar un Nuevo Registro Médico           **");
+        System.out.println("** 9. Visualizar Record Médico                    **");
+        System.out.println("** 10. Informes                                   **");
+        System.out.println("** 11. Salir                                      **");
         System.out.print("** Seleccione una opción: ");
     }
 
@@ -75,36 +76,39 @@ public class MainPage {
     public void navigate(String option, Scanner sc, Main main) {
         switch (option) {
             case "1":
-                main.addAnimal(sc);  // Registrar un nuevo animal
+                main.addAnimal(sc);              // Registrar un nuevo animal
                 break;
-            case "2":
-                main.addVolunteer(sc);  // Registrar un nuevo voluntario
+            case "2": 
+                main.addVolunteer(sc);           // Registrar un nuevo voluntario
                 break;
             case "3":
-                main.registerAdoption(sc);  // Registrar una adopción
+                main.registerAdoption(sc);       // Registrar una adopción
                 break;
             case "4":
-                main.addResource(sc);  // Registrar un nuevo recurso
+                main.addResource(sc);            // Registrar un nuevo recurso
                 break;
             case "5":
-                main.registerTask(sc);  // Registrar una nueva tarea
+                main.updateResourceQuantity(sc); // Cambiar Cantidad de un Recurso
                 break;
             case "6":
-                main.completeTask(sc);  // Marcar una tarea como completada
+                main.registerTask(sc);           // Registrar una nueva tarea
                 break;
             case "7":
-                main.registerMedicalRecord(sc);  // Ingresar un nuevo registro médico
+                main.completeTask(sc);           // Marcar una tarea como completada
                 break;
             case "8":
-                main.viewMedicalRecord(sc);  // Visualizar récord médico
+                main.registerMedicalRecord(sc);  // Ingresar un nuevo registro médico
                 break;
             case "9":
+                main.viewMedicalRecord(sc);      // Visualizar récord médico
+                break;
+            case "10":
                 this.displayOptionsReport();
                 String reportOption = sc.next();
                 sc.nextLine();  // Consumir el salto de línea pendiente
                 this.navigateReport(reportOption);
                 break;
-            case "10":
+            case "11":
                 System.out.println("=============================");
                 System.out.println("== SALIENDO DEL SISTEMA... ==");
                 System.out.println("=============================");
@@ -127,10 +131,10 @@ public class MainPage {
     public void navigateReport(String option) {
         switch (option) {
             case "1":
-                System.out.println(report.generateAdoptionReport());  // Mostrar el reporte de adopciones
+                System.out.println(report.generateAdoptionReport());   // Mostrar el reporte de adopciones
                 break;
             case "2":
-                System.out.println(report.generateAnimalStats());  // Mostrar el reporte de animales
+                System.out.println(report.generateAnimalStats());      // Mostrar el reporte de animales
                 break;
             case "3":
                 System.out.println(report.generateVolunteerReport());  // Mostrar el reporte de voluntarios
@@ -139,7 +143,7 @@ public class MainPage {
                 System.out.println(report.generateResourceReport());  // Mostrar el reporte de recursos
                 break;
             case "5":
-                System.out.println(report.generateTaskReport());  // Mostrar el reporte de tareas
+                System.out.println(report.generateTaskReport());      // Mostrar el reporte de tareas
                 break;
             case "6":
                 // Regresar al menú principal

@@ -99,7 +99,11 @@ public class Resource {
     private String checkAlert() {
         int threshold = 10;  
         if (quantity <= threshold) {
-            return "Alerta: Es necesario reabastecer el recurso " + resourceName + ". Cantidad actual: " + quantity;
+            return "==========================================\n" +
+                   "===               ALERTA               ===\n" + 
+                   "= Es necesario reabastecer el recurso " + resourceName + "\n" +
+                   "= Cantidad actual: " + quantity + "\n" +
+                   "==========================================\n";
         }
         return null; // No hay alerta
     }
