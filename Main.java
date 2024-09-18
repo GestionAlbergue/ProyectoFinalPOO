@@ -71,11 +71,20 @@ public class Main {
 
             Animal animal = new Animal(name, breed, age, description);
             animals.add(animal);
-            System.out.println("Animal agregado exitosamente.");
+            System.out.println("==================================");
+            System.out.println("== Animal agregado exitosamente ==");
+            System.out.println("==================================");
         } catch (NumberFormatException e) {
-            System.out.println("Error en el formato de la edad. Debe ser un número entero.");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= El formato de la edad debe ser =");
+            System.out.println("= un número entero.              =");
+            System.out.println("==================================");
         } catch (Exception e) {
-            System.out.println("Error inesperado al agregar el animal: " + e.getMessage());
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
         }
     }
 
@@ -89,9 +98,14 @@ public class Main {
 
             Volunteer volunteer = new Volunteer(name, contactInfo);
             volunteers.add(volunteer);
-            System.out.println("Voluntario agregado exitosamente.");
+            System.out.println("======================================");
+            System.out.println("== Voluntario agregado exitosamente ==");
+            System.out.println("======================================");
         } catch (Exception e) {
-            System.out.println("Error inesperado al agregar el voluntario: " + e.getMessage());
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
         }
     }
 
@@ -120,21 +134,35 @@ public class Main {
             try {
                 adoptionDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             } catch (DateTimeParseException e) {
-                System.out.println("Fecha en formato incorrecto. Debe ser DD/MM/AAAA.");
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Fecha en formato incorrecto    =");
+                System.out.println("= Debe ser DD/MM/AAAA            =");
+                System.out.println("==================================");
                 return;
             }
 
             Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
             adoptions.add(adoption);
             animal.setAdopted(true);
-            System.out.println("Adopción registrada exitosamente.");
+            System.out.println("======================================");
+            System.out.println("== Adopción registrada exitosamente ==");
+            System.out.println("======================================");
+            System.out.println(" ");
             System.out.println("======= Detalles ========");
             System.out.println(adoption.displayAdoptionDetails());
             System.out.println("=========================");
         } catch (NumberFormatException e) {
-            System.out.println("Error en el formato del ID. Debe ser un número entero.");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= El formato de ID debe ser un   =");
+            System.out.println("= número entero.                 =");
+            System.out.println("==================================");
         } catch (Exception e) {
-            System.out.println("Error inesperado al registrar la adopción: " + e.getMessage());
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
         }
     }
 
@@ -150,11 +178,20 @@ public class Main {
 
             Resource resource = new Resource(resourceName, quantity, description);
             resources.add(resource);
-            System.out.println("Recurso agregado exitosamente.");
+            System.out.println("===================================");
+            System.out.println("== Recurso agregado exitosamente ==");
+            System.out.println("===================================");
         } catch (NumberFormatException e) {
-            System.out.println("Error en el formato de la cantidad. Debe ser un número entero.");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= El formato de cantidad debe    =");
+            System.out.println("= ser un número entero.          =");
+            System.out.println("==================================");
         } catch (Exception e) {
-            System.out.println("Error inesperado al agregar el recurso: " + e.getMessage());
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
         }
     }
 
@@ -166,25 +203,31 @@ public class Main {
         String description = sc.nextLine();
         Task newTask = new Task(name, description);
         tasks.add(newTask);
-        System.out.println("Tarea registrada exitosamente.");
+        System.out.println("=================================");
+        System.out.println("== Tarea agregada exitosamente ==");
+        System.out.println("=================================");
     }
 
     // Método para marcar una tarea como completada
     public void completeTask(Scanner sc) {
         if (tasks.isEmpty()) {
-            System.out.println("No hay tareas disponibles para completar.");
+            System.out.println("============================================");
+            System.out.println("= No hay tareas disponibles para completar =");
+            System.out.println("============================================");
             return;
         }
 
         // Mostrar la lista de tareas numeradas
-        System.out.println("Seleccione el número de la tarea que desea marcar como completada:");
+        System.out.println("=================================");
+        System.out.println("===     Tareas Pendientes     ===");
+        System.out.println("=================================");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d. %s - %s (Completada: %s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Sí" : "No");
         }
 
         // Leer la opción del usuario
-        System.out.print("Ingrese el número de la tarea: ");
+        System.out.print("Ingrese el número de la tarea a marcar como COMPLETA: ");
         int taskNumber = sc.nextInt();
         sc.nextLine();  // Consumir el salto de línea pendiente
 
@@ -193,12 +236,20 @@ public class Main {
             Task selectedTask = tasks.get(taskNumber - 1);
             if (!selectedTask.isCompleted()) {
                 selectedTask.completeTask();
-                System.out.println("Tarea marcada como completada.");
+                System.out.println("=================================");
+                System.out.println("= Tarea marcada como completada =");
+                System.out.println("=================================");
             } else {
-                System.out.println("La tarea ya está completada.");
+                System.out.println("============================");
+                System.out.println("= Tarea ya está completada =");
+                System.out.println("============================");
             }
         } else {
-            System.out.println("Número de tarea inválido. Por favor, selecciona un número válido.");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= Número de tarea inválido.      =");
+            System.out.println("= Selecciona un número válido.   =");
+            System.out.println("==================================");
         }
     }
 
