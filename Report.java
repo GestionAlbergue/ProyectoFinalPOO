@@ -75,10 +75,13 @@ public class Report {
         }
         // Construir el reporte como un String
         StringBuilder stats = new StringBuilder();
-        stats.append("Estadísticas de animales:\n")
+        stats.append("====== Informe de Animales ======\n")
             .append("Total de animales: ").append(totalAnimals).append("\n")
             .append("Animales adoptados: ").append(adoptedAnimals).append("\n")
-            .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n");
+            .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n")
+            .append("\n")
+            .append("=================================")
+            .append("\n");
 
         return stats.toString();  // Retornar el reporte como String
     }
@@ -89,7 +92,7 @@ public class Report {
      */
     public String generateVolunteerReport() {
         StringBuilder report = new StringBuilder();
-        report.append("Informe de voluntarios:\n");
+        report.append("====== Informe de Voluntarios ======\n");
         // Verificar si hay voluntarios
         if (volunteers.isEmpty()) {
             report.append("No hay voluntarios registrados.\n");
@@ -111,7 +114,7 @@ public class Report {
      */
     public String generateTaskReport() {
         StringBuilder report = new StringBuilder();
-        report.append("Informe de tareas:\n");
+        report.append("====== Informe de Tareas ======\n");
         // Verificar si hay tareas
         if (tasks.isEmpty()) {
             report.append("No hay tareas registradas.\n");

@@ -47,6 +47,7 @@ public class Main {
     */
     public Main() {
         this.animals = new ArrayList<>();                                 // Inicializa la lista de Animales
+        this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones
         this.volunteers = new ArrayList<>();                              // Inicializa la lista de Voluntarios
         this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
         this.tasks = new ArrayList<>();                                   // Inicializa la lista de Tareas

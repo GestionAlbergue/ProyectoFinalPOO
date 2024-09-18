@@ -46,7 +46,7 @@ public class MainPage {
         System.out.println("** 7. Ingresar un Nuevo Registro Médico           **");
         System.out.println("** 8. Visualizar Record Médico                    **");
         System.out.println("** 9. Informes                                    **");
-        System.out.println("** 10. Salir                                       **");
+        System.out.println("** 10. Salir                                      **");
         System.out.print("** Seleccione una opción: ");
     }
 
