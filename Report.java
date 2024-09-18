@@ -26,7 +26,6 @@ public class Report {
         this.resources = resources;
         this.tasks = tasks;
     }
-
     /**
      * Genera un informe sobre las adopciones realizadas en el albergue.
      */
@@ -98,7 +97,7 @@ public class Report {
             for (Volunteer volunteer : volunteers) {
                 report.append("ID: ").append(volunteer.getId()).append("\n")
                     .append("Nombre: ").append(volunteer.getName()).append("\n")
-                    .append("Información de contacto: ").append(volunteer.getContactInfo()).append("\n")
+                    .append("Informacion de contacto: ").append(volunteer.getContactInfo()).append("\n")
                     .append("=================================\n");
             }
         }
@@ -112,7 +111,6 @@ public class Report {
     public String generateTaskReport() {
         StringBuilder report = new StringBuilder();
         report.append("Informe de tareas:\n");
-
         // Verificar si hay tareas
         if (tasks.isEmpty()) {
             report.append("No hay tareas registradas.\n");
