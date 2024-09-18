@@ -35,6 +35,7 @@ public class MainPage {
      * Muestra las opciones principales del menú en la página principal.
     */
     public void displayOptions() {
+        System.out.println(" ");
         System.out.println("****************************************************");
         System.out.println("***               PÁGINA PRINCIPAL               ***");
         System.out.println("** 1. Registrar Animal                            **");
@@ -55,6 +56,7 @@ public class MainPage {
      * Muestra las opciones del menú de reportes.
     */
     public void displayOptionsReport() {
+        System.out.println(" ");
         System.out.println("****************************************************");
         System.out.println("***                   REPORTES                   ***");
         System.out.println("** 1. Reporte de Adopciones                       **");
