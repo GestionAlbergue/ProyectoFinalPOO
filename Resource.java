@@ -1,3 +1,17 @@
+/**
+ * Universidad del Valle de Guatemala - Segundo Semestre 2024
+ * Programación Orientada a Objetos (POO)
+ * Proyecto Final
+ * 
+ * Clase Resource
+ * 
+ * La clase Resource representa un recurso con un nombre, cantidad disponible y descripción.
+ * También permite la actualización de la cantidad y la generación de alertas de reabastecimiento.
+ * 
+ * @author Adriana Martinez 
+ * Fecha de creación: 18/09/2024 
+ * Última modificación: 18/09/2024
+ */
 import java.util.Scanner;
 
 public class Resource {
@@ -6,39 +20,64 @@ public class Resource {
     private int quantity;         // Cantidad del recurso disponible
     private String description;   // Descripción del recurso
 
-    // Constructor para inicializar un recurso con sus atributos
+    /**
+     * Constructor para inicializar un recurso con su nombre, cantidad y descripción.
+     *
+     * @param resourceName El nombre del recurso.
+     * @param quantity La cantidad disponible del recurso.
+     * @param description Una breve descripción del recurso.
+     */
     public Resource(String resourceName, int quantity, String description) {
         this.resourceName = resourceName;
         this.quantity = quantity;
         this.description = description;
     }
 
-    // Métodos 'getter' para acceder a cada atributo
-
-    // Devuelve el nombre del recurso
+    /**
+     * Devuelve el nombre del recurso.
+     *
+     * @return El nombre del recurso.
+     */
     public String getResourceName() {
         return resourceName;
     }
 
-    // Devuelve la cantidad disponible del recurso
+    /**
+     * Devuelve la cantidad disponible del recurso.
+     *
+     * @return La cantidad disponible del recurso.
+     */
     public int getQuantity() {
         return quantity;
     }
 
-    // Devuelve la descripción del recurso
+    /**
+     * Devuelve la descripción del recurso.
+     *
+     * @return La descripción del recurso.
+     */
     public String getDescription() {
         return description;
     }
 
-    // Actualiza la cantidad disponible del recurso
+    /**
+     * Actualiza la cantidad disponible del recurso.
+     * Después de actualizar la cantidad, verifica si es necesario generar una alerta de reabastecimiento.
+     *
+     * @param quantity La nueva cantidad del recurso.
+     */
     public void updateQuantity(int quantity) {
         this.quantity = quantity;
         checkAlert();  
     }
 
-    // Método para agregar nuevos recursos sin imprimir
-    public static Resource addResource(Scanner scanner) {
-        
+    /**
+     * Método para agregar un nuevo recurso mediante la entrada del usuario.
+     *
+     * @param scanner El objeto Scanner para leer la entrada del usuario.
+     * @return Un nuevo objeto Resource con los datos proporcionados por el usuario.
+     */
+    public Resource addResource(Scanner scanner) {
         System.out.println("Ingrese el nombre del recurso: ");
         String resourceName = scanner.nextLine();
         
@@ -52,7 +91,11 @@ public class Resource {
         return new Resource(resourceName, quantity, description);
     }
 
-    // Verifica si se debe generar una alerta de reabastecimiento devolviendo el mensaje sin imprimirlo
+    /**
+     * Verifica si es necesario generar una alerta de reabastecimiento basada en un umbral de cantidad.
+     *
+     * @return Un mensaje de alerta si la cantidad es menor o igual al umbral, o null si no se necesita alerta.
+     */
     private String checkAlert() {
         int threshold = 10;  
         if (quantity <= threshold) {
@@ -61,7 +104,11 @@ public class Resource {
         return null; // No hay alerta
     }
 
-    // Método que revisa si se debe hacer una alerta y devuelve el mensaje de la alerta o null
+    /**
+     * Devuelve el mensaje de alerta si la cantidad del recurso es baja.
+     *
+     * @return Un mensaje de alerta o null si no es necesario.
+     */
     public String getAlertMessage() {
         return checkAlert();
     }
