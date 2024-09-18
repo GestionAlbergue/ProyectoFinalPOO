@@ -92,7 +92,7 @@ public class Report {
                  .append("Raza: ").append(animal.getBreed()).append("\n")
                  .append("Edad: ").append(animal.getAge()).append("\n")
                  .append("Descripción: ").append(animal.getDescription()).append("\n")
-                 .append("Adoptado: ").append(animal.isAdopted() ? "Sí" : "No").append("\n")
+                 .append("Adoptado: ").append(animal.isAdopted() ? "Si" : "No").append("\n")
                  .append("-----------------------------\n");
         }
     
@@ -137,7 +137,7 @@ public class Report {
             for (Task task : tasks) {
                 report.append("Nombre: ").append(task.getTaskName()).append("\n")
                       .append("Descripción: ").append(task.getDescription()).append("\n")
-                      .append("Completado: ").append(task.isCompleted() ? "Sí" : "No").append("\n")
+                      .append("Completado: ").append(task.isCompleted() ? "Si" : "No").append("\n")
                       .append("=================================\n");
             }
         }

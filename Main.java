@@ -290,11 +290,11 @@ public class Main {
         System.out.println("=================================");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d. %s - %s (Completada: %s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Sí" : "No");
+            System.out.printf("%d. %s - %s (Completada: %s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Si" : "No");
         }
 
         // Leer la opción del usuario
-        System.out.print("Ingrese el número de la tarea a marcar como COMPLETA: ");
+        System.out.print("Ingrese el número de la tarea a marcar como Completa: ");
         int taskNumber = sc.nextInt();
         sc.nextLine();  // Consumir el salto de línea pendiente
 
