@@ -1,7 +1,7 @@
 /**
  * Universidad del Valle de Guatemala - Segundo Semestre 2024
  * Programación Orientada a Objetos (POO)
- * Proyecto Final
+ * Proyecto Final 2
  * 
  * Clase Resource
  * 
