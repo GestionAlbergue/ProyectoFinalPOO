@@ -58,13 +58,14 @@ public class Report {
     /**
      * Genera estadísticas sobre los animales del albergue.
      * 
-     * @return Un String con el número total de animales, el número de animales adoptados
-     * y el número de animales pendientes de adopción.
+     * @return Un String con el número total de animales, el número de animales adoptados,
+     * el número de animales pendientes de adopción y detalle de todos los animales.
      */
     public String generateAnimalStats() {
         int totalAnimals = animals.size();
         int adoptedAnimals = 0;
         int pendingAdoptions = 0;
+        
         // Recorrer la lista de animales para contar adoptados y pendientes
         for (Animal animal : animals) {
             if (animal.isAdopted()) {
@@ -73,6 +74,7 @@ public class Report {
                 pendingAdoptions++;
             }
         }
+    
         // Construir el reporte como un String
         StringBuilder stats = new StringBuilder();
         stats.append("====== Informe de Animales ======\n")
@@ -81,9 +83,22 @@ public class Report {
             .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n")
             .append("=================================")
             .append("\n");
-
+    
+        // Agregar detalles de cada animal
+        stats.append("Detalle de Animales:\n");
+        for (Animal animal : animals) {
+            stats.append("ID: ").append(animal.getId()).append("\n")
+                 .append("Nombre: ").append(animal.getName()).append("\n")
+                 .append("Raza: ").append(animal.getBreed()).append("\n")
+                 .append("Edad: ").append(animal.getAge()).append("\n")
+                 .append("Descripción: ").append(animal.getDescription()).append("\n")
+                 .append("Adoptado: ").append(animal.isAdopted() ? "Sí" : "No").append("\n")
+                 .append("-----------------------------\n");
+        }
+    
         return stats.toString();  // Retornar el reporte como String
     }
+    
     /**
      * Genera un informe sobre los voluntarios del albergue.
      * 
