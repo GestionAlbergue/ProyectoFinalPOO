@@ -5,7 +5,9 @@
  * 
  * Clase MainPage
  * 
- * La clase MainPage representa la página principal y gestiona la navegación.
+ * La clase MainPage representa la página principal del sistema de gestión de un albergue de animales.
+ * Ofrece las opciones principales del menú para gestionar animales, voluntarios, adopciones, 
+ * recursos, tareas y registros médicos, así como para acceder a los informes generados por el sistema.
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024 
@@ -15,14 +17,23 @@
 import java.util.Scanner;
 
 public class MainPage {
-    private Report report;  // Asignar el objeto Report
- 
-    // Constructor para inicializar la clase con el Report
+
+    /** Objeto de la clase Report utilizado para generar informes. */
+    private Report report;
+
+    /**
+     * Constructor de la clase MainPage.
+    * Inicializa la clase con un objeto de tipo Report.
+    *
+    * @param report el objeto Report que será asignado a esta clase
+    */
     public MainPage(Report report) {
         this.report = report;
     }
- 
-    // Mostrar las opciones principales del menú
+
+    /**
+     * Muestra las opciones principales del menú en la página principal.
+    */
     public void displayOptions() {
         System.out.println("****************************************************");
         System.out.println("***               PÁGINA PRINCIPAL               ***");
@@ -38,8 +49,10 @@ public class MainPage {
         System.out.println("** 10. Salir                                       **");
         System.out.print("** Seleccione una opción: ");
     }
- 
-    // Mostrar las opciones del menú de reportes
+
+    /**
+     * Muestra las opciones del menú de reportes.
+    */
     public void displayOptionsReport() {
         System.out.println("****************************************************");
         System.out.println("***                   REPORTES                   ***");
@@ -52,7 +65,13 @@ public class MainPage {
         System.out.print("** Seleccione una opción: ");
     }
 
-    // Navegar entre las opciones principales
+    /**
+     * Navega entre las opciones del menú principal y ejecuta las acciones correspondientes.
+    *
+    * @param option la opción seleccionada por el usuario
+    * @param sc el objeto Scanner para capturar la entrada del usuario
+    * @param main el objeto Main que contiene las acciones a ejecutar
+    */
     public void navigate(String option, Scanner sc, Main main) {
         switch (option) {
             case "1":
@@ -86,15 +105,25 @@ public class MainPage {
                 this.navigateReport(reportOption);
                 break;
             case "10":
+                System.out.println("=============================");
                 System.out.println("== SALIENDO DEL SISTEMA... ==");
+                System.out.println("=============================");
                 System.exit(0);  // Salir del programa
                 break;
             default:
-                System.out.println("Opción no válida. Por favor, selecciona una opción correcta.");
+                System.out.println("==========================");
+                System.out.println("===        ERROR       ===");
+                System.out.println("= Opción no válida.      =");
+                System.out.println("= Selecciona otra opción =");
+                System.out.println("==========================");
         }
     }
 
-    // Manejar las opciones del menú de reportes
+    /**
+     * Navega entre las opciones del menú de reportes y ejecuta las acciones correspondientes.
+    *
+    * @param option la opción seleccionada por el usuario
+    */
     public void navigateReport(String option) {
         switch (option) {
             case "1":
@@ -116,7 +145,11 @@ public class MainPage {
                 // Regresar al menú principal
                 break;
             default:
-                System.out.println("Opción no válida. Por favor, selecciona una opción correcta.");
+                System.out.println("==========================");
+                System.out.println("===        ERROR       ===");
+                System.out.println("= Opción no válida.      =");
+                System.out.println("= Selecciona otra opción =");
+                System.out.println("==========================");
         }
     }
 }
