@@ -1,4 +1,3 @@
-
 /**
  * Universidad del Valle de Guatemala - Segundo Semestre 2024
  * Programación Orientada a Objetos (POO)
@@ -319,15 +318,21 @@ public class Main {
 
     public void registerMedicalRecord(Scanner sc) {
         // Código para ingresar un nuevo registro médico
-        // Esta parte quedará vacía hasta que tengas la clase `MedicalRecord` o equivalente
+        // Esta parte quedará vacía hasta que tengas la clase MedicalRecord
     }
 
     // Función 8: Visualizar récord médico
     public void viewMedicalRecord(Scanner sc) {
         // Código para visualizar el récord médico
-        // Esta parte quedará vacía hasta que tengas la clase `MedicalRecord` o equivalente
+        // Esta parte quedará vacía hasta que tengas la clase MedicalRecord
     }
 
+    /**
+     * Busca y devuelve un objeto Animal de la lista de animales basado en su ID.
+     *
+     * @param id El ID del animal que se desea buscar.
+     * @return El objeto Animal con el ID correspondiente, o null si no se encuentra ningún animal con ese ID.
+     */
     private Animal findAnimalById(int id) {
         for (Animal animal : animals) {
             if (animal.getId() == id) {
@@ -337,6 +342,12 @@ public class Main {
         return null;
     }
 
+    /**
+     * Busca y devuelve un objeto Volunteer de la lista de voluntarios basado en su ID.
+     *
+     * @param id El ID del voluntario que se desea buscar.
+     * @return El objeto Volunteer con el ID correspondiente, o null si no se encuentra ningún voluntario con ese ID.
+     */
     private Volunteer findVolunteerById(int id) {
         for (Volunteer volunteer : volunteers) {
             if (volunteer.getId() == id) {
@@ -345,5 +356,5 @@ public class Main {
         }
         return null;
     }
- }
+}
  
