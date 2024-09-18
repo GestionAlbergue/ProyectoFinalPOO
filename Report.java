@@ -32,7 +32,7 @@ public class Report {
      */
      public String generateAdoptionReport() {
         StringBuilder report = new StringBuilder();  // Usar StringBuilder para construir el String del reporte
-        report.append("Informe de adopciones:\n");
+        report.append("=== Informe de Adopciones ===\n");
         
         boolean hasAdoptions = false;  // Para verificar si hay animales adoptados
 
@@ -79,7 +79,6 @@ public class Report {
             .append("Total de animales: ").append(totalAnimals).append("\n")
             .append("Animales adoptados: ").append(adoptedAnimals).append("\n")
             .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n")
-            .append("\n")
             .append("=================================")
             .append("\n");
 

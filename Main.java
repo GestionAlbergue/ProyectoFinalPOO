@@ -94,6 +94,7 @@ public class Main {
             animals.add(animal);
             System.out.println("==================================");
             System.out.println("== Animal agregado exitosamente ==");
+            System.out.println("= Su ID es: " + animal.getId());
             System.out.println("==================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si la edad ingresada no es un número válido
@@ -128,6 +129,7 @@ public class Main {
             volunteers.add(volunteer);
             System.out.println("======================================");
             System.out.println("== Voluntario agregado exitosamente ==");
+            System.out.println("= Su ID es: " + volunteer.getId());
             System.out.println("======================================");
         } catch (Exception e) {
             // Manejo de cualquier error inesperado
