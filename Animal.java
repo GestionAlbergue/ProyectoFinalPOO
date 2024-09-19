@@ -119,4 +119,4 @@ public String getAnimalDetails() {
     return "ID: " + id + ", Nombre: " + name + ", Raza: " + breed + ", Edad: " + age +
             ", Descripción: " + description + ", Peligroso: " + getDangerLevelDescription();
 }
-}  
+}

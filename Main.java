@@ -88,20 +88,22 @@ public class Main {
             int age = Integer.parseInt(sc.nextLine());
             System.out.print("Descripción del animal: ");
             String description = sc.nextLine();
+            System.out.print("Nivel de peligro (0 - No peligro, 1 - Levemente peligroso, 2 - Muy peligroso): ");
+            int dangerLevel = Integer.parseInt(sc.nextLine()); // Ask for danger level
 
             // Crear y agregar el nuevo animal a la lista
-            Animal animal = new Animal(name, breed, age, description);
+            Animal animal = new Animal(name, breed, age, description, dangerLevel);
             animals.add(animal);
             System.out.println("==================================");
             System.out.println("== Animal agregado exitosamente ==");
             System.out.println("== Número de ID: " + animal.getId());
             System.out.println("==================================");
         } catch (NumberFormatException e) {
-            // Manejo de errores si la edad ingresada no es un número válido
+            // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
-            System.out.println("= El formato de la edad debe ser =");
-            System.out.println("= un número entero.              =");
+            System.out.println("= El formato de la edad y el nivel de peligro deben ser =");
+            System.out.println("= números enteros.               =");
             System.out.println("==================================");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado
