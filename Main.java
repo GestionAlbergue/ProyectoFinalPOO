@@ -102,8 +102,9 @@ public class Main {
             // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
-            System.out.println("= El formato de la edad y el nivel de peligro deben ser =");
-            System.out.println("= números enteros.               =");
+            System.out.println("= El formato de la edad          =");
+            System.out.println("= y el nivel de peligro deben    =");
+            System.out.println("= ser números enteros.           =");
             System.out.println("==================================");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado

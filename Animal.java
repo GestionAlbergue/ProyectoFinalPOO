@@ -10,19 +10,19 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 12/09/2024 
- * Última modificación: 12/09/2024
+ * Última modificación: 18/09/2024
  */
 
 public class Animal {
     // Atributos de la clase Animal
-    private String name,         // Nombre del animal
-                   breed,        // Raza del animal
-                   description;  // Descripción del animal
-    private int age,             // Edad del animal
-                id;              // ID del animal
-    private static int idCounter = 1; // ID único ascendiente 
-    private boolean adopted;     // Estado de adopción (true si está adoptado, false si no)
-    private int dangerLevel;//nivel de peligro
+    private String name,                  // Nombre del animal
+                   breed,                 // Raza del animal
+                   description;           // Descripción del animal
+    private int age,                      // Edad del animal
+                id,                       // ID del animal
+                dangerLevel;              // Nivel de peligro
+    private static int idCounter = 1;     // ID único ascendiente 
+    private boolean adopted;              // Estado de adopción (true si está adoptado, false si no)
 
     /**
      * Constructor de la clase Animal.
@@ -32,12 +32,13 @@ public class Animal {
      * @param age         La edad del animal.
      * @param description Una breve descripción del animal.
      */
-    public Animal(String name, String breed, int age, String description) {
+    public Animal(String name, String breed, int age, String description, int dangerLevel) {
         this.id = idCounter++;        // Asignar ID único y aumentar el contador
         this.name = name;                 // Inicializa el nombre
         this.breed = breed;               // Inicializa la raza
         this.age = age;                   // Inicializa la edad
         this.description = description;   // Inicializa la descripción
+        this.dangerLevel = dangerLevel;   // Inicializa el danger level
         this.adopted = false;             // Inicializa el estado de adopción como no adoptado
     }
 
@@ -114,7 +115,7 @@ public class Animal {
     public int getId() {
         return id;
     }
-}
+
 public String getAnimalDetails() {
     return "ID: " + id + ", Nombre: " + name + ", Raza: " + breed + ", Edad: " + age +
             ", Descripción: " + description + ", Peligroso: " + getDangerLevelDescription();
