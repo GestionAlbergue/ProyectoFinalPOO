@@ -23,14 +23,15 @@ import java.util.Scanner;
 
 public class Main {
 
-    private List<Animal> animals;           // Lista de animales del albergue
-    private List<Volunteer> volunteers;     // Lista de voluntarios del albergue
-    private List<Adoption> adoptions;       // Lista de adopciones realizadas
-    private List<Resource> resources;       // Lista de recursos del albergue
-    private List<Task> tasks;               // Lista de tareas para los voluntarios
-    private List<MedicalHistory> histories; // Lista de historiales médicos en el sistema
-    private Report report;                  // Referencia al objeto Report para generar informes
-    private MainPage mainPage;              // Referencia a la clase MainPage para navegar en el sistema
+    private List<Animal> animals;                       // Lista de animales del albergue
+    private List<Volunteer> volunteers;                 // Lista de voluntarios del albergue
+    private List<Adoption> adoptions;                   // Lista de adopciones realizadas
+    private List<Resource> resources;                   // Lista de recursos del albergue
+    private List<Task> tasks;                           // Lista de tareas para los voluntarios
+    private List<MedicalHistory> histories;             // Lista de historiales médicos en el sistema
+    private List<AdoptionCandidate> adoptionCandidates; // Lista de historiales médicos en el sistema
+    private Report report;                              // Referencia al objeto Report para generar informes
+    private MainPage mainPage;                          // Referencia a la clase MainPage para navegar en el sistema
 
     /**
      * Método principal que inicia el programa.
@@ -51,8 +52,9 @@ public class Main {
         this.volunteers = new ArrayList<>();                              // Inicializa la lista de Voluntarios
         this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
         this.tasks = new ArrayList<>();                                   // Inicializa la lista de Tareas
-        this.histories = new ArrayList<>();                               // Inicializa la lista de HIstoriales Médicos
-        this.report = new Report(animals, volunteers, resources, tasks);  // Crea el objeto Report
+        this.histories = new ArrayList<>();                               // Inicializa la lista de Historiales Médicos
+        this.adoptionCandidates = new ArrayList<>();                      // Inicializa la lista de Adoptantes
+        this.report = new Report(animals, volunteers, resources, tasks, adoptionCandidates);  // Crea el objeto Report
         this.mainPage = new MainPage(report);                             // Crea el objeto MainPage para la navegación
     }
 
@@ -190,16 +192,21 @@ public class Main {
             }
 
             // Registrar la adopción y marcar el animal como adoptado
-            Adoption adoption = new Adoption(animal, volunteer, adoptionDate);
+            AdoptionCandidate adopter = new AdoptionCandidate(animal, volunteer);  
+            adoptionCandidates.add(adopter);        
+            adopter.collectAdoptionInfo(sc);
+
+            Adoption adoption = new Adoption(animal, volunteer, adoptionDate, adopter);
             adoptions.add(adoption);
+            
             animal.setAdopted(true);  // Marcar al animal como adoptado
             System.out.println("======================================");
             System.out.println("== Adopción registrada exitosamente ==");
             System.out.println("======================================");
             System.out.println(" ");
-            System.out.println("======= Detalles ========");
+            System.out.println("======= Detalles ================");
             System.out.println(adoption.displayAdoptionDetails());
-            System.out.println("=========================");
+            System.out.println("=================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si el ID ingresado no es válido
             System.out.println("==================================");

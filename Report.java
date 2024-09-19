@@ -19,32 +19,39 @@ public class Report {
     private List<Volunteer> volunteers;
     private List<Task> tasks;  // Añadido para manejar tareas
     private List<Resource> resources;
+    private List<AdoptionCandidate> adoptionCandidates;
 
     // Constructor para inicializar las listas de animales, voluntarios, recursos y tareas
-    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks) {
+    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks, List<AdoptionCandidate> adoptionCandidates) {
         this.animals = animals;
         this.volunteers = volunteers;
         this.resources = resources;
         this.tasks = tasks;
+        this.adoptionCandidates = adoptionCandidates;
     }
     /**
      * Genera un informe sobre las adopciones realizadas en el albergue.
+     * 
+     * @return Un {@code String} que contiene el informe de adopciones realizadas.
      */
-     public String generateAdoptionReport() {
-        StringBuilder report = new StringBuilder();  // Usar StringBuilder para construir el String del reporte
-        report.append("=== Informe de Adopciones ===\n");
+    public String generateAdoptionReport() {
+        StringBuilder report = new StringBuilder();  // Usar StringBuilder para construir el informe
+        report.append("\n")
+            .append("=== Informe de Adopciones ===\n");
         
         boolean hasAdoptions = false;  // Para verificar si hay animales adoptados
 
-        // Recorrer la lista de animales
-        for (Animal animal : animals) {
+        // Recorrer la lista de candidatos de adopción
+        for (AdoptionCandidate candidate : adoptionCandidates) {
+            Animal animal = candidate.getAnimal();
             if (animal.isAdopted()) {  // Verificar si el animal está adoptado
                 hasAdoptions = true;
-                report.append("Nombre: ").append(animal.getName())
-                      .append(", Especie: ").append(animal.getBreed())
-                      .append("\n")
-                      .append("=================================")
-                      .append("\n");
+                report.append("Animal: ").append(animal.getName())
+                    .append(", Especie: ").append(animal.getBreed())
+                    .append(" | Adoptante: ").append(candidate.getName())
+                    .append(", Contacto: ").append(candidate.getContactInfo())
+                    .append("\n")
+                    .append("=================================\n");
             }
         }
 
@@ -55,6 +62,7 @@ public class Report {
 
         return report.toString();  // Retornar el reporte como String
     }
+
     /**
      * Genera estadísticas sobre los animales del albergue.
      * 
@@ -77,12 +85,13 @@ public class Report {
     
         // Construir el reporte como un String
         StringBuilder stats = new StringBuilder();
-        stats.append("====== Informe de Animales ======\n")
-            .append("Total de animales: ").append(totalAnimals).append("\n")
-            .append("Animales adoptados: ").append(adoptedAnimals).append("\n")
-            .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n")
-            .append("=================================")
-            .append("\n");
+        stats.append("\n")
+             .append("====== Informe de Animales ======\n")
+             .append("Total de animales: ").append(totalAnimals).append("\n")
+             .append("Animales adoptados: ").append(adoptedAnimals).append("\n")
+             .append("Animales pendientes de adopción: ").append(pendingAdoptions).append("\n")
+             .append("=================================")
+             .append("\n");
     
         // Agregar detalles de cada animal
         stats.append("Detalle de Animales:\n");
@@ -106,7 +115,8 @@ public class Report {
      */
     public String generateVolunteerReport() {
         StringBuilder report = new StringBuilder();
-        report.append("====== Informe de Voluntarios ======\n");
+        report.append("\n")
+              .append("====== Informe de Voluntarios ======\n");
         // Verificar si hay voluntarios
         if (volunteers.isEmpty()) {
             report.append("No hay voluntarios registrados.\n");
@@ -128,7 +138,8 @@ public class Report {
      */
     public String generateTaskReport() {
         StringBuilder report = new StringBuilder();
-        report.append("====== Informe de Tareas ======\n");
+        report.append("\n")
+              .append("====== Informe de Tareas ======\n");
         // Verificar si hay tareas
         if (tasks.isEmpty()) {
             report.append("No hay tareas registradas.\n");
@@ -154,7 +165,8 @@ public class Report {
      */
     public String generateResourceReport() {
         StringBuilder report = new StringBuilder(); // Usamos StringBuilder para construir el reporte de forma eficiente
-        report.append("====== Informe de Recursos ======\n");
+        report.append("\n")
+              .append("====== Informe de Recursos ======\n");
 
         // Recorre la lista de recursos
         for (Resource resource : resources) {

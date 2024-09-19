@@ -10,7 +10,7 @@
  * 
  * @author Antony Barrios 
  * Fecha de creación: 17/09/2024 
- * Última modificación: 17/09/2024
+ * Última modificación: 18/09/2024
  */
 
 import java.time.LocalDate;
@@ -19,14 +19,16 @@ import java.time.format.DateTimeFormatter;
 public class Adoption {
     // Atributos de la clase Adoption
     private Animal animal;             // El animal que ha sido adoptado
-    private Volunteer adopter;         // El voluntario que gestionó la adopción
+    private Volunteer volunteer;         // El voluntario que gestionó la adopción
     private LocalDate adoptionDate;       // La fecha de adopción
+    private AdoptionCandidate adopter;    // Persona que lo adopto 
 
     // Se encarga de inicializar los valores de los atributos
-    public Adoption(Animal animal, Volunteer adopter, LocalDate adoptionDate) {
+    public Adoption(Animal animal, Volunteer volunteer, LocalDate adoptionDate, AdoptionCandidate adopter) {
         this.animal = animal;                 // Inicializa el animal adoptado
-        this.adopter = adopter;               // Inicializa el voluntario que gestionó la adopción
+        this.volunteer = volunteer;           // Inicializa el voluntario que gestionó la adopción
         this.adoptionDate = adoptionDate;     // Inicializa la fecha de adopción
+        this.adopter = adopter;               // Inicializa al adoptante    
     }
 
     /**
@@ -43,8 +45,8 @@ public class Adoption {
      * 
      * @return El voluntario que gestionó la adopción.
      */
-    public Volunteer getAdopter() {
-        return adopter;
+    public Volunteer getVolunteer() {
+        return volunteer;
     }
 
     /**
@@ -69,7 +71,10 @@ public class Adoption {
                "Raza: " + animal.getBreed() + "\n" +
                "Edad: " + animal.getAge() + " años\n" +
                "Descripción: " + animal.getDescription() + "\n" +
-               "Gestionado por: " + adopter.getName() + " (ID: " + adopter.getId() + ")\n" +
-               "Fecha de Adopción: " + adoptionDate.format(formatter);
+               "Gestionado por: " + volunteer.getName() + " (ID: " + volunteer.getId() + ")\n" +
+               "Fecha de Adopción: " + adoptionDate.format(formatter) + "\n" +
+               "------------- ADOPTANTE ------------- \n" +
+               "Nombre: " + adopter.getName() + "\n" +
+               "Informacion de Contacto: " + adopter.getContactInfo() + "\n";
     }
 }

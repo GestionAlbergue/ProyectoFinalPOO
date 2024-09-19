@@ -19,9 +19,12 @@ import java.util.Scanner;
 public class AdoptionCandidate {
     private Animal animal;
     private Volunteer volunteer;
-    private String additionalExperience; // Para animales peligrosos  
-    private boolean hasPetExperience; // Indicador de experiencia  
-    private String reasonForAdoption; // Motivo de la adopción  
+    private String additionalExperience, // Para animales peligrosos  
+                   reasonForAdoption,    // Motivo de la adopción  
+                   name,                 // Nombre 
+                   contactInfo;          // Información de Contacto
+    private boolean hasPetExperience;    // Indicador de experiencia  
+
 
     /**
      * Constructor que inicializa un candidato de adopción con un animal y un voluntario.
@@ -41,6 +44,13 @@ public class AdoptionCandidate {
      * @param sc Un objeto utilizado para recibir la entrada del usuario.
      */
     public void collectAdoptionInfo(Scanner sc) {
+        System.out.println("========== ADOPTANTE ==========");
+        System.out.print("Nombre de Adoptante: ");
+        this.name = sc.nextLine();
+
+        System.out.print("Información de Contacto de Adoptante: ");
+        this.contactInfo = sc.nextLine();
+
         System.out.print("¿Tienes experiencia con mascotas? (Sí/No): ");
         String experienceResponse = sc.nextLine();
         this.hasPetExperience = experienceResponse.equalsIgnoreCase("Sí");
@@ -54,7 +64,7 @@ public class AdoptionCandidate {
             additionalExperience = sc.nextLine();
         }
 
-        animal.setAdopted(true); // Marcar al animal como adoptado  
+        //animal.setAdopted(true); // Marcar al animal como adoptado  
     }
 
     /**
@@ -71,4 +81,32 @@ public class AdoptionCandidate {
                 + "- Razón para adoptar: " + reasonForAdoption + "\n"
                 + (animal.getDangerLevel() > 0 ? "- Experiencia adicional: " + additionalExperience + "\n" : "");
     }
+
+    /**
+     * Obtiene el nombre del voluntario.
+     *
+     * @return Un String que representa el nombre del voluntario.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Obtiene la información de contacto del voluntario.
+     *
+     * @return String que contiene la información de contacto del voluntario.
+     */
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    /**
+     * Obtiene el animal asociado a este candidato de adopción.
+     * 
+     * @return El Animal que está siendo adoptado.
+     */
+    public Animal getAnimal() {
+        return this.animal;
+    }
+
 }
