@@ -22,6 +22,7 @@ public class Animal {
                 id;              // ID del animal
     private static int idCounter = 1; // ID único ascendiente 
     private boolean adopted;     // Estado de adopción (true si está adoptado, false si no)
+    private int dangerLevel;//nivel de peligro
 
     /**
      * Constructor de la clase Animal.
@@ -40,6 +41,17 @@ public class Animal {
         this.adopted = false;             // Inicializa el estado de adopción como no adoptado
     }
 
+    public int getDangerLevel() {
+        return dangerLevel;
+    }//nivel de peligro again
+    public String getDangerLevelDescription() {
+        switch (dangerLevel) {
+            case 0: return "No peligro";
+            case 1: return "Levemente peligroso";
+            case 2: return "Muy peligroso";
+            default: return "Nivel de peligro desconocido";
+        }
+    }
     /**
      * Obtiene el nombre del animal.
      * 
@@ -103,3 +115,8 @@ public class Animal {
         return id;
     }
 }
+public String getAnimalDetails() {
+    return "ID: " + id + ", Nombre: " + name + ", Raza: " + breed + ", Edad: " + age +
+            ", Descripción: " + description + ", Peligroso: " + getDangerLevelDescription();
+}
+}  
