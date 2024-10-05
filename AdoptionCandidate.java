@@ -51,9 +51,9 @@ public class AdoptionCandidate {
         System.out.print("Información de Contacto de Adoptante: ");
         this.contactInfo = sc.nextLine();
 
-        System.out.print("¿Tienes experiencia con mascotas? (Sí/No): ");
+        System.out.print("¿Tienes experiencia con mascotas? (Si/No): ");
         String experienceResponse = sc.nextLine();
-        this.hasPetExperience = experienceResponse.equalsIgnoreCase("Sí");
+        this.hasPetExperience = experienceResponse.equalsIgnoreCase("Si");
 
         System.out.print("¿Cuál es tu razón para adoptar este animal?: ");
         this.reasonForAdoption = sc.nextLine();

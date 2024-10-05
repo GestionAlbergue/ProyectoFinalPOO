@@ -96,6 +96,7 @@ public class Main {
             // Crear y agregar el nuevo animal a la lista
             Animal animal = new Animal(name, breed, age, description, dangerLevel);
             animals.add(animal);
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("== Animal agregado exitosamente ==");
             System.out.println("== Número de ID: " + animal.getId());
@@ -132,10 +133,12 @@ public class Main {
             // Crear y agregar el nuevo voluntario a la lista
             Volunteer volunteer = new Volunteer(name, contactInfo);
             volunteers.add(volunteer);
+            System.out.println(" ");
             System.out.println("======================================");
             System.out.println("== Voluntario agregado exitosamente ==");
             System.out.println("== Número de ID: " + volunteer.getId());
             System.out.println("======================================");
+            System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier error inesperado
             System.out.println("==================================");
@@ -200,6 +203,7 @@ public class Main {
             adoptions.add(adoption);
             
             animal.setAdopted(true);  // Marcar al animal como adoptado
+            System.out.println(" ");
             System.out.println("======================================");
             System.out.println("== Adopción registrada exitosamente ==");
             System.out.println("======================================");
@@ -240,9 +244,11 @@ public class Main {
             // Crear y agregar el nuevo recurso a la lista
             Resource resource = new Resource(resourceName, quantity, description);
             resources.add(resource);
+            System.out.println(" ");
             System.out.println("===================================");
             System.out.println("== Recurso agregado exitosamente ==");
             System.out.println("===================================");
+            System.out.println(" ");
         } catch (NumberFormatException e) {
             // Manejo de errores si la cantidad ingresada no es un número válido
             System.out.println("==================================");
@@ -273,9 +279,11 @@ public class Main {
         String description = sc.nextLine();
         Task newTask = new Task(name, description);
         tasks.add(newTask);
+        System.out.println(" ");
         System.out.println("=================================");
         System.out.println("== Tarea agregada exitosamente ==");
         System.out.println("=================================");
+        System.out.println(" ");
     }
 
     /**
@@ -288,13 +296,16 @@ public class Main {
      */
     public void completeTask(Scanner sc) {
         if (tasks.isEmpty()) {
+            System.out.println(" ");
             System.out.println("============================================");
             System.out.println("= No hay tareas disponibles para completar =");
             System.out.println("============================================");
+            System.out.println(" ");
             return;
         }
 
         // Mostrar la lista de tareas numeradas
+        System.out.println(" ");
         System.out.println("=================================");
         System.out.println("===     Tareas Pendientes     ===");
         System.out.println("=================================");
@@ -313,13 +324,17 @@ public class Main {
             Task selectedTask = tasks.get(taskNumber - 1);
             if (!selectedTask.isCompleted()) {
                 selectedTask.completeTask();
+                System.out.println(" ");
                 System.out.println("=================================");
                 System.out.println("= Tarea marcada como completada =");
                 System.out.println("=================================");
+                System.out.println(" ");
             } else {
-                System.out.println("============================");
-                System.out.println("= Tarea ya está completada =");
-                System.out.println("============================");
+                System.out.println(" ");
+                System.out.println("=================================");
+                System.out.println("= Esta tarea ya está completada =");
+                System.out.println("=================================");
+                System.out.println(" ");
             }
         } else {
             System.out.println("==================================");
@@ -380,9 +395,11 @@ public class Main {
 
             // Agregar el nuevo registro al historial médico del animal
             medicalHistory.addRecord(newRecord);
+            System.out.println(" ");
             System.out.println("========================================");
             System.out.println("= Registro médico añadido exitosamente =");
-            System.err.println("========================================");
+            System.out.println("========================================");
+            System.out.println(" ");
 
         } catch (NumberFormatException e) {
             System.out.println("==================================");
@@ -468,13 +485,16 @@ public class Main {
      */
     public void updateResourceQuantity(Scanner sc) {
         if (resources.isEmpty()) {
+            System.out.println(" ");
             System.out.println("===============================================");
             System.out.println("= No hay recursos disponibles para actualizar =");
             System.out.println("===============================================");
+            System.out.println(" ");
             return;
         }
 
         // Mostrar la lista de recursos
+        System.out.println(" ");
         System.out.println("=========================");
         System.out.println("= Recursos del Albergue =");
         System.out.println("=========================");

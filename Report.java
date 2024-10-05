@@ -96,15 +96,8 @@ public class Report {
         // Agregar detalles de cada animal
         stats.append("Detalle de Animales:\n");
         for (Animal animal : animals) {
-            stats.append("ID: ").append(animal.getId()).append("\n")
-                 .append("Nombre: ").append(animal.getName()).append("\n")
-                 .append("Raza: ").append(animal.getBreed()).append("\n")
-                 .append("Edad: ").append(animal.getAge()).append("\n")
-                 .append("Descripción: ").append(animal.getDescription()).append("\n")
-                 .append("Adoptado: ").append(animal.isAdopted() ? "Si" : "No").append("\n")
-                 .append("-----------------------------\n");
+            stats.append(animal).append("\n");
         }
-    
         return stats.toString();  // Retornar el reporte como String
     }
     

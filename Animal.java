@@ -42,9 +42,20 @@ public class Animal {
         this.adopted = false;             // Inicializa el estado de adopción como no adoptado
     }
 
+    /**
+     * Obtiene el Nivel de Peligro del Animal en número
+     * 
+     * @return el número de Peligro de, animal.
+     */
     public int getDangerLevel() {
         return dangerLevel;
-    }//nivel de peligro again
+    }
+
+    /**
+     * Obtiene la descripación del Nivel de Peligro del Animal 
+     * 
+     * @return la descripción del Nivel de Peligro de, animal.
+     */
     public String getDangerLevelDescription() {
         switch (dangerLevel) {
             case 0: return "No peligro";
@@ -53,6 +64,7 @@ public class Animal {
             default: return "Nivel de peligro desconocido";
         }
     }
+
     /**
      * Obtiene el nombre del animal.
      * 
@@ -116,8 +128,20 @@ public class Animal {
         return id;
     }
 
-public String getAnimalDetails() {
-    return "ID: " + id + ", Nombre: " + name + ", Raza: " + breed + ", Edad: " + age +
-            ", Descripción: " + description + ", Peligroso: " + getDangerLevelDescription();
-}
+    /**
+     * Sobreescribe el método toString para dar indormación detallada del animal 
+     * 
+     * @return String de detalles del animal.
+     */
+    @Override
+    public String toString() {
+        return "-------------------------------------------------------\n" +
+            "ID: " + id + "\n" +
+            "Nombre: " + name + "\n" +
+            "Raza: " + breed + "\n" +
+            "Edad: " + age + "\n" +
+            "Descripción: " + description + "\n" +
+            "Peligroso: " + this.getDangerLevelDescription() + "\n" +
+            "-------------------------------------------------------\n";
+    }
 }
