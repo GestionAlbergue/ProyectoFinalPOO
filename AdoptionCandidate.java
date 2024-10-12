@@ -11,7 +11,7 @@
  * 
  * @author Angel Higueros
  * Fecha de creación: 18/09/2024 
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  */
 
 import java.util.Scanner;
@@ -77,7 +77,7 @@ public class AdoptionCandidate {
         return "Detalles de adopción:\n"
                 + "- Animal: " + animal.getName() + "\n"
                 + "- Adoptante: " + volunteer.getName() + "\n"
-                + "- Experiencia con mascotas: " + (hasPetExperience ? "Sí" : "No") + "\n"
+                + "- Experiencia con mascotas: " + (hasPetExperience ? "Si" : "No") + "\n"
                 + "- Razón para adoptar: " + reasonForAdoption + "\n"
                 + (animal.getDangerLevel() > 0 ? "- Experiencia adicional: " + additionalExperience + "\n" : "");
     }

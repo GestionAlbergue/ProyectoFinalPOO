@@ -10,7 +10,7 @@
  * 
  * @author Adriana Martinez 
  * Fecha de creación: 18/09/2024 
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  */
 import java.util.Scanner;
 
@@ -97,8 +97,8 @@ public class Resource {
      * @return Un mensaje de alerta si la cantidad es menor o igual al umbral, o null si no se necesita alerta.
      */
     private String checkAlert() {
-        int alerta = 1;  
-        if (quantity <= alerta) {
+        int threshold = 10;  
+        if (quantity <= threshold) {
             return "==========================================\n" +
                    "===               ALERTA               ===\n" + 
                    "= Es necesario reabastecer " + resourceName + "\n" +

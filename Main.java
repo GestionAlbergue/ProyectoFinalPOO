@@ -11,13 +11,14 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  */
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,17 +64,32 @@ public class Main {
     * Muestra el menú de opciones y navega según la selección del usuario.
     */
     public void run() {
-        Scanner sc = new Scanner(System.in);  // Scanner para la entrada del usuario
-        String option;
+        Scanner sc = new Scanner(System.in);                        // Scanner para la entrada del usuario
+        int option = 0;                                             // Cambiado a int para manejar las opciones numéricas
 
-        // Bucle principal para mostrar el menú hasta que el usuario seleccione la opción de salir
-        do {
-            mainPage.displayOptions();            // Muestra el menú de opciones
-            option = sc.next();                   // Lee la opción seleccionada por el usuario
-            sc.nextLine();                        // Limpia el buffer del scanner
-            mainPage.navigate(option, sc, this);  // Navega en el sistema según la opción seleccionada
-        } while (!option.equals("11"));  // Repite mientras no se elija la opción de salir (10)
+        do {  // Bucle principal para mostrar el menú hasta que el usuario seleccione la opción de salir
+            mainPage.displayOptions();  // Muestra el menú de opciones
+            
+            try {
+                option = sc.nextInt();  // Lee la opción seleccionada por el usuario
+                sc.nextLine();  // Limpia el buffer del scanner
+                
+                // Navega en el sistema según la opción seleccionada
+                mainPage.navigate(option, sc, this);  
+            } catch (InputMismatchException e) {
+                System.out.println(" ");
+                System.out.println("==========================");
+                System.out.println("===        ERROR       ===");
+                System.out.println("= Ingrese un número      =");
+                System.out.println("= Selecciona otra opción =");
+                System.out.println("==========================");  // Mensaje de error en caso de entrada no válida
+                System.out.println(" ");
+                sc.nextLine();  // Limpia el buffer en caso de excepción
+            }
+            
+        } while (option != 12);  // Repite mientras no se elija la opción de salir (12)
     }
+
 
     /**
      * Método para agregar un nuevo animal al sistema.
@@ -81,7 +97,11 @@ public class Main {
     */
     public void addAnimal(Scanner sc) {
         try {
-            // Solicitar datos del nuevo animal
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===       AGREGAR ANIMAL       ===");
+            System.out.println("==================================");
+            System.out.println(" "); // Solicitar datos del nuevo animal
             System.out.print("Nombre del animal: ");
             String name = sc.nextLine();
             System.out.print("Raza del animal: ");
@@ -124,7 +144,11 @@ public class Main {
     */
     public void addVolunteer(Scanner sc) {
         try {
-            // Solicitar datos del nuevo voluntario
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===     AGREGAR VOLUNTARIO     ===");
+            System.out.println("==================================");
+            System.out.println(" "); // Solicitar datos del nuevo voluntario
             System.out.print("Nombre del voluntario: ");
             String name = sc.nextLine();
             System.out.print("Información de contacto del voluntario: ");
@@ -141,10 +165,12 @@ public class Main {
             System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier error inesperado
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
@@ -154,15 +180,21 @@ public class Main {
     */
     public void registerAdoption(Scanner sc) {
         try {
-            // Solicitar el ID del animal a adoptar
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===     REGISTRAR ADOPCIÓN     ===");
+            System.out.println("==================================");
+            System.out.println(" "); // Solicitar el ID del animal a adoptar
             System.out.print("ID del animal a adoptar: ");
             int animalId = Integer.parseInt(sc.nextLine());
             Animal animal = findAnimalById(animalId);  // Buscar el animal por su ID
             if (animal == null) {
+                System.out.println(" ");
                 System.out.println("========================");
                 System.out.println("===        ERROR     ===");
                 System.out.println("= Animal no encontrado =");
                 System.out.println("========================");
+                System.out.println(" ");
                 return;
             }
 
@@ -171,10 +203,12 @@ public class Main {
             int volunteerId = Integer.parseInt(sc.nextLine());
             Volunteer volunteer = findVolunteerById(volunteerId);  // Buscar el voluntario por su ID
             if (volunteer == null) {
+                System.out.println(" ");
                 System.out.println("============================");
                 System.out.println("===         ERROR        ===");
                 System.out.println("= Voluntario no encontrado =");
                 System.out.println("============================");
+                System.out.println(" ");
                 return;
             }
 
@@ -186,11 +220,13 @@ public class Main {
                 adoptionDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             } catch (DateTimeParseException e) {
                 // Manejo de errores si la fecha no tiene el formato correcto
+                System.out.println(" ");
                 System.out.println("==================================");
                 System.out.println("===             ERROR          ===");
                 System.out.println("= Fecha en formato incorrecto    =");
                 System.out.println("= Debe ser DD/MM/AAAA            =");
                 System.out.println("==================================");
+                System.out.println(" ");
                 return;
             }
 
@@ -213,17 +249,21 @@ public class Main {
             System.out.println("=================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si el ID ingresado no es válido
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= El formato de ID debe ser un   =");
             System.out.println("= número entero.                 =");
             System.out.println("==================================");
+            System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
@@ -233,7 +273,11 @@ public class Main {
     */
     public void addResource(Scanner sc) {
         try {
-            // Solicitar datos del nuevo recurso
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===      AGREGAR RECURSO       ===");
+            System.out.println("==================================");
+            System.out.println(" "); // Solicitar datos del nuevo recurso
             System.out.print("Nombre del recurso: ");
             String resourceName = sc.nextLine();
             System.out.print("Cantidad disponible: ");
@@ -251,17 +295,21 @@ public class Main {
             System.out.println(" ");
         } catch (NumberFormatException e) {
             // Manejo de errores si la cantidad ingresada no es un número válido
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= La cantidad debe ser un número =");
             System.out.println("= entero.                        =");
             System.out.println("==================================");
+            System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
  
@@ -273,6 +321,11 @@ public class Main {
      * @param sc el objeto Scanner utilizado para leer la entrada del usuario
      */
     public void registerTask(Scanner sc) {
+        System.out.println(" ");
+        System.out.println("==================================");
+        System.out.println("===       AGREGAR TAREA        ===");
+        System.out.println("==================================");
+        System.out.println(" "); 
         System.out.print("Ingrese el nombre de la tarea: ");
         String name = sc.nextLine();
         System.out.print("Ingrese la descripción de la tarea: ");
@@ -337,11 +390,13 @@ public class Main {
                 System.out.println(" ");
             }
         } else {
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= Número de tarea inválido.      =");
             System.out.println("= Selecciona un número válido.   =");
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
@@ -354,17 +409,23 @@ public class Main {
      */
     public void registerMedicalRecord(Scanner sc) {
         try {
-            // Solicitar el ID del animal
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===  AGREGAR REGISTRO MÉDICO   ===");
+            System.out.println("==================================");
+            System.out.println(" "); // Solicitar el ID del animal
             System.out.print("Ingrese el ID del animal: ");
             int animalId = Integer.parseInt(sc.nextLine());
             Animal animal = findAnimalById(animalId);
 
             // Verificar si el animal existe
             if (animal == null) {
+                System.out.println(" ");
                 System.out.println("==================================");
                 System.out.println("===             ERROR          ===");
                 System.out.println("== Animal no encontrado         ==");
                 System.out.println("==================================");
+                System.out.println(" ");
                 return;
             }
 
@@ -402,16 +463,20 @@ public class Main {
             System.out.println(" ");
 
         } catch (NumberFormatException e) {
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= El ID debe ser un número       =");
             System.out.println("= entero.                        =");
             System.out.println("==================================");
+            System.out.println(" ");
         } catch (Exception e) {
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
@@ -428,6 +493,11 @@ public class Main {
      */
     public void viewMedicalRecord(Scanner sc) {
         try {
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===     VER REGISTRO MÉDICO    ===");
+            System.out.println("==================================");
+            System.out.println(" "); 
             // Solicita al usuario que ingrese el ID del animal
             System.out.print("Ingrese el ID del animal: ");
             int animalId = Integer.parseInt(sc.nextLine());  // Lee y convierte el ID a un número entero
@@ -438,10 +508,12 @@ public class Main {
             // Verifica si el animal fue encontrado
             if (animal == null) {
                 // Muestra un mensaje de error si el animal no se encuentra
+                System.out.println(" ");
                 System.out.println("==================================");
                 System.out.println("===             ERROR          ===");
                 System.out.println("== Animal no encontrado         ==");
                 System.out.println("==================================");
+                System.out.println(" ");
                 return;  // Sale del método si el animal no se encuentra
             }
 
@@ -451,10 +523,12 @@ public class Main {
             // Verifica si el historial médico fue encontrado
             if (medicalHistory == null) {
                 // Muestra un mensaje de error si el historial médico no se encuentra
+                System.out.println(" ");
                 System.out.println("==================================");
                 System.out.println("===             ERROR          ===");
                 System.out.println("= Historial médico no Encontrado =");
                 System.out.println("==================================");
+                System.out.println(" ");
                 
                 return;  // Sale del método si el historial médico no se encuentra
             }
@@ -465,17 +539,21 @@ public class Main {
 
         } catch (NumberFormatException e) {
             // Maneja el error si el ID ingresado no es un número entero
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= El ID debe ser un número       =");
             System.out.println("= entero.                        =");
             System.out.println("==================================");
+            System.out.println(" ");
         } catch (Exception e) {
             // Maneja cualquier otra excepción inesperada
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
