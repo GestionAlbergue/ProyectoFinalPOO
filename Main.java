@@ -399,9 +399,9 @@ public class Main {
             System.out.println("== Adopción registrada exitosamente ==");
             System.out.println("======================================");
             System.out.println(" ");
-            System.out.println("======= Detalles ================");
+            System.out.println("============ Detalles ============");
             System.out.print(adoption.displayAdoptionDetails());
-            System.out.println("=================================");
+            System.out.println("==================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si el ID ingresado no es válido
             System.out.println(" ");
@@ -874,7 +874,7 @@ public class Main {
      * @return El objeto AdoptionCandidate que coincide con el ID proporcionado,
      *         o null si no se encuentra ningún candidato con ese ID.
      */
-    public AdoptionCandidate findAdopterById(int id) {
+    private AdoptionCandidate findAdopterById(int id) {
         for (AdoptionCandidate adopter : adoptionCandidates) {  // asumiendo que tienes una lista de candidatos
             if (adopter.getId() == id) {
                 return adopter;
