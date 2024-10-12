@@ -8,7 +8,7 @@
  * incluyendo adopciones, estadísticas de animales, voluntarios y recursos.
  * 
  * Fecha de creación: 15/09/2024
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  * @author Marjori Flores
  */
 import java.util.List;
@@ -29,6 +29,7 @@ public class Report {
         this.tasks = tasks;
         this.adoptionCandidates = adoptionCandidates;
     }
+
     /**
      * Genera un informe sobre las adopciones realizadas en el albergue.
      * 
@@ -40,28 +41,36 @@ public class Report {
             .append("=== Informe de Adopciones ===\n");
         
         boolean hasAdoptions = false;  // Para verificar si hay animales adoptados
-
-        // Recorrer la lista de candidatos de adopción
-        for (AdoptionCandidate candidate : adoptionCandidates) {
-            Animal animal = candidate.getAnimal();
+    
+        // Recorrer la lista de animales
+        for (Animal animal : animals) {
             if (animal.isAdopted()) {  // Verificar si el animal está adoptado
                 hasAdoptions = true;
-                report.append("Animal: ").append(animal.getName())
-                    .append(", Especie: ").append(animal.getBreed())
-                    .append(" | Adoptante: ").append(candidate.getName())
-                    .append(", Contacto: ").append(candidate.getContactInfo())
-                    .append("\n")
-                    .append("=================================\n");
+                AdoptionCandidate adopter = findAdopterByAnimal(animal);  // Encontrar el adoptante del animal
+                if (adopter != null) {
+                    report.append("Animal: ").append(animal.getName())
+                        .append(", Especie: ").append(animal.getBreed())
+                        .append(" | Adoptante: ").append(adopter.getName())
+                        .append(", Contacto: ").append(adopter.getContactInfo())
+                        .append("\n")
+                        .append("=================================\n");
+                } else {
+                    report.append("Animal: ").append(animal.getName())
+                        .append(", Especie: ").append(animal.getBreed())
+                        .append(" | Adoptante: Desconocido\n")
+                        .append("=================================\n");
+                }
             }
         }
-
+    
         // Si no hay adopciones, agregar un mensaje adecuado
         if (!hasAdoptions) {
             report.append("No se han registrado adopciones hasta el momento.\n");
         }
-
+    
         return report.toString();  // Retornar el reporte como String
     }
+    
 
     /**
      * Genera estadísticas sobre los animales del albergue.
@@ -176,4 +185,21 @@ public class Report {
 
         return report.toString(); // Retorna el informe como un String
     }
+
+    /**
+     * Permite buscar el adoptante del animal
+     * 
+     * @param animal Animal del cual buscamos el adoptante
+     * 
+     * @return AdoptionCandidate que es el adoptante del animal.
+     */
+    public AdoptionCandidate findAdopterByAnimal(Animal animal) {
+        for (AdoptionCandidate candidate : adoptionCandidates) {
+            if (candidate.getAnimals().contains(animal)) {
+                return candidate;
+            }
+        }
+        return null;  // Retorna null si no se encuentra el adoptante
+    }
+    
 }

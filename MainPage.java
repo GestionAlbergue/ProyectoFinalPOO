@@ -41,7 +41,7 @@ public class MainPage {
         System.out.println("***               PÁGINA PRINCIPAL               ***");
         System.out.println("** 1. Registrar Animal                            **");
         System.out.println("** 2. Registrar Voluntario                        **");
-        System.out.println("** 3. Registrar Voluntario                        **");
+        System.out.println("** 3. Registrar Adoptante                         **");
         System.out.println("** 4. Registrar Adopción                          **");
         System.out.println("** 5. Registrar Recurso                           **");
         System.out.println("** 6. Actualizar Cantidad de Recurso              **");
@@ -89,7 +89,7 @@ public class MainPage {
                 main.addVolunteer(sc);           // Registrar un nuevo voluntario
                 break;
             case 3:
-                // Registrar un adoptante
+                main.registerAdopter(sc);        // Registrar un nuevo adoptante
                 break;
             case 4:
                 main.registerAdoption(sc);       // Registrar una adopción

@@ -61,8 +61,8 @@ public class Main {
 
     /**
      * Método que controla el flujo principal del programa.
-    * Muestra el menú de opciones y navega según la selección del usuario.
-    */
+     * Muestra el menú de opciones y navega según la selección del usuario.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);                        // Scanner para la entrada del usuario
         int option = 0;                                             // Cambiado a int para manejar las opciones numéricas
@@ -93,8 +93,8 @@ public class Main {
 
     /**
      * Método para agregar un nuevo animal al sistema.
-    * @param sc Scanner utilizado para la entrada del usuario.
-    */
+     * @param sc Scanner utilizado para la entrada del usuario.
+     */
     public void addAnimal(Scanner sc) {
         try {
             System.out.println(" ");
@@ -110,8 +110,31 @@ public class Main {
             int age = Integer.parseInt(sc.nextLine());
             System.out.print("Descripción del animal: ");
             String description = sc.nextLine();
-            System.out.print("Nivel de peligro (0 - No peligro, 1 - Levemente peligroso, 2 - Muy peligroso): ");
-            int dangerLevel = Integer.parseInt(sc.nextLine()); // Ask for danger level
+
+            String dangerLevelResponse = "";
+            boolean valida = false;
+            boolean dangerLevel = true;
+            while (!valida) {
+                System.out.println("¿Se considera animal peligroso? (Si/No): ");
+                dangerLevelResponse = sc.nextLine();
+        
+                if (dangerLevelResponse.equalsIgnoreCase("si") || dangerLevelResponse.equalsIgnoreCase("no")) {
+                    valida = true;  // Si la entrada es válida, salimos del bucle
+                } else {
+                    System.out.println(" ");
+                    System.out.println("==================================");
+                    System.out.println("===             ERROR          ===");
+                    System.out.println("= Ingrese Si o No                =");
+                    System.out.println("==================================");
+                    System.out.println(" ");
+                }
+            }
+
+            if (dangerLevelResponse.equalsIgnoreCase("si")) {
+                dangerLevel = true;
+            } else {
+                dangerLevel = false;
+            }
 
             // Crear y agregar el nuevo animal a la lista
             Animal animal = new Animal(name, breed, age, description, dangerLevel);
@@ -140,7 +163,7 @@ public class Main {
 
     /**
      * Método para agregar un nuevo voluntario al sistema.
-    * @param sc Scanner utilizado para la entrada del usuario.
+     * @param sc Scanner utilizado para la entrada del usuario.
     */
     public void addVolunteer(Scanner sc) {
         try {
@@ -175,9 +198,101 @@ public class Main {
     }
 
     /**
+     * Método para registrar un posible adoptante.
+     * @param sc Scanner utilizado para la entrada del usuario.
+     */
+    public void registerAdopter(Scanner sc) {
+        try {
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===    REGISTRAR ADOPTANTE     ===");
+            System.out.println("==================================");
+            System.out.println(" "); 
+
+            System.out.println("========== ADOPTANTE ==========");
+            System.out.print("Nombre de Adoptante: ");
+            String adopterName = sc.nextLine();
+
+            System.out.print("Información de Contacto de Adoptante: ");
+            String adopterContactInfo = sc.nextLine();
+
+            String experienceResponse = "";
+            boolean entradaValida = false;
+            boolean hasPetExperience = true;
+            while (!entradaValida) {
+                System.out.println("¿Tienes experiencia con mascotas? (Si/No): ");
+                experienceResponse = sc.nextLine();
+        
+                if (experienceResponse.equalsIgnoreCase("si") || experienceResponse.equalsIgnoreCase("no")) {
+                    entradaValida = true;  // Si la entrada es válida, salimos del bucle
+                } else {
+                    System.out.println(" ");
+                    System.out.println("==================================");
+                    System.out.println("===             ERROR          ===");
+                    System.out.println("= Ingrese Si o No                =");
+                    System.out.println("==================================");
+                    System.out.println(" ");
+                }
+            }
+
+            if (experienceResponse.equalsIgnoreCase("si")) {
+                hasPetExperience = true;
+            } else {
+                hasPetExperience = false;
+            }
+
+            String additionalExperienceResponse = "";
+            entradaValida = false;
+            boolean additionalExperience = true;
+            while (!entradaValida) {
+                System.out.println("¿Tienes experiencia con Animales Peligrosos? (Si/No): ");
+                additionalExperienceResponse = sc.nextLine();
+        
+                if (additionalExperienceResponse.equalsIgnoreCase("si") || additionalExperienceResponse.equalsIgnoreCase("no")) {
+                    entradaValida = true;  // Si la entrada es válida, salimos del bucle
+                } else {
+                    System.out.println(" ");
+                    System.out.println("==================================");
+                    System.out.println("===             ERROR          ===");
+                    System.out.println("= Ingrese Si o No                =");
+                    System.out.println("==================================");
+                    System.out.println(" ");
+                }
+            }
+
+            if (additionalExperienceResponse.equalsIgnoreCase("si")) {
+                additionalExperience = true;
+            } else {
+                additionalExperience = false;
+            }
+
+            System.out.print("¿Cuál es tu razón para adoptar un animal?: ");
+            String reasonForAdoption = sc.nextLine();
+        
+            AdoptionCandidate adopter = new AdoptionCandidate(additionalExperience, reasonForAdoption, adopterName, adopterContactInfo, hasPetExperience);
+            
+            adoptionCandidates.add(adopter);
+            System.out.println(" ");
+            System.out.println("======================================");
+            System.out.println("== Aoptante agregado exitosamente ==");
+            System.out.println("== Número de ID: " + adopter.getId());
+            System.out.println("======================================");
+            System.out.println(" ");
+        } catch (Exception e) {
+            // Manejo de cualquier error inesperado
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= " + e.getMessage());
+            System.out.println("==================================");
+            System.out.println(" ");
+        }
+    }
+
+    /**
      * Método para registrar una adopción.
-    * @param sc Scanner utilizado para la entrada del usuario.
-    */
+     * @param sc Scanner utilizado para la entrada del usuario.
+     */
     public void registerAdoption(Scanner sc) {
         try {
             System.out.println(" ");
@@ -230,15 +345,42 @@ public class Main {
                 return;
             }
 
-            // Registrar la adopción y marcar el animal como adoptado
-            AdoptionCandidate adopter = new AdoptionCandidate(animal, volunteer);  
-            adoptionCandidates.add(adopter);        
-            adopter.collectAdoptionInfo(sc);
+            // Solicitar el ID del adoptante
+            System.out.print("ID del adoptante: ");
+            int adopterId = Integer.parseInt(sc.nextLine());
+            AdoptionCandidate adopter = findAdopterById(adopterId);  // Buscar el adoptante por su ID
+            if (adopter == null) {
+                System.out.println(" ");
+                System.out.println("===========================");
+                System.out.println("===        ERROR        ===");
+                System.out.println("= Adoptante no encontrado =");
+                System.out.println("===========================");
+                System.out.println(" ");
+                return;
+            }
 
+            // Verificar si el animal es peligroso y si el adoptante tiene experiencia
+            if (animal.getDangerLevel() && !adopter.getAdditionalExperience()) {
+                System.out.println(" ");
+                System.out.println("======================================");
+                System.out.println("===       ADOPCIÓN NO PERMITIDA    ===");
+                System.out.println("= El animal es peligroso y el       =");
+                System.out.println("= adoptante no tiene experiencia.   =");
+                System.out.println("======================================");
+                System.out.println(" ");
+                return;
+            }
+
+            // Registrar la adopción
             Adoption adoption = new Adoption(animal, volunteer, adoptionDate, adopter);
             adoptions.add(adoption);
             
-            animal.setAdopted(true);  // Marcar al animal como adoptado
+            // Agregar el animal a la lista de animales adoptados por el adoptante
+            adopter.addAnimal(animal);
+
+            // Marcar al animal como adoptado
+            animal.setAdopted(true);
+
             System.out.println(" ");
             System.out.println("======================================");
             System.out.println("== Adopción registrada exitosamente ==");
@@ -269,8 +411,8 @@ public class Main {
 
     /**
      * Método para agregar un recurso al sistema.
-    * @param sc Scanner utilizado para la entrada del usuario.
-    */
+     * @param sc Scanner utilizado para la entrada del usuario.
+     */
     public void addResource(Scanner sc) {
         try {
             System.out.println(" ");
@@ -660,5 +802,15 @@ public class Main {
         }
         return null;
     }
+
+    public AdoptionCandidate findAdopterById(int id) {
+        for (AdoptionCandidate adopter : adoptionCandidates) {  // asumiendo que tienes una lista de candidatos
+            if (adopter.getId() == id) {
+                return adopter;
+            }
+        }
+        return null;  // Retorna null si no se encuentra el adoptante
+    }
+    
 }
  
