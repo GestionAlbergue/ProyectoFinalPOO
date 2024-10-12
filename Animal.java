@@ -48,7 +48,7 @@ public class Animal {
      * @return el número de Peligro de, animal.
      */
     public boolean getDangerLevel() {
-        return dangerLevel;
+        return this.dangerLevel;
     }
 
     /**
@@ -72,7 +72,7 @@ public class Animal {
      * @return El nombre del animal.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Animal {
      * @return La raza del animal.
      */
     public String getBreed() {
-        return breed;
+        return this.breed;
     }
 
     /**
@@ -90,7 +90,7 @@ public class Animal {
      * @return La edad del animal.
      */
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Animal {
      * @return La descripción del animal.
      */
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Animal {
      * @return true si el animal está adoptado, false en caso contrario.
      */
     public boolean isAdopted() {
-        return adopted;
+        return this.adopted;
     }
 
     /**
@@ -126,7 +126,7 @@ public class Animal {
      * @return ID del animal.
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -137,11 +137,11 @@ public class Animal {
     @Override
     public String toString() {
         return "-------------------------------------------------------\n" +
-            "ID: " + id + "\n" +
-            "Nombre: " + name + "\n" +
-            "Raza: " + breed + "\n" +
-            "Edad: " + age + "\n" +
-            "Descripción: " + description + "\n" +
+            "ID: " + this.id + "\n" +
+            "Nombre: " + this.name + "\n" +
+            "Raza: " + this.breed + "\n" +
+            "Edad: " + this.age + "\n" +
+            "Descripción: " + this.description + "\n" +
             "Peligrosidad: " + this.getDangerLevelDescription() + "\n" +
             "-------------------------------------------------------\n";
     }

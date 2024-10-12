@@ -147,20 +147,25 @@ public class Report {
         StringBuilder report = new StringBuilder();
         report.append("\n")
               .append("====== Informe de Voluntarios ======\n");
+        
+        // Verificar la cantidad de voluntarios
+        int volunteerCount = volunteers.size();
+        report.append("Total de voluntarios registrados: ").append(volunteerCount).append("\n");
+        
         // Verificar si hay voluntarios
-        if (volunteers.isEmpty()) {
+        if (volunteerCount == 0) {
             report.append("No hay voluntarios registrados.\n");
         } else {
-            // Recorrer la lista de voluntarios e imprimir sus detalles
+            report.append("\n")
+                  .append("------------ DETALLES ------------").append("\n");
+            // Recorrer la lista de voluntarios e imprimir sus detalles usando toString()
             for (Volunteer volunteer : volunteers) {
-                report.append("ID: ").append(volunteer.getId()).append("\n")
-                    .append("Nombre: ").append(volunteer.getName()).append("\n")
-                    .append("Informacion de contacto: ").append(volunteer.getContactInfo()).append("\n")
-                    .append("=================================\n");
+                report.append(volunteer.toString()).append("\n");
             }
         }
         return report.toString();  // Retornar el informe como String
     }
+
     /**
      * Genera un informe sobre la tarea.
      * 

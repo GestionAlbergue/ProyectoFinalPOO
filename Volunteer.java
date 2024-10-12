@@ -78,4 +78,19 @@ public class Volunteer {
     public int getId() {
         return id;
     }
+
+    /**
+     * Sobreescribe el método toString para dar indormación detallada del Voluntario 
+     * 
+     * @return String de detalles del voluntario.
+     */
+    @Override
+    public String toString() {
+        return "-------------------------------------------------------\n" +
+            "ID: " + this.id + "\n" +
+            "Nombre: " + this.name + "\n" +
+            "Información de Contacto: " + this.contactInfo + "\n" +
+            "Horas Trabajadas: " + this.hoursWorked + "\n" +
+            "-------------------------------------------------------\n";
+    }
 }

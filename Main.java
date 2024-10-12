@@ -265,7 +265,7 @@ public class Main {
                 additionalExperience = false;
             }
 
-            System.out.println("¿Cuál es tu razón para adoptar un animal? ");
+            System.out.print("¿Cuál es tu razón para adoptar un animal? ");
             String reasonForAdoption = sc.nextLine();
         
             AdoptionCandidate adopter = new AdoptionCandidate(additionalExperience, reasonForAdoption, adopterName, adopterContactInfo, hasPetExperience);
@@ -533,7 +533,7 @@ public class Main {
             System.out.println(" ");
             return;
         }
-
+    
         // Mostrar la lista de tareas numeradas
         System.out.println(" ");
         System.out.println("=================================");
@@ -541,24 +541,49 @@ public class Main {
         System.out.println("=================================");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d. %s - %s (Completada: %s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Si" : "No");
+            System.out.printf("%d. %s - %s (%s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Completa" : "No Completa");
         }
-
+    
         // Leer la opción del usuario
         System.out.print("Ingrese el número de la tarea a marcar como Completa: ");
         int taskNumber = sc.nextInt();
         sc.nextLine();  // Consumir el salto de línea pendiente
-
+    
         // Validar y marcar la tarea como completada
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
             Task selectedTask = tasks.get(taskNumber - 1);
             if (!selectedTask.isCompleted()) {
-                selectedTask.completeTask();
-                System.out.println(" ");
-                System.out.println("=================================");
-                System.out.println("= Tarea marcada como completada =");
-                System.out.println("=================================");
-                System.out.println(" ");
+    
+                // Solicitar el ID del voluntario
+                System.out.print("Ingrese el ID del voluntario: ");
+                int volunteerId = sc.nextInt();
+                sc.nextLine();  // Consumir el salto de línea pendiente
+    
+                // Buscar al voluntario por su ID
+                Volunteer volunteer = findVolunteerById(volunteerId);
+                if (volunteer != null) {
+                    // Solicitar las horas trabajadas en la tarea
+                    System.out.print("Ingrese las horas trabajadas en la tarea: ");
+                    int hoursWorked = Integer.parseInt(sc.nextLine());
+    
+                    // Sumar las horas trabajadas al voluntario
+                    volunteer.addHours(hoursWorked);
+                    selectedTask.completeTask();
+
+                    System.out.println(" ");
+                    System.out.println("=================================");
+                    System.out.println("= Tarea marcada como completada =");
+                    System.out.println("= Horas trabajadas sumadas: " + hoursWorked);
+                    System.out.println("=================================");
+                    System.out.println(" ");
+                } else {
+                    System.out.println(" ");
+                    System.out.println("==================================");
+                    System.out.println("===             ERROR          ===");
+                    System.out.println("= Voluntario no encontrado       =");
+                    System.out.println("==================================");
+                    System.out.println(" ");
+                }
             } else {
                 System.out.println(" ");
                 System.out.println("=================================");
@@ -832,10 +857,10 @@ public class Main {
     private Volunteer findVolunteerById(int id) {
         for (Volunteer volunteer : volunteers) {
             if (volunteer.getId() == id) {
-                return volunteer;
+                return volunteer; // Retorna el voluntario encontrado
             }
         }
-        return null;
+        return null; // Retorna null si no se encuentra el voluntario
     }
 
     public AdoptionCandidate findAdopterById(int id) {

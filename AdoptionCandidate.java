@@ -19,7 +19,6 @@ import java.util.List;
 
 public class AdoptionCandidate {
     private List<Animal> animals;        // Lista por si un Adoptante, adopta más de un animal
-    // private Animal animal;
     private Volunteer volunteer;
     private String reasonForAdoption,    // Motivo de la adopción  
                    name,                 // Nombre 
@@ -30,10 +29,14 @@ public class AdoptionCandidate {
     private static int idCounter = 1;    // ID único ascendiente  
 
     /**
-     * Constructor que inicializa un candidato de adopción con un animal y un voluntario.
+     * Constructor que inicializa un candidato de adopción con la información del 
+     * candidato y una lista de animales considerados para la adopción.
      *
-     * @param animal    El animal que se está considerando para adopción.
-     * @param volunteer El voluntario encargado del proceso de adopción.
+     * @param additionalExperience Indica si el candidato tiene experiencia adicional en el cuidado de animales.
+     * @param reasonForAdoption    La razón por la cual el candidato desea adoptar un animal.
+     * @param name                 El nombre del candidato.
+     * @param contactInfo          La información de contacto del candidato.
+     * @param hasPetExperience     Indica si el candidato tiene experiencia previa con mascotas.
      */
     public AdoptionCandidate(boolean additionalExperience, String reasonForAdoption, String name, String contactInfo, boolean hasPetExperience) {
         this.additionalExperience = additionalExperience;
