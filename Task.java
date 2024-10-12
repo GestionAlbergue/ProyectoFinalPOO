@@ -13,9 +13,10 @@
  *  @author Marjori Flores
  */
 public class Task {
-    private String taskName;
-    private String description;
-    private boolean isCompleted;
+    private String taskName;       // Nombre de la tarea
+    private String description;    // Descripcion de la tarea
+    private boolean isCompleted;   // Completada o No
+    private Volunteer volunteer;   // Voluntario encargado
 
     /**
      * Constructor para crear una nueva tarea.
@@ -36,6 +37,15 @@ public class Task {
      */
     public String getTaskName() {
         return taskName;
+    }
+
+    /**
+     * Obtiene al voluntario encargado de la tarea
+     * 
+     * @return el Voluntario de la tarea
+     */
+    public Volunteer getVolunteer() {
+        return this.volunteer;
     }
 
     /**
@@ -64,9 +74,19 @@ public class Task {
     }
 
     /**
-     * Muestra los detalles de la tarea.
+     * Define el voluntario que realizó la tarea
      */
-    public String displayTask() {
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+    }
+
+    /**
+     * Sobreescribe método toString y muestra los detalles de la tarea.
+     * 
+     * @return String con los detalles de la tarea
+     */
+    @Override
+    public String toString() {
         return "Tarea: " + taskName + "\n" +
                "Descripción: " + description + "\n" +
                "Estado: " + (isCompleted ? "Completada" : "Pendiente");

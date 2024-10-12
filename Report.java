@@ -181,9 +181,7 @@ public class Report {
         } else {
             // Recorrer la lista de tareas e imprimir sus detalles
             for (Task task : tasks) {
-                report.append("Nombre: ").append(task.getTaskName()).append("\n")
-                      .append("Descripción: ").append(task.getDescription()).append("\n")
-                      .append("Completado: ").append(task.isCompleted() ? "Si" : "No").append("\n")
+                report.append(task).append("\n")
                       .append("=================================\n");
             }
         }

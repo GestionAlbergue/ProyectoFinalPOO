@@ -541,7 +541,9 @@ public class Main {
         System.out.println("=================================");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d. %s - %s (%s)%n", i + 1, task.getTaskName(), task.getDescription(), task.isCompleted() ? "Completa" : "No Completa");
+            System.out.print(i + 1 + ". ");
+            System.out.println(task);
+            System.out.println(" ");
         }
     
         // Leer la opción del usuario
@@ -568,6 +570,7 @@ public class Main {
     
                     // Sumar las horas trabajadas al voluntario
                     volunteer.addHours(hoursWorked);
+                    selectedTask.setVolunteer(volunteer);
                     selectedTask.completeTask();
 
                     System.out.println(" ");
