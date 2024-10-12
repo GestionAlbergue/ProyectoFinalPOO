@@ -244,7 +244,7 @@ public class Main {
             entradaValida = false;
             boolean additionalExperience = true;
             while (!entradaValida) {
-                System.out.println("¿Tienes experiencia con Animales Peligrosos? (Si/No): ");
+                System.out.print("¿Tienes experiencia con Animales Peligrosos? (Si/No): ");
                 additionalExperienceResponse = sc.nextLine();
         
                 if (additionalExperienceResponse.equalsIgnoreCase("si") || additionalExperienceResponse.equalsIgnoreCase("no")) {
@@ -356,8 +356,8 @@ public class Main {
                 System.out.println(" ");
                 System.out.println("======================================");
                 System.out.println("===       ADOPCIÓN NO PERMITIDA    ===");
-                System.out.println("= El animal es peligroso y el       =");
-                System.out.println("= adoptante no tiene experiencia.   =");
+                System.out.println("= El animal es peligroso y el        =");
+                System.out.println("= adoptante no tiene experiencia.    =");
                 System.out.println("======================================");
                 System.out.println(" ");
                 return;
@@ -388,6 +388,9 @@ public class Main {
             // Agregar el animal a la lista de animales adoptados por el adoptante
             adopter.addAnimal(animal);
 
+            // Agregar el volunteer relacionado con el adoptante.
+            adopter.setVolunteer(volunteer);
+
             // Marcar al animal como adoptado
             animal.setAdopted(true);
 
@@ -397,7 +400,7 @@ public class Main {
             System.out.println("======================================");
             System.out.println(" ");
             System.out.println("======= Detalles ================");
-            System.out.println(adoption.displayAdoptionDetails());
+            System.out.print(adoption.displayAdoptionDetails());
             System.out.println("=================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si el ID ingresado no es válido
@@ -432,19 +435,41 @@ public class Main {
             System.out.println(" "); // Solicitar datos del nuevo recurso
             System.out.print("Nombre del recurso: ");
             String resourceName = sc.nextLine();
-            System.out.print("Cantidad disponible: ");
+            System.out.print("Cantidad: ");
             int quantity = Integer.parseInt(sc.nextLine());
-            System.out.print("Descripción del recurso: ");
-            String description = sc.nextLine();
 
-            // Crear y agregar el nuevo recurso a la lista
-            Resource resource = new Resource(resourceName, quantity, description);
-            resources.add(resource);
-            System.out.println(" ");
-            System.out.println("===================================");
-            System.out.println("== Recurso agregado exitosamente ==");
-            System.out.println("===================================");
-            System.out.println(" ");
+            // Verificar si el recurso ya existe
+            boolean resourceExists = false;
+
+            for (Resource existingResource : resources) {
+                if (existingResource.getResourceName().equalsIgnoreCase(resourceName)) {
+                    // Si el recurso ya existe, actualizar la cantidad
+                    existingResource.updateQuantity(existingResource.getQuantity() + quantity);
+                    resourceExists = true;
+                    break;  // Salir del bucle ya que se encontró el recurso
+                }
+            }
+
+            // Si el recurso no existe, crear y agregar el nuevo recurso a la lista
+
+            if (!resourceExists) {
+                System.out.print("Descripción del recurso: ");
+                String description = sc.nextLine();
+                Resource newResource = new Resource(resourceName, quantity, description);
+                resources.add(newResource);
+                System.out.println(" ");
+                System.out.println("===================================");
+                System.out.println("== Recurso agregado exitosamente ==");
+                System.out.println("===================================");
+                System.out.println(" ");
+            } else {
+                System.out.println(" ");
+                System.out.println("===================================");
+                System.out.println("==    Recurso ya existestente    ==");
+                System.out.println("==     Cantidad Actualizada      ==");
+                System.out.println("===================================");
+                System.out.println(" ");
+            }
         } catch (NumberFormatException e) {
             // Manejo de errores si la cantidad ingresada no es un número válido
             System.out.println(" ");
@@ -747,7 +772,7 @@ public class Main {
 
             Resource selectedResource = resources.get(resourceIndex);
 
-            System.out.print("Ingrese la nueva cantidad: ");
+            System.out.print("Nueva Cantidad Disponible: ");
             int newQuantity = Integer.parseInt(sc.nextLine());
 
             selectedResource.updateQuantity(newQuantity);

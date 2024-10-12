@@ -68,7 +68,7 @@ public class Resource {
      */
     public void updateQuantity(int quantity) {
         this.quantity = quantity;
-        checkAlert();  
+        this.checkAlert();  
     }
 
     /**

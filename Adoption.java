@@ -10,7 +10,7 @@
  * 
  * @author Antony Barrios 
  * Fecha de creación: 17/09/2024 
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  */
 
 import java.time.LocalDate;
@@ -66,7 +66,7 @@ public class Adoption {
      */
     public String displayAdoptionDetails() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "Detalles de la Adopción:\n" +
+        return "-------------- ANIMAL -------------- \n" +
                "Animal adoptado: " + animal.getName() + " (ID: " + animal.getId() + ")\n" +
                "Raza: " + animal.getBreed() + "\n" +
                "Edad: " + animal.getAge() + " años\n" +

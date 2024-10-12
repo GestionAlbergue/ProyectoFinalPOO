@@ -70,6 +70,34 @@ public class Report {
     
         return report.toString();  // Retornar el reporte como String
     }
+
+    /**
+     * Genera un informe sobre los adoptantes registrados en el albergue.
+     * 
+     * @return Un String que contiene el informe de adopciones realizadas.
+     */
+    public String generateAdoptersReport() {
+        StringBuilder report = new StringBuilder();  // Usar StringBuilder para construir el informe
+    
+        // Agregar la cantidad de adoptantes registrados
+        report.append("=== Informe de Adoptantes Registrados ===\n");
+        report.append("Cantidad de adoptantes: ").append(adoptionCandidates.size()).append("\n");
+        report.append("=========================================\n");
+    
+        // Verificar si hay adoptantes registrados
+        if (adoptionCandidates.isEmpty()) {
+            report.append("No se han registrado adoptantes.\n");
+        } else {
+            // Detallar cada adoptante usando su método toString()
+            for (AdoptionCandidate candidate : adoptionCandidates) {
+                report.append(candidate.toString()).append("\n");  // Añadir el detalle del adoptante
+                report.append("=========================================\n");
+            }
+        }
+    
+        return report.toString();  // Retornar el reporte como String
+    }
+    
     
 
     /**

@@ -171,7 +171,7 @@ public class MainPage {
                 System.out.println(report.generateAnimalStats());      // Mostrar el reporte de animales
                 break;
             case 3:
-                // Mostrar el reporte de adoptantes
+                System.out.println(report.generateAdoptersReport());   // Mostrar el reporte de adoptantes registrados
                 break;
             case 4:
                 System.out.println(report.generateVolunteerReport());  // Mostrar el reporte de voluntarios

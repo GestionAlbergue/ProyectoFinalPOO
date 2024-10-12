@@ -72,13 +72,12 @@ public class AdoptionCandidate {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("--------------------------------------------------------------------------------------").append("\n")
-        .append("Adoptante ID: ").append(id).append("\n")
+        sb.append("Adoptante ID: ").append(id).append("\n")
         .append("Nombre: ").append(name).append("\n")
         .append("Información de Contacto: ").append(contactInfo).append("\n")
         .append("Motivo para la adopción: ").append(reasonForAdoption).append("\n")
-        .append("Experiencia con mascotas: ").append(hasPetExperience ? "Sí" : "No").append("\n")
-        .append("Experiencia adicional: ").append(additionalExperience ? "Sí" : "No").append("\n");
+        .append("Experiencia con mascotas: ").append(hasPetExperience ? "Si" : "No").append("\n")
+        .append("Experiencia con Animales Peligrosos: ").append(additionalExperience ? "Si" : "No").append("\n");
 
         // Mostrar los animales adoptados por este adoptante, si los hay
         if (animals.isEmpty()) {
@@ -91,7 +90,6 @@ public class AdoptionCandidate {
         }
 
         sb.append("Voluntario encargado: ").append(volunteer != null ? volunteer.getName() : "Ninguno").append("\n");
-        sb.append("--------------------------------------------------------------------------------------").append("\n");
         return sb.toString();
     }
 
@@ -131,6 +129,14 @@ public class AdoptionCandidate {
         animals = new ArrayList<>();  // Inicializar la lista si está vacía
     }
     animals.add(animal);  // Agregar el animal a la lista
-}
+    }
+
+    /**
+     * Añade el voluntario que gestiona el contacto con el adoptante.
+     * @param volunteer El voluntario encargado del proceso de adopción.
+     */
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+    }
 
 }
