@@ -12,10 +12,10 @@
  * Fecha de creación: 18/09/2024 
  * Última modificación: 12/10/2024
  */
+
 import java.util.Scanner;
 
 public class Resource {
-    // Atributos de la clase
     private String resourceName;  // Nombre del recurso
     private int quantity;         // Cantidad del recurso disponible
     private String description;   // Descripción del recurso

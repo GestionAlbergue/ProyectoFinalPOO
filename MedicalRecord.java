@@ -11,11 +11,10 @@
  * 
  * @author Adriana Martinez 
  * Fecha de creación: 18/09/2024 
- * Última modificación: 18/09/2024
+ * Última modificación: 12/10/2024
  */
 
 public class MedicalRecord {
-    // Atributos de la clase
     private String date;          // Fecha del registro
     private String description;   // Descripción del diagnóstico médico
     private String treatment;     // Tratamiento dado al animal

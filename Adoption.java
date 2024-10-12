@@ -17,13 +17,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Adoption {
-    // Atributos de la clase Adoption
-    private Animal animal;             // El animal que ha sido adoptado
+    private Animal animal;               // El animal que ha sido adoptado
     private Volunteer volunteer;         // El voluntario que gestionó la adopción
-    private LocalDate adoptionDate;       // La fecha de adopción
-    private AdoptionCandidate adopter;    // Persona que lo adopto 
+    private LocalDate adoptionDate;      // La fecha de adopción
+    private AdoptionCandidate adopter;   // Persona que lo adopto 
 
-    // Se encarga de inicializar los valores de los atributos
+    /**
+     * Constructor que inicializa una adopción con un animal, un voluntario, 
+     * la fecha de adopción y el candidato adoptante.
+     *
+     * @param animal        El animal que ha sido adoptado.
+     * @param volunteer     El voluntario encargado de gestionar la adopción.
+     * @param adoptionDate  La fecha en la que se realizó la adopción.
+     * @param adopter       El candidato adoptante que adopta el animal.
+     */
     public Adoption(Animal animal, Volunteer volunteer, LocalDate adoptionDate, AdoptionCandidate adopter) {
         this.animal = animal;                 // Inicializa el animal adoptado
         this.volunteer = volunteer;           // Inicializa el voluntario que gestionó la adopción

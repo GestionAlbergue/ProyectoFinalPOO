@@ -34,7 +34,7 @@ public class MainPage {
 
     /**
      * Muestra las opciones principales del menú en la página principal.
-    */
+     */
     public void displayOptions() {
         System.out.println(" ");
         System.out.println("****************************************************");
@@ -57,7 +57,7 @@ public class MainPage {
 
     /**
      * Muestra las opciones del menú de reportes.
-    */
+     */
     public void displayOptionsReport() {
         System.out.println(" ");
         System.out.println("****************************************************");
@@ -75,11 +75,11 @@ public class MainPage {
 
     /**
      * Navega entre las opciones del menú principal y ejecuta las acciones correspondientes.
-    *
-    * @param option la opción seleccionada por el usuario
-    * @param sc el objeto Scanner para capturar la entrada del usuario
-    * @param main el objeto Main que contiene las acciones a ejecutar
-    */
+     *
+     * @param option la opción seleccionada por el usuario
+     * @param sc el objeto Scanner para capturar la entrada del usuario
+     * @param main el objeto Main que contiene las acciones a ejecutar
+     */
     public void navigate(int option, Scanner sc, Main main) {
         switch (option) {
             case 1:
@@ -113,14 +113,14 @@ public class MainPage {
                 main.viewMedicalRecord(sc);      // Visualizar récord médico
                 break;
             case 11:
-                int reportOption = 0;                                             // Cambiado a int para manejar las opciones numéricas
+                int reportOption = 0;           
 
-                do {  // Bucle principal para mostrar el menú hasta que el usuario seleccione la opción de regresar
+                do {                             // Bucle principal para mostrar el menú hasta que el usuario seleccione la opción de regresar
                     this.displayOptionsReport(); // Muestra el menú de opciones
                     
                     try {
                         reportOption = sc.nextInt();  // Lee la opción seleccionada por el usuario
-                        sc.nextLine();  // Limpia el buffer del scanner
+                        sc.nextLine();                // Limpia el buffer del scanner
                         
                         // Navega en el sistema según la opción seleccionada
                         this.navigateReport(reportOption); 
@@ -159,9 +159,9 @@ public class MainPage {
 
     /**
      * Navega entre las opciones del menú de reportes y ejecuta las acciones correspondientes.
-    *
-    * @param option la opción seleccionada por el usuario
-    */
+     *
+     * @param option la opción seleccionada por el usuario
+     */
     public void navigateReport(int option) {
         switch (option) {
             case 1:

@@ -14,7 +14,6 @@
  */
 
 public class Animal {
-    // Atributos de la clase Animal
     private String name,                  // Nombre del animal
                    breed,                 // Raza del animal
                    description;           // Descripción del animal

@@ -45,8 +45,8 @@ public class Main {
 
     /**
      * Constructor de la clase Main. Inicializa las listas de animales, voluntarios,
-    * adopciones, recursos y tareas. También crea el objeto Report y MainPage.
-    */
+     * adopciones, recursos y tareas. También crea el objeto Report y MainPage.
+     */
     public Main() {
         this.animals = new ArrayList<>();                                 // Inicializa la lista de Animales
         this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones
@@ -163,7 +163,7 @@ public class Main {
     /**
      * Método para agregar un nuevo voluntario al sistema.
      * @param sc Scanner utilizado para la entrada del usuario.
-    */
+     */
     public void addVolunteer(Scanner sc) {
         try {
             System.out.println(" ");
@@ -866,6 +866,15 @@ public class Main {
         return null; // Retorna null si no se encuentra el voluntario
     }
 
+    /**
+     * Busca y retorna un candidato de adopción basado en su ID único.
+     * Recorre la lista de candidatos de adopción y compara el ID de cada
+     * candidato con el ID proporcionado.
+     *
+     * @param id El ID único del candidato de adopción que se desea buscar.
+     * @return El objeto AdoptionCandidate que coincide con el ID proporcionado,
+     *         o null si no se encuentra ningún candidato con ese ID.
+     */
     public AdoptionCandidate findAdopterById(int id) {
         for (AdoptionCandidate adopter : adoptionCandidates) {  // asumiendo que tienes una lista de candidatos
             if (adopter.getId() == id) {

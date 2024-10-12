@@ -18,15 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdoptionCandidate {
-    private List<Animal> animals;        // Lista por si un Adoptante, adopta más de un animal
-    private Volunteer volunteer;
-    private String reasonForAdoption,    // Motivo de la adopción  
-                   name,                 // Nombre 
-                   contactInfo;          // Información de Contacto
-    private boolean hasPetExperience;    // Indicador de experiencia  
+    private List<Animal> animals;            // Lista por si un Adoptante, adopta más de un animal
+    private Volunteer volunteer;             // Voluntario que esta en contacto con el adoptante
+    private String reasonForAdoption,        // Motivo de la adopción  
+                   name,                     // Nombre 
+                   contactInfo;              // Información de Contacto
+    private boolean hasPetExperience;        // Indicador de experiencia  
     private boolean additionalExperience;    // Indicador de experiencia  
-    private int id;                      // ID del voluntario
-    private static int idCounter = 1;    // ID único ascendiente  
+    private int id;                          // ID del voluntario
+    private static int idCounter = 1;        // ID único ascendiente  
 
     /**
      * Constructor que inicializa un candidato de adopción con la información del 
@@ -96,7 +96,6 @@ public class AdoptionCandidate {
         return sb.toString();
     }
 
-
     /**
      * Obtiene el nombre del voluntario.
      *
@@ -128,10 +127,10 @@ public class AdoptionCandidate {
      * Añade un animal a la lista del adoptante.
      */
     public void addAnimal(Animal animal) {
-    if (animals == null) {
-        animals = new ArrayList<>();  // Inicializar la lista si está vacía
-    }
-    animals.add(animal);  // Agregar el animal a la lista
+        if (animals == null) {
+            animals = new ArrayList<>();  // Inicializar la lista si está vacía
+        }
+        animals.add(animal);  // Agregar el animal a la lista
     }
 
     /**
@@ -141,5 +140,4 @@ public class AdoptionCandidate {
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
     }
-
 }

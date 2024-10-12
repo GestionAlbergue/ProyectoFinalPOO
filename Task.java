@@ -8,10 +8,11 @@
  * Cada tarea tiene un nombre, una descripción y un estado de finalización.
  * Los voluntarios pueden seleccionar y completar estas tareas.
  * 
+ * @author Marjori Flores
  * Fecha de creación: 15/09/2024
- * Última modificación: 16/09/2024
- *  @author Marjori Flores
+ * Última modificación: 12/09/2024
  */
+
 public class Task {
     private String taskName;       // Nombre de la tarea
     private String description;    // Descripcion de la tarea

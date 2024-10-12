@@ -7,10 +7,11 @@
  * La clase Report se encarga de generar informes sobre el albergue, 
  * incluyendo adopciones, estadísticas de animales, voluntarios y recursos.
  * 
+ * @author Marjori Flores
  * Fecha de creación: 15/09/2024
  * Última modificación: 12/10/2024
- * @author Marjori Flores
  */
+
 import java.util.List;
 
 public class Report {
@@ -21,7 +22,17 @@ public class Report {
     private List<Resource> resources;
     private List<AdoptionCandidate> adoptionCandidates;
 
-    // Constructor para inicializar las listas de animales, voluntarios, recursos y tareas
+    /**
+     * Constructor que inicializa un informe con listas de animales, voluntarios, recursos, 
+     * tareas y candidatos de adopción. Este informe agrupa toda la información relevante
+     * para el manejo del refugio.
+     *
+     * @param animals            La lista de animales presentes en el refugio.
+     * @param volunteers         La lista de voluntarios que colaboran en el refugio.
+     * @param resources          La lista de recursos disponibles en el refugio.
+     * @param tasks              La lista de tareas que se deben realizar en el refugio.
+     * @param adoptionCandidates La lista de candidatos que están en proceso de adopción.
+     */
     public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks, List<AdoptionCandidate> adoptionCandidates) {
         this.animals = animals;
         this.volunteers = volunteers;
@@ -232,5 +243,4 @@ public class Report {
         }
         return null;  // Retorna null si no se encuentra el adoptante
     }
-    
 }

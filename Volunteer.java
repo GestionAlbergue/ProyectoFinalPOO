@@ -14,7 +14,6 @@
  */
 
 public class Volunteer {
-    // Atributos de la clase Volunteer
     private String name,         // Nombre del voluntario
                    contactInfo;  // Información de contacto del voluntario
     private int hoursWorked,     // Cantidad de horas trabajadas por el voluntario
