@@ -58,9 +58,9 @@ public class Animal {
      */
     public String getDangerLevelDescription() {
         if(dangerLevel){
-            return "No Peligroso";
-        } else if(!dangerLevel){
             return "Peligroso";
+        } else if(!dangerLevel){
+            return "No Peligroso";
         } else{
             return "Nivel de peligro desconocido";
         }

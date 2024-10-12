@@ -115,7 +115,7 @@ public class Main {
             boolean valida = false;
             boolean dangerLevel = true;
             while (!valida) {
-                System.out.println("¿Se considera animal peligroso? (Si/No): ");
+                System.out.print("¿Se considera animal peligroso? (Si/No): ");
                 dangerLevelResponse = sc.nextLine();
         
                 if (dangerLevelResponse.equalsIgnoreCase("si") || dangerLevelResponse.equalsIgnoreCase("no")) {
@@ -148,8 +148,7 @@ public class Main {
             // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
-            System.out.println("= El formato de la edad          =");
-            System.out.println("= y el nivel de peligro deben    =");
+            System.out.println("= El formato de la edad deben    =");
             System.out.println("= ser números enteros.           =");
             System.out.println("==================================");
         } catch (Exception e) {
@@ -220,7 +219,7 @@ public class Main {
             boolean entradaValida = false;
             boolean hasPetExperience = true;
             while (!entradaValida) {
-                System.out.println("¿Tienes experiencia con mascotas? (Si/No): ");
+                System.out.print("¿Tienes experiencia con mascotas? (Si/No): ");
                 experienceResponse = sc.nextLine();
         
                 if (experienceResponse.equalsIgnoreCase("si") || experienceResponse.equalsIgnoreCase("no")) {
@@ -266,7 +265,7 @@ public class Main {
                 additionalExperience = false;
             }
 
-            System.out.print("¿Cuál es tu razón para adoptar un animal?: ");
+            System.out.println("¿Cuál es tu razón para adoptar un animal? ");
             String reasonForAdoption = sc.nextLine();
         
             AdoptionCandidate adopter = new AdoptionCandidate(additionalExperience, reasonForAdoption, adopterName, adopterContactInfo, hasPetExperience);
@@ -274,7 +273,7 @@ public class Main {
             adoptionCandidates.add(adopter);
             System.out.println(" ");
             System.out.println("======================================");
-            System.out.println("== Aoptante agregado exitosamente ==");
+            System.out.println("== Adoptante agregado exitosamente ==");
             System.out.println("== Número de ID: " + adopter.getId());
             System.out.println("======================================");
             System.out.println(" ");
@@ -313,6 +312,17 @@ public class Main {
                 return;
             }
 
+            // Verificar si el animal ya está adoptado
+            if (animal.isAdopted()) {
+                System.out.println(" ");
+                System.out.println("==================================");
+                System.out.println("===    ADOPCIÓN NO PERMITIDA    ===");
+                System.out.println("= El animal ya ha sido adoptado.  =");
+                System.out.println("==================================");
+                System.out.println(" ");
+                return;
+            }
+
             // Solicitar el ID del voluntario que gestiona la adopción
             System.out.print("ID del voluntario que gestiona la adopción: ");
             int volunteerId = Integer.parseInt(sc.nextLine());
@@ -323,24 +333,6 @@ public class Main {
                 System.out.println("===         ERROR        ===");
                 System.out.println("= Voluntario no encontrado =");
                 System.out.println("============================");
-                System.out.println(" ");
-                return;
-            }
-
-            // Solicitar la fecha de adopción
-            System.out.print("Fecha de adopción (DD/MM/AAAA): ");
-            String dateInput = sc.nextLine();
-            LocalDate adoptionDate;
-            try {
-                adoptionDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } catch (DateTimeParseException e) {
-                // Manejo de errores si la fecha no tiene el formato correcto
-                System.out.println(" ");
-                System.out.println("==================================");
-                System.out.println("===             ERROR          ===");
-                System.out.println("= Fecha en formato incorrecto    =");
-                System.out.println("= Debe ser DD/MM/AAAA            =");
-                System.out.println("==================================");
                 System.out.println(" ");
                 return;
             }
@@ -367,6 +359,24 @@ public class Main {
                 System.out.println("= El animal es peligroso y el       =");
                 System.out.println("= adoptante no tiene experiencia.   =");
                 System.out.println("======================================");
+                System.out.println(" ");
+                return;
+            }
+
+            // Solicitar la fecha de adopción
+            System.out.print("Fecha de adopción (DD/MM/AAAA): ");
+            String dateInput = sc.nextLine();
+            LocalDate adoptionDate;
+            try {
+                adoptionDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } catch (DateTimeParseException e) {
+                // Manejo de errores si la fecha no tiene el formato correcto
+                System.out.println(" ");
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Fecha en formato incorrecto    =");
+                System.out.println("= Debe ser DD/MM/AAAA            =");
+                System.out.println("==================================");
                 System.out.println(" ");
                 return;
             }
