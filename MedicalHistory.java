@@ -58,23 +58,23 @@ public class MedicalHistory {
         return animal;
     }
 
-
     /**
-     * Devuelve el historial médico completo del animal como un String.
+     * Sobreescribe el método toString del historial médico completo del animal.
      * 
      * @return Un String que representa el historial médico.
      */
-    public String displayHistory() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         if (records.isEmpty()) {
             sb.append("=============================================")
               .append("= No hay registros médicos para este animal =")
               .append("=============================================");
         } else {
-            sb.append(" ==================================================== ")
-              .append(" == Historial Médico para ").append(animal.getName()).append(":\n");
+            sb.append("====================================================").append("\n")
+              .append("== Historial Médico para ").append(animal.getName()).append(":\n");
             for (MedicalRecord record : records) {
-                sb.append(record.getFullMedicalRecord()).append("\n");
+                sb.append(record).append("\n");
             }
         }
         return sb.toString();

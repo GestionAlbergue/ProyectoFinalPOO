@@ -451,7 +451,6 @@ public class Main {
             }
 
             // Si el recurso no existe, crear y agregar el nuevo recurso a la lista
-
             if (!resourceExists) {
                 System.out.print("Descripción del recurso: ");
                 String description = sc.nextLine();
@@ -739,8 +738,7 @@ public class Main {
             }
 
             // Obtiene el historial médico como un String y lo muestra en la consola
-            String historyDetails = medicalHistory.displayHistory();
-            System.out.println(historyDetails);
+            System.out.println(medicalHistory);
 
         } catch (NumberFormatException e) {
             // Maneja el error si el ID ingresado no es un número entero
@@ -803,7 +801,8 @@ public class Main {
             System.out.print("Nueva Cantidad Disponible: ");
             int newQuantity = Integer.parseInt(sc.nextLine());
 
-            selectedResource.updateQuantity(newQuantity);
+            // Se actualiza la cantidad (No se suma, solo se actualiza)
+            selectedResource.updateQuantity(newQuantity); 
 
             // Mostrar mensaje de alerta si la cantidad es baja
             String alertMessage = selectedResource.getAlertMessage();

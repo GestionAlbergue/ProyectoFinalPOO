@@ -99,11 +99,12 @@ public class MedicalRecord {
     }
 
     /**
-     * Devuelve el registro médico completo en formato de texto.
+     * Sobreescribe el método toString para dar detalle
      *
      * @return Una cadena que contiene toda la información del registro médico: fecha, descripción, tratamiento y veterinario.
      */
-    public String getFullMedicalRecord() {
+     @Override
+    public String toString() {
         return "Fecha: " + date +
                "\nDescripción: " + description +
                "\nTratamiento: " + treatment +

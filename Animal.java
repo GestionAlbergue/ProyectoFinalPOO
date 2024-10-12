@@ -129,7 +129,7 @@ public class Animal {
     }
 
     /**
-     * Sobreescribe el método toString para dar indormación detallada del animal 
+     * Sobreescribe el método toString para dar información detallada del animal 
      * 
      * @return String de detalles del animal.
      */
