@@ -13,6 +13,10 @@
  * Última modificación: 12/09/2024
  */
 
+ import java.io.*;
+ import java.util.ArrayList;
+ import java.util.List;
+
 public class Volunteer {
     private String name,         // Nombre del voluntario
                    contactInfo;  // Información de contacto del voluntario
@@ -26,11 +30,11 @@ public class Volunteer {
      * @param name        El nombre del voluntario.
      * @param contactInfo La información de contacto del voluntario.
      */
-    public Volunteer(String name, String contactInfo) {
+    public Volunteer(String name, String contactInfo, int hoursWorked) {
         this.id = idCounter++;              // Asignar ID único y aumentar el contador
         this.name = name;                   // Inicializa el nombre del voluntario
         this.contactInfo = contactInfo;     // Inicializa la información de contacto
-        this.hoursWorked = 0;               // Inicializa las horas trabajadas en 0
+        this.hoursWorked = hoursWorked;               // Inicializa las horas trabajadas en 0
     }
 
     /**
@@ -91,5 +95,69 @@ public class Volunteer {
             "Información de Contacto: " + this.contactInfo + "\n" +
             "Horas Trabajadas: " + this.hoursWorked + "\n" +
             "-------------------------------------------------------\n";
+    }
+
+    /**
+     * Convierte un objeto Volunteer en una línea CSV.
+     *
+     * @return Una cadena que representa el objeto Volunteer en formato CSV, donde los campos están separados por comas.
+     */
+    public String toCSV() {
+        return id + "," + name + "," + contactInfo + "," + hoursWorked;
+    }
+
+    /**
+     * Carga un objeto Volunteer desde una línea CSV.
+     *
+     * @param csvLine La línea CSV que contiene los datos del Voluntario, donde los campos están separados por comas.
+     * @return Un objeto Voluntario con los atributos cargados desde la línea CSV.
+     * @throws NumberFormatException Si los valores numéricos en la línea CSV no pueden ser convertidos correctamente.
+     */
+    public static Volunteer fromCSV(String csvLine) {
+        String[] fields = csvLine.split(",");
+        int id = Integer.parseInt(fields[0]);
+        String name = fields[1];
+        String contactInfo = fields[2];
+        int hoursWorked = Integer.parseInt(fields[3]);
+
+        // Crear el voluntario con el ID ya cargado
+        Volunteer volunteer = new Volunteer(name, contactInfo, hoursWorked);
+        volunteer.id = id;  // Asignar el ID manualmente
+        idCounter = Math.max(idCounter, id + 1);  // Actualizar el contador de ID si es necesario
+        return volunteer;
+    }
+
+    /**
+     * Guarda la lista de Voluntarios en un archivo CSV.
+     *
+     * @param animals La lista de objetos Voluntario que se desea guardar en el archivo.
+     * @param filePath La ruta del archivo donde se guardarán los datos.
+     * @throws IOException Si ocurre un error al intentar escribir en el archivo.
+     */
+    public static void saveToCSV(List<Volunteer> volunteers, String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Volunteer volunteer : volunteers) {
+                writer.write(volunteer.toCSV());
+                writer.newLine();
+            }
+        }
+    }
+
+    /**
+     * Carga la lista de Voluntarios desde un archivo CSV.
+     *
+     * @param filePath La ruta del archivo desde donde se cargarán los datos.
+     * @return Una lista de objetos Volunteer cargados desde el archivo CSV.
+     * @throws IOException Si ocurre un error al intentar leer el archivo.
+     */
+    public static List<Volunteer> loadFromCSV(String filePath) throws IOException {
+        List<Volunteer> volunteers = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                volunteers.add(Volunteer.fromCSV(line));
+            }
+        }
+        return volunteers;
     }
 }

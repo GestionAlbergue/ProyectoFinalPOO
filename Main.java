@@ -11,7 +11,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024
- * Última modificación: 12/10/2024
+ * Última modificación: 13/10/2024
  */
 
 import java.time.LocalDate;
@@ -50,8 +50,7 @@ public class Main {
      */
     public Main() {
         this.loadAllData();
-        this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones
-        this.volunteers = new ArrayList<>();                              // Inicializa la lista de Voluntarios
+        this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones 
         this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
         this.tasks = new ArrayList<>();                                   // Inicializa la lista de Tareas
         this.histories = new ArrayList<>();                               // Inicializa la lista de Historiales Médicos
@@ -178,7 +177,7 @@ public class Main {
             String contactInfo = sc.nextLine();
 
             // Crear y agregar el nuevo voluntario a la lista
-            Volunteer volunteer = new Volunteer(name, contactInfo);
+            Volunteer volunteer = new Volunteer(name, contactInfo, 0);
             volunteers.add(volunteer);
             System.out.println(" ");
             System.out.println("======================================");
@@ -316,10 +315,10 @@ public class Main {
             // Verificar si el animal ya está adoptado
             if (animal.isAdopted()) {
                 System.out.println(" ");
-                System.out.println("==================================");
-                System.out.println("===    ADOPCIÓN NO PERMITIDA    ===");
-                System.out.println("= El animal ya ha sido adoptado.  =");
-                System.out.println("==================================");
+                System.out.println("=================================");
+                System.out.println("===   ADOPCIÓN NO PERMITIDA   ===");
+                System.out.println("= El animal ya ha sido adoptado =");
+                System.out.println("=================================");
                 System.out.println(" ");
                 return;
             }
@@ -897,7 +896,7 @@ public class Main {
     public void saveAllData() {
         try {
             Animal.saveToCSV(animals, "animals.csv");
-            // Volunteer.saveToCSV(volunteers, "volunteers.csv");
+            Volunteer.saveToCSV(volunteers, "volunteers.csv");
             // AdoptionCandidate.saveToCSV(adoptionCandidates, "adoption_candidates.csv");
             // Task.saveToCSV(tasks, "tasks.csv");
             // Resource.saveToCSV(resources, "resources.csv");
@@ -932,7 +931,7 @@ public class Main {
     public void loadAllData() {
         try {
             animals = Animal.loadFromCSV("animals.csv");
-            // volunteers = Volunteer.loadFromCSV("volunteers.csv");
+            volunteers = Volunteer.loadFromCSV("volunteers.csv");
             // adoptionCandidates = AdoptionCandidate.loadFromCSV("adoption_candidates.csv");
             // tasks = Task.loadFromCSV("tasks.csv");
             // resources = Resource.loadFromCSV("resources.csv");
@@ -952,7 +951,8 @@ public class Main {
             System.out.println("==         Se inicia con las listas vacías        ==");
             System.out.println("====================================================");
             System.out.println("");
-            animals = new ArrayList<>(); // Si no hay, se inicializa la lista de Animales vacía
+            this.animals = new ArrayList<>();                                 // Si no hay, se inicializa la lista de Animales vacía
+            this.volunteers = new ArrayList<>();                              // Si no hay, se inicializa la lista de Voluntarios vacía
         }
     }
     
