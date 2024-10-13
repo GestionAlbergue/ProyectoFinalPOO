@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Main {
 
@@ -48,7 +49,7 @@ public class Main {
      * adopciones, recursos y tareas. También crea el objeto Report y MainPage.
      */
     public Main() {
-        this.animals = new ArrayList<>();                                 // Inicializa la lista de Animales
+        this.loadAllData();
         this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones
         this.volunteers = new ArrayList<>();                              // Inicializa la lista de Voluntarios
         this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
@@ -137,7 +138,7 @@ public class Main {
             }
 
             // Crear y agregar el nuevo animal a la lista
-            Animal animal = new Animal(name, breed, age, description, dangerLevel);
+            Animal animal = new Animal(name, breed, description, age, false, dangerLevel);
             animals.add(animal);
             System.out.println(" ");
             System.out.println("==================================");
@@ -881,6 +882,78 @@ public class Main {
             }
         }
         return null;  // Retorna null si no se encuentra el adoptante
+    }
+
+    /**
+     * Guarda toda la información de los animales en archivos CSV.
+     * 
+     * Este método se encarga de llamar a los métodos de cada clase relacionada 
+     * para guardar sus datos en archivos CSV correspondientes. Si se produce 
+     * un error durante el proceso de guardado, se captura la excepción y se 
+     * muestra un mensaje de error.
+     *
+     * @throws IOException Si ocurre un error al intentar escribir en los archivos CSV.
+     */
+    public void saveAllData() {
+        try {
+            Animal.saveToCSV(animals, "animals.csv");
+            // Volunteer.saveToCSV(volunteers, "volunteers.csv");
+            // AdoptionCandidate.saveToCSV(adoptionCandidates, "adoption_candidates.csv");
+            // Task.saveToCSV(tasks, "tasks.csv");
+            // Resource.saveToCSV(resources, "resources.csv");
+            // Adoption.saveToCSV(adoptions, "adoptions.csv");
+            // MedicalRecord.saveToCSV(medicalRecords, "medical_records.csv");
+            // MedicalHistory.saveToCSV(medicalHistories, "medical_histories.csv");
+            // Report.saveToCSV(reports, "reports.csv");
+            System.out.println(" ");
+            System.out.println("=====================================================");
+            System.out.println("===                DATOS GUARDADOS                ===");
+            System.out.println("=====================================================");
+        } catch (IOException e) {
+            System.out.println(" ");
+            System.out.println("==============================");
+            System.out.println("===          ERROR         ===");
+            System.out.println("= Error al guardar los datos: " + e.getMessage());
+            System.out.println("==============================");
+            System.out.println("");
+        }
+    }
+
+    /**
+     * Carga toda la información desde archivos CSV al iniciar el programa.
+     * 
+     * Este método se encarga de leer los archivos CSV y cargar la información
+     * correspondiente en las listas de objetos. Si no se pueden cargar los datos,
+     * se inicializan las listas con valores vacíos para evitar problemas en la 
+     * ejecución del programa.
+     *
+     * @throws IOException Si ocurre un error al intentar leer los archivos CSV.
+     */
+    public void loadAllData() {
+        try {
+            animals = Animal.loadFromCSV("animals.csv");
+            // volunteers = Volunteer.loadFromCSV("volunteers.csv");
+            // adoptionCandidates = AdoptionCandidate.loadFromCSV("adoption_candidates.csv");
+            // tasks = Task.loadFromCSV("tasks.csv");
+            // resources = Resource.loadFromCSV("resources.csv");
+            // adoptions = Adoption.loadFromCSV("adoptions.csv");
+            // medicalRecords = MedicalRecord.loadFromCSV("medical_records.csv");
+            // medicalHistories = MedicalHistory.loadFromCSV("medical_histories.csv");
+            // reports = Report.loadFromCSV("reports.csv");
+            System.out.println(" ");
+            System.out.println("====================================================");
+            System.out.println("===                DATOS CARGADOS                ===");
+            System.out.println("====================================================");
+            System.out.println("");
+        } catch (IOException e) {
+            System.out.println(" ");
+            System.out.println("====================================================");
+            System.out.println("==      No se encuentra archivos para cargar      ==");
+            System.out.println("==         Se inicia con las listas vacías        ==");
+            System.out.println("====================================================");
+            System.out.println("");
+            animals = new ArrayList<>(); // Si no hay, se inicializa la lista de Animales vacía
+        }
     }
     
 }

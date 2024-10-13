@@ -12,6 +12,8 @@
  * Fecha de creación: 12/09/2024 
  * Última modificación: 12/10/2024
  */
+import java.io.*;
+import java.util.*;
 
 public class Animal {
     private String name,                  // Nombre del animal
@@ -31,14 +33,14 @@ public class Animal {
      * @param age         La edad del animal.
      * @param description Una breve descripción del animal.
      */
-    public Animal(String name, String breed, int age, String description, boolean dangerLevel) {
+    public Animal(String name, String breed, String description, int age, boolean adopted, boolean dangerLevel) {
         this.id = idCounter++;        // Asignar ID único y aumentar el contador
         this.name = name;                 // Inicializa el nombre
         this.breed = breed;               // Inicializa la raza
         this.age = age;                   // Inicializa la edad
         this.description = description;   // Inicializa la descripción
         this.dangerLevel = dangerLevel;   // Inicializa el danger level
-        this.adopted = false;             // Inicializa el estado de adopción como no adoptado
+        this.adopted = adopted;             // Inicializa el estado de adopción como no adoptado
     }
 
     /**
@@ -143,5 +145,71 @@ public class Animal {
             "Descripción: " + this.description + "\n" +
             "Peligrosidad: " + this.getDangerLevelDescription() + "\n" +
             "-------------------------------------------------------\n";
+    }
+
+    /**
+     * Convierte un objeto Animal en una línea CSV.
+     *
+     * @return Una cadena que representa el objeto Animal en formato CSV, donde los campos están separados por comas.
+     */
+    public String toCSV() {
+        return id + "," + name + "," + breed + "," + description + "," + age + "," + adopted + "," + dangerLevel;
+    }
+
+    /**
+     * Carga un objeto Animal desde una línea CSV.
+     *
+     * @param csvLine La línea CSV que contiene los datos del Animal, donde los campos están separados por comas.
+     * @return Un objeto Animal con los atributos cargados desde la línea CSV.
+     * @throws NumberFormatException Si los valores numéricos en la línea CSV no pueden ser convertidos correctamente.
+     */
+    public static Animal fromCSV(String csvLine) {
+        String[] fields = csvLine.split(",");
+        int id = Integer.parseInt(fields[0]);
+        String name = fields[1];
+        String breed = fields[2];
+        String description = fields[3];
+        int age = Integer.parseInt(fields[4]);
+        boolean adopted = Boolean.parseBoolean(fields[5]);
+        boolean dangerLevel = Boolean.parseBoolean(fields[6]);
+
+        // Crear el animal con el ID ya cargado
+        Animal animal = new Animal(name, breed, description, age, adopted, dangerLevel);
+        animal.id = id;  // Asignar el ID manualmente
+        return animal;
+    }
+
+    /**
+     * Guarda la lista de animales en un archivo CSV.
+     *
+     * @param animals La lista de objetos Animal que se desea guardar en el archivo.
+     * @param filePath La ruta del archivo donde se guardarán los datos.
+     * @throws IOException Si ocurre un error al intentar escribir en el archivo.
+     */
+    public static void saveToCSV(List<Animal> animals, String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Animal animal : animals) {
+                writer.write(animal.toCSV());
+                writer.newLine();
+            }
+        }
+    }
+
+    /**
+     * Carga la lista de animales desde un archivo CSV.
+     *
+     * @param filePath La ruta del archivo desde donde se cargarán los datos.
+     * @return Una lista de objetos Animal cargados desde el archivo CSV.
+     * @throws IOException Si ocurre un error al intentar leer el archivo.
+     */
+    public static List<Animal> loadFromCSV(String filePath) throws IOException {
+        List<Animal> animals = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                animals.add(Animal.fromCSV(line));
+            }
+        }
+        return animals;
     }
 }

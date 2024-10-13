@@ -139,6 +139,7 @@ public class MainPage {
 
                 break;
             case 12:
+                main.saveAllData();
                 System.out.println(" ");
                 System.out.println("=============================");
                 System.out.println("== SALIENDO DEL SISTEMA... ==");
