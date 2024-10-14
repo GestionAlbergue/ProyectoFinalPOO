@@ -634,8 +634,22 @@ public class Main {
             }
 
             // Solicitar los detalles del nuevo registro médico
-            System.out.print("Ingrese la fecha del registro (DD/MM/AAAA): ");
-            String date = sc.nextLine();
+            System.out.print("Ingrese la fecha del registro(DD/MM/AAAA): ");
+            String dateInput = sc.nextLine();
+            LocalDate recordDate;
+            try {
+                recordDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } catch (DateTimeParseException e) {
+                // Manejo de errores si la fecha no tiene el formato correcto
+                System.out.println(" ");
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Fecha en formato incorrecto    =");
+                System.out.println("= Debe ser DD/MM/AAAA            =");
+                System.out.println("==================================");
+                System.out.println(" ");
+                return;
+            }
 
             System.out.print("Ingrese una descripción del Record: ");
             String description = sc.nextLine();
@@ -647,7 +661,7 @@ public class Main {
             String veterinarian = sc.nextLine();
 
             // Crear un nuevo registro médico
-            MedicalRecord newRecord = new MedicalRecord(date, description, treatment, veterinarian);
+            MedicalRecord newRecord = new MedicalRecord(recordDate, description, treatment, veterinarian);
 
             // Obtener el historial médico del animal
             MedicalHistory medicalHistory = findMedicalHistoryByAnimal(animal);
