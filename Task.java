@@ -12,6 +12,9 @@
  * Fecha de creación: 15/09/2024
  * Última modificación: 12/09/2024
  */
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Task {
     private String taskName;       // Nombre de la tarea
@@ -30,7 +33,6 @@ public class Task {
         this.description = description;
         this.isCompleted = false;
     }
-
     /**
      * Obtiene el nombre de la tarea.
      * 
@@ -39,7 +41,6 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
-
     /**
      * Obtiene al voluntario encargado de la tarea
      * 
@@ -82,14 +83,26 @@ public class Task {
     }
 
     /**
-     * Sobreescribe método toString y muestra los detalles de la tarea.
+     * Sobreescribe método toString y muestra los detalles de la tarea en formato CSV.
      * 
      * @return String con los detalles de la tarea
      */
     @Override
     public String toString() {
-        return "Tarea: " + taskName + "\n" +
-               "Descripción: " + description + "\n" +
-               "Estado: " + (isCompleted ? "Completada" : "Pendiente");
+        return taskName + "," + description + "," + isCompleted;
+    }
+     /**
+     * Guarda una lista de tareas en un archivo CSV.
+     * 
+     * @param tasks La lista de tareas a guardar.
+     * @param fileName El nombre del archivo CSV donde se guardarán las tareas.
+     * @throws IOException Si ocurre un error de entrada/salida durante la escritura del archivo.
+     */
+     public static void saveTasksToCSV(List<Task> tasks, String fileName) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            for (Task task : tasks) {
+                writer.println(task.toString());
+            }
+        }
     }
 }
