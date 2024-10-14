@@ -9,8 +9,8 @@
  * Los voluntarios pueden seleccionar y completar estas tareas.
  * 
  * @author Marjori Flores
- * Fecha de creación: 15/09/2024
- * Última modificación: 12/09/2024
+ * Fecha de creación: 12/09/2024
+ * Última modificación: 14/10/2024
  */
 import java.io.*;
 import java.util.ArrayList;
@@ -104,5 +104,27 @@ public class Task {
                 writer.println(task.toString());
             }
         }
+    }
+    /**
+     * Carga una lista de tareas desde un archivo CSV.
+     * 
+     * @param fileName El nombre del archivo CSV desde el cual cargar las tareas.
+     * @return Una lista de tareas cargadas desde el archivo CSV.
+     * @throws IOException Si ocurre un error de entrada/salida durante la lectura del archivo.
+     */
+    public static List<Task> loadTasksFromCSV(String fileName) throws IOException {
+        List<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskData = line.split(",");
+                if (taskData.length == 3) {
+                    Task task = new Task(taskData[0], taskData[1]);
+                    task.isCompleted = Boolean.parseBoolean(taskData[2]);
+                    tasks.add(task);
+                }
+            }
+        }
+        return tasks;
     }
 }
