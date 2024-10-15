@@ -146,17 +146,21 @@ public class Main {
             System.out.println("==================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= El formato de la edad deben    =");
             System.out.println("= ser números enteros.           =");
             System.out.println("==================================");
+            System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado
+            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
+            System.out.println(" ");
         }
     }
 
@@ -803,10 +807,12 @@ public class Main {
             int resourceIndex = Integer.parseInt(sc.nextLine()) - 1;
 
             if (resourceIndex < 0 || resourceIndex >= resources.size()) {
+                System.out.println(" ");
                 System.out.println("==============================");
                 System.out.println("===          ERROR         ===");
                 System.out.println("= Número de recurso inválido =");
                 System.out.println("==============================");
+                System.out.println(" ");
                 return;
             }
 
@@ -823,14 +829,18 @@ public class Main {
             if (alertMessage != null) {
                 System.out.println(alertMessage);
             } else {
+                System.out.println(" ");
                 System.out.println("=====================================");
                 System.out.println("= Cantidad actualizada exitosamente =");
                 System.out.println("=====================================");
+                System.out.println(" ");
             }
         } catch (NumberFormatException e) {
+            System.out.println(" ");
             System.out.println("=============================================");
             System.out.println("= Entrada inválida. Debe ingresar un número =");
             System.out.println("==============================================");
+            System.out.println(" ");
         }
     }
 
