@@ -124,7 +124,15 @@ public class Resource {
      * @return Un mensaje de alerta si la cantidad es menor o igual al umbral, o null si no se necesita alerta.
      */
     private String checkAlert() {
-        
+        int threshold = 10;  
+        if (quantity <= threshold) {
+            return "==========================================\n" +
+                   "===               ALERTA               ===\n" + 
+                   "= Es necesario reabastecer " + resourceName + "\n" +
+                   "= Cantidad actual: " + quantity + "\n" +
+                   "==========================================\n";
+        }
+        return null; // No hay alerta
     }
 
     /**
