@@ -10,8 +10,9 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 12/09/2024 
- * Última modificación: 12/10/2024
+ * Última modificación: 13/10/2024
  */
+
 import java.io.*;
 import java.util.*;
 
@@ -141,9 +142,10 @@ public class Animal {
             "ID: " + this.id + "\n" +
             "Nombre: " + this.name + "\n" +
             "Raza: " + this.breed + "\n" +
-            "Edad: " + this.age + "\n" +
+            "Edad: " + this.age + " años\n" +
             "Descripción: " + this.description + "\n" +
             "Peligrosidad: " + this.getDangerLevelDescription() + "\n" +
+            "Estado: " + (this.isAdopted() ? "Adoptado" : "No adoptado") + "\n" +
             "-------------------------------------------------------\n";
     }
 

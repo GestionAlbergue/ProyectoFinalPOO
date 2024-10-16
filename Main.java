@@ -24,14 +24,13 @@ import java.util.Scanner;
 import java.io.IOException;
 
 public class Main {
-
     private List<Animal> animals;                       // Lista de animales del albergue
     private List<Volunteer> volunteers;                 // Lista de voluntarios del albergue
     private List<Adoption> adoptions;                   // Lista de adopciones realizadas
     private List<Resource> resources;                   // Lista de recursos del albergue
     private List<Task> tasks;                           // Lista de tareas para los voluntarios
     private List<MedicalHistory> histories;             // Lista de historiales médicos en el sistema
-    private List<AdoptionCandidate> adoptionCandidates; // Lista de historiales médicos en el sistema
+    private List<AdoptionCandidate> adoptionCandidates; // Lista de Adoptantes en el sistema
     private Report report;                              // Referencia al objeto Report para generar informes
     private MainPage mainPage;                          // Referencia a la clase MainPage para navegar en el sistema
 
@@ -49,14 +48,9 @@ public class Main {
      * adopciones, recursos y tareas. También crea el objeto Report y MainPage.
      */
     public Main() {
-        this.loadAllData();
-        this.adoptions = new ArrayList<>();                               // Inicializa la lista de Adopciones 
-        this.resources = new ArrayList<>();                               // Inicializa la lista de Recursos
-        this.tasks = new ArrayList<>();                                   // Inicializa la lista de Tareas
-        this.histories = new ArrayList<>();                               // Inicializa la lista de Historiales Médicos
-        this.adoptionCandidates = new ArrayList<>();                      // Inicializa la lista de Adoptantes
-        this.report = new Report(animals, volunteers, resources, tasks, adoptionCandidates);  // Crea el objeto Report
-        this.mainPage = new MainPage(report);                             // Crea el objeto MainPage para la navegación
+        this.loadAllData();     // Cargar toda la data desde los CSV
+        this.report = new Report(animals, volunteers, resources, tasks, adoptionCandidates, adoptions);  // Crea el objeto Report
+        this.mainPage = new MainPage(report);  // Crea el objeto MainPage para la navegación
     }
 
     /**
@@ -106,7 +100,7 @@ public class Main {
             String name = sc.nextLine();
             System.out.print("Raza del animal: ");
             String breed = sc.nextLine();
-            System.out.print("Edad del animal: ");
+            System.out.print("Edad del animal (Años): ");
             int age = Integer.parseInt(sc.nextLine());
             System.out.print("Descripción del animal: ");
             String description = sc.nextLine();
@@ -146,21 +140,17 @@ public class Main {
             System.out.println("==================================");
         } catch (NumberFormatException e) {
             // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
-            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= El formato de la edad deben    =");
             System.out.println("= ser números enteros.           =");
             System.out.println("==================================");
-            System.out.println(" ");
         } catch (Exception e) {
             // Manejo de cualquier otro error inesperado
-            System.out.println(" ");
             System.out.println("==================================");
             System.out.println("===             ERROR          ===");
             System.out.println("= " + e.getMessage());
             System.out.println("==================================");
-            System.out.println(" ");
         }
     }
 
@@ -271,8 +261,21 @@ public class Main {
 
             System.out.print("¿Cuál es tu razón para adoptar un animal? ");
             String reasonForAdoption = sc.nextLine();
-        
-            AdoptionCandidate adopter = new AdoptionCandidate(additionalExperience, reasonForAdoption, adopterName, adopterContactInfo, hasPetExperience);
+
+            System.out.print("ID del voluntario que gestiona la comunicacion con el adoptante: ");
+            int volunteerId = Integer.parseInt(sc.nextLine());
+            Volunteer volunteer = findVolunteerById(volunteerId);  // Buscar el voluntario por su ID
+            if (volunteer == null) {
+                System.out.println(" ");
+                System.out.println("============================");
+                System.out.println("===         ERROR        ===");
+                System.out.println("= Voluntario no encontrado =");
+                System.out.println("============================");
+                System.out.println(" ");
+                return;
+            }
+    
+            AdoptionCandidate adopter = new AdoptionCandidate(adopterName, adopterContactInfo, reasonForAdoption, hasPetExperience, additionalExperience, volunteer);
             
             adoptionCandidates.add(adopter);
             System.out.println(" ");
@@ -327,20 +330,6 @@ public class Main {
                 return;
             }
 
-            // Solicitar el ID del voluntario que gestiona la adopción
-            System.out.print("ID del voluntario que gestiona la adopción: ");
-            int volunteerId = Integer.parseInt(sc.nextLine());
-            Volunteer volunteer = findVolunteerById(volunteerId);  // Buscar el voluntario por su ID
-            if (volunteer == null) {
-                System.out.println(" ");
-                System.out.println("============================");
-                System.out.println("===         ERROR        ===");
-                System.out.println("= Voluntario no encontrado =");
-                System.out.println("============================");
-                System.out.println(" ");
-                return;
-            }
-
             // Solicitar el ID del adoptante
             System.out.print("ID del adoptante: ");
             int adopterId = Integer.parseInt(sc.nextLine());
@@ -354,6 +343,9 @@ public class Main {
                 System.out.println(" ");
                 return;
             }
+
+            // Extraer información del voluntario encargado de la gestión con el adoptante.
+            Volunteer volunteer = adopter.getVolunteer();
 
             // Verificar si el animal es peligroso y si el adoptante tiene experiencia
             if (animal.getDangerLevel() && !adopter.getAdditionalExperience()) {
@@ -444,12 +436,16 @@ public class Main {
 
             // Verificar si el recurso ya existe
             boolean resourceExists = false;
-
+            
             for (Resource existingResource : resources) {
                 if (existingResource.getResourceName().equalsIgnoreCase(resourceName)) {
                     // Si el recurso ya existe, actualizar la cantidad
                     existingResource.updateQuantity(existingResource.getQuantity() + quantity);
                     resourceExists = true;
+                    if(existingResource.checkAlert() != null){
+                        System.out.println(" ");
+                        System.out.println(existingResource.checkAlert());
+                    }
                     break;  // Salir del bucle ya que se encontró el recurso
                 }
             }
@@ -460,6 +456,10 @@ public class Main {
                 String description = sc.nextLine();
                 Resource newResource = new Resource(resourceName, quantity, description);
                 resources.add(newResource);
+                if(newResource.checkAlert() != null){
+                    System.out.println(" ");
+                    System.out.println(newResource.checkAlert());
+                }
                 System.out.println(" ");
                 System.out.println("===================================");
                 System.out.println("== Recurso agregado exitosamente ==");
@@ -510,13 +510,31 @@ public class Main {
         String name = sc.nextLine();
         System.out.print("Ingrese la descripción de la tarea: ");
         String description = sc.nextLine();
-        Task newTask = new Task(name, description);
-        tasks.add(newTask);
-        System.out.println(" ");
-        System.out.println("=================================");
-        System.out.println("== Tarea agregada exitosamente ==");
-        System.out.println("=================================");
-        System.out.println(" ");
+
+        // Solicitar el ID del voluntario
+        System.out.print("Ingrese el ID del voluntario: ");
+        int volunteerId = sc.nextInt();
+        sc.nextLine();  // Consumir el salto de línea pendiente
+
+        // Buscar al voluntario por su ID
+        Volunteer volunteer = findVolunteerById(volunteerId);
+        if (volunteer != null) {
+            Task newTask = new Task(name, description, false, volunteer);
+            tasks.add(newTask);
+            System.out.println(" ");
+            System.out.println("=================================");
+            System.out.println("== Tarea agregada exitosamente ==");
+            System.out.println("=================================");
+            System.out.println(" ");
+           
+        } else {
+            System.out.println(" ");
+            System.out.println("==================================");
+            System.out.println("===             ERROR          ===");
+            System.out.println("= Voluntario no encontrado       =");
+            System.out.println("==================================");
+            System.out.println(" ");
+        }
     }
 
     /**
@@ -637,7 +655,6 @@ public class Main {
                 return;
             }
 
-            // Solicitar los detalles del nuevo registro médico
             System.out.print("Ingrese la fecha del registro(DD/MM/AAAA): ");
             String dateInput = sc.nextLine();
             LocalDate recordDate;
@@ -829,6 +846,10 @@ public class Main {
             if (alertMessage != null) {
                 System.out.println(alertMessage);
             } else {
+                if(selectedResource.checkAlert() != null){
+                    System.out.println(" ");
+                    System.out.println(selectedResource.checkAlert());
+                }
                 System.out.println(" ");
                 System.out.println("=====================================");
                 System.out.println("= Cantidad actualizada exitosamente =");
@@ -921,13 +942,11 @@ public class Main {
         try {
             Animal.saveToCSV(animals, "animals.csv");
             Volunteer.saveToCSV(volunteers, "volunteers.csv");
-            // AdoptionCandidate.saveToCSV(adoptionCandidates, "adoption_candidates.csv");
-            // Task.saveToCSV(tasks, "tasks.csv");
-            // Resource.saveToCSV(resources, "resources.csv");
-            // Adoption.saveToCSV(adoptions, "adoptions.csv");
-            // MedicalRecord.saveToCSV(medicalRecords, "medical_records.csv");
-            // MedicalHistory.saveToCSV(medicalHistories, "medical_histories.csv");
-            // Report.saveToCSV(reports, "reports.csv");
+            AdoptionCandidate.saveToCSV(adoptionCandidates, "adoption_candidates.csv");
+            Adoption.saveToCSV(adoptions, "adoptions.csv");
+            Resource.saveToCSV(resources, "resources.csv");
+            Task.saveToCSV(tasks, "tasks.csv");
+            MedicalHistory.saveToCSV(histories, "medical_histories.csv");
             System.out.println(" ");
             System.out.println("=====================================================");
             System.out.println("===                DATOS GUARDADOS                ===");
@@ -951,34 +970,84 @@ public class Main {
      * ejecución del programa.
      *
      * @throws IOException Si ocurre un error al intentar leer los archivos CSV.
+     * @throws Exception Si ocurre un error al intentar leer los archivos CSV del Historial Medico.
      */
     public void loadAllData() {
         try {
             animals = Animal.loadFromCSV("animals.csv");
-            volunteers = Volunteer.loadFromCSV("volunteers.csv");
-            // adoptionCandidates = AdoptionCandidate.loadFromCSV("adoption_candidates.csv");
-            // tasks = Task.loadFromCSV("tasks.csv");
-            // resources = Resource.loadFromCSV("resources.csv");
-            // adoptions = Adoption.loadFromCSV("adoptions.csv");
-            // medicalRecords = MedicalRecord.loadFromCSV("medical_records.csv");
-            // medicalHistories = MedicalHistory.loadFromCSV("medical_histories.csv");
-            // reports = Report.loadFromCSV("reports.csv");
-            System.out.println(" ");
-            System.out.println("====================================================");
-            System.out.println("===                DATOS CARGADOS                ===");
-            System.out.println("====================================================");
-            System.out.println("");
         } catch (IOException e) {
-            System.out.println(" ");
-            System.out.println("====================================================");
-            System.out.println("==      No se encuentra archivos para cargar      ==");
-            System.out.println("==         Se inicia con las listas vacías        ==");
-            System.out.println("====================================================");
-            System.out.println("");
-            this.animals = new ArrayList<>();                                 // Si no hay, se inicializa la lista de Animales vacía
-            this.volunteers = new ArrayList<>();                              // Si no hay, se inicializa la lista de Voluntarios vacía
+            System.out.println("===============================================================");
+            System.out.println("==      No se encuentra archivo animals.csv para cargar      ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            animals = new ArrayList<>(); // Inicializa la lista vacía si hay un error
         }
-    }
     
+        try {
+            volunteers = Volunteer.loadFromCSV("volunteers.csv");
+        } catch (IOException e) {
+            System.out.println("===============================================================");
+            System.out.println("==    No se encuentra archivo volunteers.csv para cargar     ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            volunteers = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+    
+        try {
+            adoptionCandidates = AdoptionCandidate.loadFromCSV("adoption_candidates.csv", animals, volunteers);
+        } catch (IOException e) {
+            System.out.println("===============================================================");
+            System.out.println("= No se encuentra archivo adoption_candidates.csv para cargar =");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            adoptionCandidates = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+    
+        try {
+            adoptions = Adoption.loadFromCSV("adoptions.csv", animals, volunteers, adoptionCandidates);
+        } catch (IOException e) {
+            System.out.println("===============================================================");
+            System.out.println("==     No se encuentra archivo adoptions.csv para cargar     ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            adoptions = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+    
+        try {
+            resources = Resource.loadFromCSV("resources.csv");
+        } catch (IOException e) {
+            System.out.println("===============================================================");
+            System.out.println("==     No se encuentra archivo resources.csv para cargar     ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            resources = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+    
+        try {
+            tasks = Task.loadFromCSV("tasks.csv", volunteers);
+        } catch (IOException e) {
+            System.out.println("===============================================================");
+            System.out.println("==       No se encuentra archivo tasks.csv para cargar       ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            tasks = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+        
+        try {
+            histories = MedicalHistory.loadFromCSV("medical_histories.csv", animals);
+        } catch (Exception e) {
+            System.out.println("===============================================================");
+            System.out.println("== No se encuentra archivo medical_histories.csv para cargar ==");
+            System.out.println("==                 Se inicia sin información                 ==");
+            System.out.println("===============================================================");
+            histories = new ArrayList<>(); // Inicializa la lista vacía si hay un error
+        }
+
+        System.out.println(" ");
+        System.out.println("===============================================================");
+        System.out.println("===                 FINALIZA CARGA DE DATOS                 ===");
+        System.out.println("===============================================================");
+        System.out.println("");
+    }
 }
  

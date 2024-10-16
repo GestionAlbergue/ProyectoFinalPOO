@@ -11,9 +11,10 @@
  * 
  * @author Angel Higueros
  * Fecha de creación: 18/09/2024 
- * Última modificación: 12/10/2024
+ * Última modificación: 13/10/2024
  */
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,20 +33,22 @@ public class AdoptionCandidate {
      * Constructor que inicializa un candidato de adopción con la información del 
      * candidato y una lista de animales considerados para la adopción.
      *
-     * @param additionalExperience Indica si el candidato tiene experiencia adicional en el cuidado de animales.
-     * @param reasonForAdoption    La razón por la cual el candidato desea adoptar un animal.
      * @param name                 El nombre del candidato.
      * @param contactInfo          La información de contacto del candidato.
+     * @param reasonForAdoption    La razón por la cual el candidato desea adoptar un animal.
      * @param hasPetExperience     Indica si el candidato tiene experiencia previa con mascotas.
-     */
-    public AdoptionCandidate(boolean additionalExperience, String reasonForAdoption, String name, String contactInfo, boolean hasPetExperience) {
-        this.additionalExperience = additionalExperience;
-        this.reasonForAdoption = reasonForAdoption;
+     * @param additionalExperience Indica si el candidato tiene experiencia adicional en el cuidado de animales.
+     * @param volunteer            Indica el voluntario asociado
+     */   
+    public AdoptionCandidate(String name, String contactInfo, String reasonForAdoption, boolean hasPetExperience, boolean additionalExperience, Volunteer volunteer) {
         this.name = name;
         this.contactInfo = contactInfo;
+        this.reasonForAdoption = reasonForAdoption;
         this.hasPetExperience = hasPetExperience;
-        this.id = idCounter++;              // Asignar ID único y aumentar el contador
-        this.animals = new ArrayList<>(); 
+        this.additionalExperience = additionalExperience;
+        this.volunteer = volunteer;
+        this.animals = new ArrayList<>();
+        this.id = idCounter++;
     }
 
     /**
@@ -124,6 +127,15 @@ public class AdoptionCandidate {
     }    
 
     /**
+     * Obtiene la información del voluntario encargado de la gestión del adoptante.
+     *
+     * @return volunteer El voluntario encargado del proceso de adopción.
+     */
+    public Volunteer getVolunteer() {
+        return volunteer;
+    }
+
+    /**
      * Añade un animal a la lista del adoptante.
      */
     public void addAnimal(Animal animal) {
@@ -139,5 +151,133 @@ public class AdoptionCandidate {
      */
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
+    }
+
+    /**
+     * Convierte un objeto AdoptionCandidate en una línea de texto en formato CSV.
+     *
+     * @return Una cadena CSV que representa los datos del candidato a adopción.
+     */
+    public String toCSV() {
+        StringBuilder animalIds = new StringBuilder();
+        for (Animal animal : animals) {
+            animalIds.append(animal.getId()).append(";");  // Usamos ";" para separar múltiples IDs de animales
+        }
+        // Quitar el último ";"
+        if (animalIds.length() > 0) {
+            animalIds.setLength(animalIds.length() - 1);
+        }
+        
+        // Formato CSV
+        return id + "," + name + "," + contactInfo + "," + reasonForAdoption + "," + hasPetExperience + "," + additionalExperience + "," + volunteer.getId() + "," + animalIds.toString();
+    }
+
+    /**
+     * Carga un objeto AdoptionCandidate desde una línea de texto en formato CSV.
+     *
+     * @param csvLine La línea de texto en formato CSV.
+     * @param allAnimals La lista de todos los animales disponibles.
+     * @param allVolunteers La lista de todos los voluntarios disponibles.
+     * @return Un objeto AdoptionCandidate creado a partir de la línea CSV.
+     */
+    public static AdoptionCandidate fromCSV(String csvLine, List<Animal> allAnimals, List<Volunteer> allVolunteers) {
+        String[] fields = csvLine.split(",");
+        int id = Integer.parseInt(fields[0]);
+        String name = fields[1];
+        String contactInfo = fields[2];
+        String reasonForAdoption = fields[3];
+        boolean hasPetExperience = Boolean.parseBoolean(fields[4]);
+        boolean additionalExperience = Boolean.parseBoolean(fields[5]);
+        int volunteerId = Integer.parseInt(fields[6]);
+
+        // Encontrar el voluntario por ID
+        Volunteer volunteer = findVolunteerById(allVolunteers, volunteerId);
+
+        // Crear el candidato
+        AdoptionCandidate candidate = new AdoptionCandidate(name, contactInfo, reasonForAdoption, hasPetExperience, additionalExperience, volunteer);
+        candidate.id = id;  // Asignar el ID manualmente
+        idCounter = Math.max(idCounter, id + 1);  // Actualizar el contador de ID si es necesario
+
+        // Cargar la lista de animales adoptados
+        if (fields.length > 7 && !fields[7].isEmpty()) {
+            String[] animalIds = fields[7].split(";");
+            for (String animalIdStr : animalIds) {
+                int animalId = Integer.parseInt(animalIdStr);
+                Animal animal = findAnimalById(allAnimals, animalId);
+                if (animal != null) {
+                    candidate.animals.add(animal);
+                }
+            }
+        }
+
+        return candidate;
+    }
+
+    /**
+     * Guarda una lista de candidatos a adopción en un archivo CSV.
+     *
+     * @param candidates La lista de candidatos a adopción.
+     * @param filePath La ruta del archivo CSV donde se guardarán los datos.
+     * @throws IOException Si ocurre un error al escribir en el archivo CSV.
+     */
+    public static void saveToCSV(List<AdoptionCandidate> candidates, String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (AdoptionCandidate candidate : candidates) {
+                writer.write(candidate.toCSV());
+                writer.newLine();
+            }
+        }
+    }
+
+    /**
+     * Carga una lista de candidatos a adopción desde un archivo CSV.
+     *
+     * @param filePath La ruta del archivo CSV desde donde se cargarán los datos.
+     * @param allAnimals La lista de todos los animales disponibles.
+     * @param allVolunteers La lista de todos los voluntarios disponibles.
+     * @return Una lista de objetos AdoptionCandidate cargados desde el archivo CSV.
+     * @throws IOException Si ocurre un error al leer el archivo CSV.
+     */
+    public static List<AdoptionCandidate> loadFromCSV(String filePath, List<Animal> allAnimals, List<Volunteer> allVolunteers) throws IOException {
+        List<AdoptionCandidate> candidates = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                candidates.add(AdoptionCandidate.fromCSV(line, allAnimals, allVolunteers));
+            }
+        }
+        return candidates;
+    }
+
+    /**
+     * Método auxiliar para encontrar un animal por ID que encuentra un animal por su ID en una lista de animales.
+     *
+     * @param allAnimals La lista de todos los animales.
+     * @param id El ID del animal a buscar.
+     * @return El objeto Animal si se encuentra, o null si no existe.
+     */
+    private static Animal findAnimalById(List<Animal> allAnimals, int id) {
+        for (Animal animal : allAnimals) {
+            if (animal.getId() == id) {
+                return animal;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Método auxiliar para encontrar un voluntario en una lista de voluntarios.
+     *
+     * @param allVolunteers La lista de todos los voluntarios.
+     * @param id El ID del voluntario a buscar.
+     * @return El objeto Volunteer si se encuentra, o null si no existe.
+     */
+    private static Volunteer findVolunteerById(List<Volunteer> allVolunteers, int id) {
+        for (Volunteer volunteer : allVolunteers) {
+            if (volunteer.getId() == id) {
+                return volunteer;
+            }
+        }
+        return null;
     }
 }

@@ -9,7 +9,7 @@
  * 
  * @author Marjori Flores
  * Fecha de creación: 15/09/2024
- * Última modificación: 12/10/2024
+ * Última modificación: 13/10/2024
  */
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class Report {
     private List<Task> tasks;  // Añadido para manejar tareas
     private List<Resource> resources;
     private List<AdoptionCandidate> adoptionCandidates;
+    private List<Adoption> adoptions;
 
     /**
      * Constructor que inicializa un informe con listas de animales, voluntarios, recursos, 
@@ -33,12 +34,13 @@ public class Report {
      * @param tasks              La lista de tareas que se deben realizar en el refugio.
      * @param adoptionCandidates La lista de candidatos que están en proceso de adopción.
      */
-    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks, List<AdoptionCandidate> adoptionCandidates) {
+    public Report(List<Animal> animals, List<Volunteer> volunteers, List<Resource> resources, List<Task> tasks, List<AdoptionCandidate> adoptionCandidates, List<Adoption> adoptions) {
         this.animals = animals;
         this.volunteers = volunteers;
         this.resources = resources;
         this.tasks = tasks;
         this.adoptionCandidates = adoptionCandidates;
+        this.adoptions = adoptions;
     }
 
     /**
@@ -57,22 +59,27 @@ public class Report {
         for (Animal animal : animals) {
             if (animal.isAdopted()) {  // Verificar si el animal está adoptado
                 hasAdoptions = true;
-                AdoptionCandidate adopter = findAdopterByAnimal(animal);  // Encontrar el adoptante del animal
-                if (adopter != null) {
+                Adoption adoption = findAdoptionByAnimal(animal);  // Encontrar la adopción del animal
+                if (adoption != null) {
+                    AdoptionCandidate adopter = adoption.getAdopter();  // Obtener el adoptante
                     report.append("Animal: ").append(animal.getName())
-                        .append(", Especie: ").append(animal.getBreed())
+                        .append(", Raza: ").append(animal.getBreed())
                         .append(" | Adoptante: ").append(adopter.getName())
                         .append(", Contacto: ").append(adopter.getContactInfo())
+                        .append(", Fecha de Adopción: ").append(adoption.getAdoptionDate())  // Agregar fecha de adopción
                         .append("\n")
                         .append("=================================\n");
                 } else {
                     report.append("Animal: ").append(animal.getName())
-                        .append(", Especie: ").append(animal.getBreed())
+                        .append(", Raza: ").append(animal.getBreed())
                         .append(" | Adoptante: Desconocido\n")
                         .append("=================================\n");
                 }
             }
         }
+
+        
+        
     
         // Si no hay adopciones, agregar un mensaje adecuado
         if (!hasAdoptions) {
@@ -242,5 +249,20 @@ public class Report {
             }
         }
         return null;  // Retorna null si no se encuentra el adoptante
+    }
+
+    /**
+     * Busca una adopción específica asociada a un animal dado.
+     * 
+     * @param animal El objeto {@code Animal} para el cual se busca la adopción.
+     * @return La adopción asociada al animal dado si se encuentra, o {@code null} si no existe adopción para el animal.
+     */
+    public Adoption findAdoptionByAnimal(Animal animal) {
+        for (Adoption adoption : adoptions) {  // Asumiendo que tienes una lista de adopciones
+            if (adoption.getAnimal().equals(animal)) {
+                return adoption;
+            }
+        }
+        return null;  // Si no se encuentra adopción para el animal
     }
 }

@@ -25,9 +25,9 @@ public class MedicalHistory {
 
     /**
      * Constructor para inicializar el historial médico para un animal específico.
-    *
-    * @param animal El animal al que pertenece este historial médico.
-    */
+     *
+     * @param animal El animal al que pertenece este historial médico.
+     */
     public MedicalHistory(Animal animal) {
         this.animal = animal;
         this.records = new ArrayList<>(); // Inicializa la lista de registros médicos
@@ -35,9 +35,9 @@ public class MedicalHistory {
 
     /**
      * Añade un nuevo registro médico a la lista de registros.
-    *
-    * @param record El registro médico que se añadirá.
-    */
+     *
+     * @param record El registro médico que se añadirá.
+     */
     public void addRecord(MedicalRecord record) {
         if (record != null) {
             records.add(record);
@@ -46,46 +46,46 @@ public class MedicalHistory {
 
     /**
      * Devuelve la lista de registros médicos asociados a este historial.
-    *
-    * @return Una lista de registros médicos.
-    */
+     *
+     * @return Una lista de registros médicos.
+     */
     public List<MedicalRecord> getRecords() {
         return new ArrayList<>(records); // Retorna una copia de la lista para evitar modificaciones externas
     }
 
     /**
      * Devuelve el animal asociado a este historial médico.
-    *
-    * @return El animal al que pertenece este historial médico.
-    */
+     *
+     * @return El animal al que pertenece este historial médico.
+     */
     public Animal getAnimal() {
         return animal;
     }
 
     /**
      * Añade un nuevo registro médico a la lista de registros cuando viene de CSV
-    *
-    * @param record El registro médico que se añadirá.
-    */
+     *
+     * @param record El registro médico que se añadirá.
+     */
     public void setRecords(List<MedicalRecord> records) {
         this.records = records;
     }
 
     /**
      * Sobreescribe el método toString del historial médico completo del animal.
-    * 
-    * @return Un String que representa el historial médico.
-    */
+     * 
+     * @return Un String que representa el historial médico.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (records.isEmpty()) {
             sb.append("=============================================")
-            .append("= No hay registros médicos para este animal =")
-            .append("=============================================");
+              .append("= No hay registros médicos para este animal =")
+              .append("=============================================");
         } else {
             sb.append("====================================================").append("\n")
-            .append("== Historial Médico para ").append(animal.getName()).append(":\n");
+              .append("== Historial Médico para ").append(animal.getName()).append(":\n");
             for (MedicalRecord record : records) {
                 sb.append(record).append("\n");
             }
@@ -95,8 +95,8 @@ public class MedicalHistory {
 
     /**
      * Método para convertir un objeto MedicalHistory en una línea CSV.
-    * @return La representación en formato CSV del objeto MedicalHistory, incluyendo el ID del animal y sus registros médicos.
-    */
+     * @return La representación en formato CSV del objeto MedicalHistory, incluyendo el ID del animal y sus registros médicos.
+     */
     public String toCSV() {
         StringBuilder sb = new StringBuilder();
         sb.append(animal.getId()).append(","); // Agregar el ID del animal
@@ -114,9 +114,9 @@ public class MedicalHistory {
 
     /**
      * Guarda el historial médico en un archivo CSV.
-    * @param fileName El nombre del archivo CSV donde se guardará la información.
-    * @throws IOException Si ocurre un error al escribir en el archivo.
-    */
+     * @param fileName El nombre del archivo CSV donde se guardará la información.
+     * @throws IOException Si ocurre un error al escribir en el archivo.
+     */
     public static void saveToCSV(List<MedicalHistory> histories, String fileName) throws IOException {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (MedicalHistory history : histories) {
@@ -127,11 +127,11 @@ public class MedicalHistory {
 
     /**
      * Carga un historial médico desde un archivo CSV.
-    * @param fileName El nombre del archivo CSV desde donde se cargará la información.
-    * @param animals La lista de animales para asociar con el historial cargado.
-    * @return Una lista de MedicalHistory con los historiales médicos cargados.
-    * @throws IOException Si ocurre un error al leer el archivo.
-    */
+     * @param fileName El nombre del archivo CSV desde donde se cargará la información.
+     * @param animals La lista de animales para asociar con el historial cargado.
+     * @return Una lista de MedicalHistory con los historiales médicos cargados.
+     * @throws IOException Si ocurre un error al leer el archivo.
+     */
     public static List<MedicalHistory> loadFromCSV(String fileName, List<Animal> animals) throws IOException {
         List<MedicalHistory> histories = new ArrayList<>(); // Lista de historiales médicos
     
@@ -167,11 +167,11 @@ public class MedicalHistory {
     
     /**
      * Método Auxiliar para buscar un objeto Animal en una lista de animales según su ID.
-    * 
-    * @param id El ID del animal que se desea buscar.
-    * @param animals La lista de animales en la que se realizará la búsqueda.
-    * @return El objeto Animal cuyo ID coincide con el proporcionado, o null si no se encuentra.
-    */
+     * 
+     * @param id El ID del animal que se desea buscar.
+     * @param animals La lista de animales en la que se realizará la búsqueda.
+     * @return El objeto Animal cuyo ID coincide con el proporcionado, o null si no se encuentra.
+     */
     private static Animal findAnimalById(int id, List<Animal> animals) {
         for (Animal animal : animals) {
             if (animal.getId() == id) {
