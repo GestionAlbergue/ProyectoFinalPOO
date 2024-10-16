@@ -111,21 +111,21 @@
      */
      @Override
      public String toString() {
-        return "Fecha: " + date.format(DATE_FORMATTER) +
-            "\nDescripción: " + description +
-            "\nTratamiento: " + treatment +
-            "\nVeterinario: " + veterinarian +
-            "\n-------------------------------------------------";
-
-    }
+         return "Fecha: " + date.format(DATE_FORMATTER) +
+             "\nDescripción: " + description +
+             "\nTratamiento: " + treatment +
+             "\nVeterinario: " + veterinarian +
+             "\n-------------------------------------------------";
+ 
+     }
  
      /**
       * Método para convertir un objeto MedicalRecord en una línea CSV.
      * @return La representación en formato CSV del objeto MedicalRecord.
      */
-    public String toCSV() {
-        return date.format(DATE_FORMATTER) + "," + description + "," + treatment + "," + veterinarian;
-    }
+     public String toCSV() {
+         return date.format(DATE_FORMATTER) + "," + description + "," + treatment + "," + veterinarian;
+     }
  
      /**
       * Método para cargar un objeto MedicalRecord desde una línea CSV.
@@ -134,7 +134,16 @@
      * @throws DateTimeParseException si la fecha en el CSV no es válida.
      */
      public static MedicalRecord fromCSV(String csvLine) {
-         
+         String[] parts = csvLine.split(","); // Separar los campos del registro médico
+         if (parts.length != 4) {
+             throw new IllegalArgumentException("Línea CSV no válida: " + csvLine);
+         }
+     
+         LocalDate date = LocalDate.parse(parts[0].trim(), DATE_FORMATTER); // Parsear la fecha
+         String description = parts[1].trim();
+         String treatment = parts[2].trim();
+         String veterinarian = parts[3].trim();
+     
+         return new MedicalRecord(date, description, treatment, veterinarian); // Crear el registro médico
      }
  }
- 

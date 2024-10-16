@@ -10,7 +10,7 @@
  * 
  * @author Adriana Martinez 
  * Fecha de creación: 18/09/2024 
- * Última modificación: 12/10/2024
+ * Última modificación: 15/10/2024
  */
 
 import java.io.*;
@@ -70,11 +70,7 @@ public class Resource {
      * @param quantity La nueva cantidad del recurso.
      */
     public void updateQuantity(int quantity) {
-        this.quantity = quantity;
-        String alertMessage = this.checkAlert();
-        if (alertMessage != null) {
-            System.out.println(alertMessage);
-        }
+        
     }
 
     /**
@@ -86,37 +82,7 @@ public class Resource {
      * @param filePath La ruta del archivo CSV.
      */
     public static void addOrUpdateResource(Scanner scanner, List<Resource> resources, String filePath) {
-        System.out.println("Ingrese el nombre del recurso: ");
-        String resourceName = scanner.nextLine();
-
-        Resource existingResource = null;
-        for (Resource resource : resources) {
-            if (resource.getResourceName().equalsIgnoreCase(resourceName)) {
-                existingResource = resource;
-                break;
-            }
-        }
-
-        if (existingResource != null) {
-            System.out.println("El recurso ya existe. Ingrese la nueva cantidad para actualizar: ");
-            int quantity = scanner.nextInt();
-            scanner.nextLine();
-            existingResource.updateQuantity(quantity);
-            System.out.println("Recurso actualizado exitosamente.");
-        } else {
-            System.out.println("Ingrese la cantidad inicial: ");
-            int quantity = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.println("Ingrese la descripción del recurso: ");
-            String description = scanner.nextLine();
-
-            Resource newResource = new Resource(resourceName, quantity, description);
-            resources.add(newResource);
-            System.out.println("Recurso agregado exitosamente.");
-        }
-
-        saveToCSV(resources, filePath);
+        
     }
 
     /**
@@ -125,15 +91,7 @@ public class Resource {
      * @return Un mensaje de alerta si la cantidad es menor o igual al umbral, o null si no se necesita alerta.
      */
     private String checkAlert() {
-        int threshold = 10;  
-        if (quantity <= threshold) {
-            return "==========================================\n" +
-                   "===               ALERTA               ===\n" + 
-                   "= Es necesario reabastecer " + resourceName + "\n" +
-                   "= Cantidad actual: " + quantity + "\n" +
-                   "==========================================\n";
-        }
-        return null; // No hay alerta
+        
     }
 
     /**
@@ -152,14 +110,7 @@ public class Resource {
      * @param filePath La ruta del archivo CSV.
      */
     public static void saveToCSV(List<Resource> resources, String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Resource resource : resources) {
-                writer.write(resource.toCSV());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error al guardar los recursos en el archivo CSV: " + e.getMessage());
-        }
+        
     }
 
     /**
@@ -169,22 +120,7 @@ public class Resource {
      * @return La lista de recursos.
      */
     public static List<Resource> loadFromCSV(String filePath) {
-        List<Resource> resources = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-                String resourceName = fields[0].trim();
-                int quantity = Integer.parseInt(fields[1].trim());
-                String description = fields[2].trim();
-
-                Resource resource = new Resource(resourceName, quantity, description);
-                resources.add(resource);
-            }
-        } catch (IOException e) {
-            System.out.println("Error al cargar los recursos desde el archivo CSV: " + e.getMessage());
-        }
-        return resources;
+        
     }
 
     /**
