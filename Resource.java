@@ -70,8 +70,13 @@ public class Resource {
      * @param quantity La nueva cantidad del recurso.
      */
     public void updateQuantity(int quantity) {
-        
+        this.quantity = quantity;
+        String alertMessage = this.checkAlert();
+        if (alertMessage != null) {
+            System.out.println(alertMessage);
+        }
     }
+
 
     /**
      * Método para agregar o actualizar un recurso mediante la entrada del usuario.
@@ -81,10 +86,38 @@ public class Resource {
      * @param resources La lista de recursos existentes.
      * @param filePath La ruta del archivo CSV.
      */
-    public static void addOrUpdateResource(Scanner scanner, List<Resource> resources, String filePath) {
-        
+    System.out.println("Ingrese el nombre del recurso: ");
+    String resourceName = scanner.nextLine();
+
+    Resource existingResource = null;
+    for (Resource resource : resources) {
+        if (resource.getResourceName().equalsIgnoreCase(resourceName)) {
+            existingResource = resource;
+            break;
+        }
     }
 
+    if (existingResource != null) {
+        System.out.println("El recurso ya existe. Ingrese la nueva cantidad para actualizar: ");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+        existingResource.updateQuantity(quantity);
+        System.out.println("Recurso actualizado exitosamente.");
+    } else {
+        System.out.println("Ingrese la cantidad inicial: ");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Ingrese la descripción del recurso: ");
+        String description = scanner.nextLine();
+
+        Resource newResource = new Resource(resourceName, quantity, description);
+        resources.add(newResource);
+        System.out.println("Recurso agregado exitosamente.");
+    }
+
+    saveToCSV(resources, filePath);
+}
     /**
      * Verifica si es necesario generar una alerta de reabastecimiento basada en un umbral de cantidad.
      *
