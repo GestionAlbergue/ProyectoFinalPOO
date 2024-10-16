@@ -8,8 +8,8 @@
  * incluyendo adopciones, estadísticas de animales, voluntarios y recursos.
  * 
  * @author Marjori Flores
- * Fecha de creación: 15/09/2024
- * Última modificación: 13/10/2024
+ * Fecha de creación: 13/09/2024
+ * Última modificación: 15/10/2024
  */
 
 import java.util.List;
