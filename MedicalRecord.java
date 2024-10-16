@@ -11,7 +11,7 @@
  * 
  * @author Adriana Martinez 
  * Fecha de creación: 18/09/2024 
- * Última modificación: 13/10/2024
+ * Última modificación: 15/10/2024
  */
 
  import java.time.LocalDate;
@@ -111,16 +111,21 @@
      */
      @Override
      public String toString() {
+        return "Fecha: " + date.format(DATE_FORMATTER) +
+            "\nDescripción: " + description +
+            "\nTratamiento: " + treatment +
+            "\nVeterinario: " + veterinarian +
+            "\n-------------------------------------------------";
 
-     }
+    }
  
      /**
       * Método para convertir un objeto MedicalRecord en una línea CSV.
      * @return La representación en formato CSV del objeto MedicalRecord.
      */
-     public String toCSV() {
-         return date.format(DATE_FORMATTER) + "," + description + "," + treatment + "," + veterinarian;
-     }
+    public String toCSV() {
+        return date.format(DATE_FORMATTER) + "," + description + "," + treatment + "," + veterinarian;
+    }
  
      /**
       * Método para cargar un objeto MedicalRecord desde una línea CSV.
