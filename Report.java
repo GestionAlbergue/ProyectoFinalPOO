@@ -257,6 +257,51 @@ public class Report {
     }
 
     /**
+     * Genera un informe sobre los animales de acuerdo a su nivel de peligrosidad.
+     * 
+     * @return Un {@code String} que contiene el informe de animales peligrosos o no.
+     */
+    public String generateDangerLevelReport() {
+        int totalAnimals = animals.size();
+        int dangerAnimals = 0;
+        int noDangerAnimals = 0;
+        
+        // Recorrer la lista de animales para contar peligrosos y no peligrosos.
+        for (Animal animal : animals) {
+            if (animal.getDangerLevel()) {
+                dangerAnimals++;
+            } else {
+                noDangerAnimals++;
+            }
+        }
+    
+        // Construir el reporte como un String
+        StringBuilder stats = new StringBuilder();
+        stats.append("\n")
+             .append("====== Informe de Animales según Peligrosidad ======\n")
+             .append("Total de animales: ").append(totalAnimals).append("\n")
+             .append("Animales Peligrosos: ").append(dangerAnimals).append("\n")
+             .append("Animales No Peligrosos: ").append(noDangerAnimals).append("\n")
+             .append("=================================")
+             .append("\n");
+    
+        // Agregar detalles de cada animal
+        stats.append("=== Animales Peligros: ===\n");
+        for (Animal animal : animals) {
+            if (animal.getDangerLevel()) {
+                stats.append(animal).append("\n");
+            }
+        }
+        stats.append("=== Animales No Peligros: ===\n");
+        for (Animal animal : animals) {
+            if (!animal.getDangerLevel()) {
+                stats.append(animal).append("\n");
+            }
+        }
+        return stats.toString();  // Retornar el reporte como String
+    }
+
+    /**
      * Permite buscar el adoptante del animal
      * 
      * @param animal Animal del cual buscamos el adoptante
