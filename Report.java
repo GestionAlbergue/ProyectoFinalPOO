@@ -9,7 +9,7 @@
  * 
  * @author Marjori Flores
  * Fecha de creación: 13/09/2024
- * Última modificación: 15/10/2024
+ * Última modificación: 28/10/2024
  */
 
 import java.util.List;
@@ -77,10 +77,6 @@ public class Report {
                 }
             }
         }
-
-        
-        
-    
         // Si no hay adopciones, agregar un mensaje adecuado
         if (!hasAdoptions) {
             report.append("No se han registrado adopciones hasta el momento.\n");
@@ -116,8 +112,6 @@ public class Report {
         return report.toString();  // Retornar el reporte como String
     }
     
-    
-
     /**
      * Genera estadísticas sobre los animales del albergue.
      * 
