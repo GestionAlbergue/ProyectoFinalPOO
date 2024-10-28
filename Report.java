@@ -236,6 +236,27 @@ public class Report {
     }
 
     /**
+     * Genera un informe sobre las tareas no completas en el albergue.
+     * 
+     * @return Un {@code String} que contiene el informe de las tareas NO completadas en el albergue.
+     */
+    public String generateNoCompleteTaskReport() {
+        StringBuilder stats = new StringBuilder();
+        stats.append("\n")
+             .append("====== TAREAS NO COMPLETADAS ======\n");
+       
+        // Agregar detalles de cada tarea
+        for (Task task : tasks) {
+            if (!task.isCompleted()) {
+                stats.append(task).append("\n");
+                stats.append("......................................").append("\n");
+            }
+        }
+        
+        return stats.toString();  // Retornar el reporte como String
+    }
+
+    /**
      * Permite buscar el adoptante del animal
      * 
      * @param animal Animal del cual buscamos el adoptante
