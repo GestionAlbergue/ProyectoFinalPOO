@@ -11,7 +11,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024 
- * Última modificación: 12/10/2024
+ * Última modificación: 28/10/2024
  */
 
 import java.util.InputMismatchException;
@@ -63,15 +63,25 @@ public class MainPage {
         System.out.println("****************************************************");
         System.out.println("***            REPORTES DEL ALBERGUE             ***");
         System.out.println("** 1. Reporte de Adopciones                       **");
-        System.out.println("** 2. Reporte de Animales                         **");
-        System.out.println("** 3. Reporte de Adoptantes                       **");
-        System.out.println("** 4. Reporte de Voluntarios                      **");
-        System.out.println("** 5. Reporte de Recursos                         **");
-        System.out.println("** 6. Reporte de Tareas                           **");
-        System.out.println("** 7. Regresar                                    **");
+        System.out.println("** 2. Reporte General de Animales                 **");
+        System.out.println("** 3. Reporte de Animales por Nivel de            **");
+        System.out.println("**    Peligrosidad                                **");
+        System.out.println("** 4. Reporte General de Adoptantes               **");
+        System.out.println("** 5. Reporte de Adoptantes por Cantidad de       **");
+        System.out.println("**    Animales Adoptados                          **");
+        System.out.println("** 6. Reporte General de Voluntarios              **");
+        System.out.println("** 7. Top 10 de Voluntarios con mayor cantidad    **");
+        System.out.println("**    de horas de Voluntariado                    **");
+        System.out.println("** 8. Reporte General de Recursos                 **");
+        System.out.println("** 9. Reporte de Recursos bajos en cantidad       **");
+        System.out.println("** 10. Reporte General de Tareas                  **");
+        System.out.println("** 11. Reporte de Tareas sin Completar            **");
+        System.out.println("** 12. Regresar                                   **");
         System.out.println("****************************************************");
         System.out.print("Seleccione una opción: ");
     }
+
+    
 
     /**
      * Navega entre las opciones del menú principal y ejecuta las acciones correspondientes.
@@ -135,7 +145,7 @@ public class MainPage {
                         sc.nextLine();  // Limpia el buffer en caso de excepción
                     }
                     
-                } while (reportOption != 7);  // Repite mientras no se elija la opción de regresar (7)
+                } while (reportOption != 12);  // Repite mientras no se elija la opción de regresar (7)
 
                 break;
             case 12:
@@ -165,25 +175,40 @@ public class MainPage {
      */
     public void navigateReport(int option) {
         switch (option) {
-            case 1:
-                System.out.println(report.generateAdoptionReport());   // Mostrar el reporte de adopciones
+            case 1: // Reporte de Adopciones
+                System.out.println(report.generateAdoptionReport());   
                 break;
-            case 2:
-                System.out.println(report.generateAnimalStats());      // Mostrar el reporte de animales
+            case 2: // Reporte General de Animales
+                System.out.println(report.generateAnimalStats());      
                 break;
-            case 3:
-                System.out.println(report.generateAdoptersReport());   // Mostrar el reporte de adoptantes registrados
+            case 3: // Reporte Animales por Peligrosidad
+                System.out.println(report.generateDangerLevelReport());
                 break;
-            case 4:
-                System.out.println(report.generateVolunteerReport());  // Mostrar el reporte de voluntarios
+            case 4: // Reporte General de Adoptantes
+                System.out.println(report.generateAdoptersReport());   
                 break;
-            case 5:
-                System.out.println(report.generateResourceReport());  // Mostrar el reporte de recursos
+            case 5: // Reporte de Adoptantes por Cantidad de Animales Adoptados
+                System.out.println("En Proceso...");
                 break;
-            case 6:
-                System.out.println(report.generateTaskReport());      // Mostrar el reporte de tareas
+            case 6: // Reporte General de Voluntarios
+                System.out.println(report.generateVolunteerReport());  
                 break;
-            case 7:
+            case 7: // Top 10 Voluntarios
+                System.out.println("En Proceso...");
+                break;
+            case 8: // Reporte General de Recursos
+                System.out.println(report.generateResourceReport());  
+                break;
+            case 9: // Reporte de Recursos Bajos en Cantidad
+                System.out.println("En Proceso...");
+                break;
+            case 10: // Reporte General de Tareas
+                System.out.println(report.generateTaskReport());
+                break;
+            case 11: // Reporte de Tareas sin Completar
+                System.out.println(report.generateNoCompleteTaskReport());
+                break;
+            case 12:
                 // Regresar al menú principal
                 break;
             default:
