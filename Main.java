@@ -11,7 +11,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024
- * Última modificación: 13/10/2024
+ * Última modificación: 2/11/2024
  */
 
 import java.time.LocalDate;
@@ -138,6 +138,7 @@ public class Main {
             System.out.println("== Animal agregado exitosamente ==");
             System.out.println("== Número de ID: " + animal.getId());
             System.out.println("==================================");
+
         } catch (NumberFormatException e) {
             // Manejo de errores si la edad o el nivel de peligro ingresados no son números válidos
             System.out.println("==================================");

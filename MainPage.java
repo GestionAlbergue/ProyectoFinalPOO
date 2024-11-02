@@ -11,7 +11,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024 
- * Última modificación: 28/10/2024
+ * Última modificación: 2/11/2024
  */
 
 import java.util.InputMismatchException;

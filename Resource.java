@@ -10,7 +10,7 @@
  * 
  * @author Adriana Martinez 
  * Fecha de creación: 18/09/2024 
- * Última modificación: 13/10/2024
+ * Última modificación: 2/11/2024
  */
 
 import java.io.BufferedReader;
@@ -25,6 +25,7 @@ public class Resource {
     private String resourceName;  // Nombre del recurso
     private int quantity;         // Cantidad del recurso disponible
     private String description;   // Descripción del recurso
+    private int threshold = 10;   // Alerta de Recurso Bajo
 
     /**
      * Constructor para inicializar un recurso con su nombre, cantidad y descripción.
@@ -67,6 +68,15 @@ public class Resource {
     }
 
     /**
+     * Devuelve el threshold para los recursos.
+     *
+     * @return Threshold para los recursos
+     */
+    public int getThreshold() {
+        return threshold;
+    }
+
+    /**
      * Actualiza la cantidad disponible del recurso.
      * Después de actualizar la cantidad, verifica si es necesario generar una alerta de reabastecimiento.
      *
@@ -77,17 +87,25 @@ public class Resource {
     }
 
     /**
+     * Actualiza el threshold de los recursos
+     *
+     * @param threshold El nuevo threshold.
+     */
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    /**
      * Verifica si es necesario generar una alerta de reabastecimiento basada en un umbral de cantidad.
      *
      * @return Un mensaje de alerta si la cantidad es menor o igual al umbral, o null si no se necesita alerta.
      */
     public String checkAlert() {
-        int threshold = 10;  
-        if (quantity <= threshold) {
+        if (this.quantity <= this.threshold) {
             return "==========================================\n" +
                    "===               ALERTA               ===\n" + 
-                   "= Es necesario reabastecer " + resourceName + "\n" +
-                   "= Cantidad actual: " + quantity + "\n" +
+                   "= Es necesario reabastecer " + this.resourceName + "\n" +
+                   "= Cantidad actual: " + this.quantity + "\n" +
                    "==========================================\n";
         }
         return null; // No hay alerta
