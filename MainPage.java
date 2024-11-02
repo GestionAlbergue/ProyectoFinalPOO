@@ -188,7 +188,7 @@ public class MainPage {
                 System.out.println(report.generateAdoptersReport());   
                 break;
             case 5: // Reporte de Adoptantes por Cantidad de Animales Adoptados
-                System.out.println("En Proceso...");
+                System.out.println(report.generateTopAdoptersReport());
                 break;
             case 6: // Reporte General de Voluntarios
                 System.out.println(report.generateVolunteerReport());  

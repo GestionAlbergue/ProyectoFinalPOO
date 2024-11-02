@@ -11,7 +11,7 @@
  * 
  * @author Angel Higueros
  * Fecha de creación: 18/09/2024 
- * Última modificación: 13/10/2024
+ * Última modificación: 2/11/2024
  */
 
 import java.io.*;
@@ -96,6 +96,21 @@ public class AdoptionCandidate {
         }
 
         sb.append("Voluntario encargado: ").append(volunteer != null ? volunteer.getName() : "Ninguno").append("\n");
+        return sb.toString();
+    }
+
+    /**
+     * Proporciona el número de los animales adoptados de forma detallada.
+     *
+     * @return Un String con los detalles de la cantidad de animales adoptados.
+    */ 
+    public String getCantidadAdoptados() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Adoptante ID: ").append(id).append("\n")
+        .append("Nombre: ").append(name).append("\n")
+        .append("Información de Contacto: ").append(contactInfo).append("\n")
+        .append("Número de animales adoptados: ").append(animals.size()).append("\n");
+
         return sb.toString();
     }
 
