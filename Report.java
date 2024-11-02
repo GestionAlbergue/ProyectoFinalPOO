@@ -239,17 +239,26 @@ public class Report {
         StringBuilder stats = new StringBuilder();
         stats.append("\n")
              .append("====== TAREAS NO COMPLETADAS ======\n");
-       
-        // Agregar detalles de cada tarea
+    
+        boolean hasIncompleteTasks = false; // Bandera para verificar si hay tareas sin completar
+    
+        // Agregar detalles de cada tarea no completada
         for (Task task : tasks) {
             if (!task.isCompleted()) {
+                hasIncompleteTasks = true; // Se encontró al menos una tarea sin completar
                 stats.append(task).append("\n");
                 stats.append("......................................").append("\n");
             }
         }
-        
-        return stats.toString();  // Retornar el reporte como String
+    
+        // Si no se encontraron tareas sin completar, mostrar un mensaje
+        if (!hasIncompleteTasks) {
+            stats.append("No se encuentran tareas sin Completar.\n");
+        }
+    
+        return stats.toString(); // Retornar el reporte como String
     }
+    
 
     /**
      * Genera un informe sobre los animales de acuerdo a su nivel de peligrosidad.
@@ -351,6 +360,7 @@ public class Report {
             report.append("=====================================\n");
         } else {
             report.append("Recursos con menos de 10 unidades en stock:\n");
+            report.append("\n");
             for (Resource resource : lowStockResources) {
                 report.append("Recurso: ").append(resource.getResourceName()).append("\n");
                 report.append("Cantidad: ").append(resource.getQuantity()).append("\n");
