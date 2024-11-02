@@ -200,7 +200,7 @@ public class MainPage {
                 System.out.println(report.generateResourceReport());  
                 break;
             case 9: // Reporte de Recursos Bajos en Cantidad
-                System.out.println("En Proceso...");
+                System.out.println(report.generateLowResourceReport());
                 break;
             case 10: // Reporte General de Tareas
                 System.out.println(report.generateTaskReport());

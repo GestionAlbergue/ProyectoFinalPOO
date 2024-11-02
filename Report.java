@@ -328,7 +328,39 @@ public class Report {
         return report.toString();
     }
 
+    /** 
+     * Genera un informe sobre los recursos con stock menos del threshold
+     * 
+     * @return Un {@code String} que contiene el informe de los recursos de bajo del threshold
+     */
+    public String generateLowResourceReport() {
+        StringBuilder report = new StringBuilder();
+        report.append("\n")
+              .append("====== Informe de Recursos Bajos en Cantidad ======\n");
     
+        // Filtrar los recursos con cantidad menor a 10
+        List<Resource> lowStockResources = resources.stream()
+                                                    .filter(resource -> resource.getQuantity() < 10)
+                                                    .toList();
+    
+        // Verificar si hay recursos con menos de 10 unidades
+        if (lowStockResources.isEmpty()) {  
+            report.append("=====================================\n");
+            report.append("== No hay recursos con menos de 10 ==\n"); 
+            report.append("==        unidades en stock.       ==\n");
+            report.append("=====================================\n");
+        } else {
+            report.append("Recursos con menos de 10 unidades en stock:\n");
+            for (Resource resource : lowStockResources) {
+                report.append("Recurso: ").append(resource.getResourceName()).append("\n");
+                report.append("Cantidad: ").append(resource.getQuantity()).append("\n");
+                report.append("Descripción: ").append(resource.getDescription()).append("\n");
+                report.append("==============================\n");
+            }
+        }
+    
+        return report.toString();
+    }
 
     /**
      * Permite buscar el adoptante del animal
