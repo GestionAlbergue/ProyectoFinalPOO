@@ -194,7 +194,7 @@ public class MainPage {
                 System.out.println(report.generateVolunteerReport());  
                 break;
             case 7: // Top 10 Voluntarios
-                System.out.println("En Proceso...");
+                System.out.println(report.generateTop10VolunteerReport());
                 break;
             case 8: // Reporte General de Recursos
                 System.out.println(report.generateResourceReport());  

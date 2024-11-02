@@ -297,6 +297,40 @@ public class Report {
     }
 
     /**
+     * Genera un informe sobre los 10 Voluntarios.
+     * 
+     * @return Un {@code String} que contiene el informe de los 10 voluntarios con mayor cantidad de horas.
+     */
+    public String generateTop10VolunteerReport() {
+        StringBuilder report = new StringBuilder();
+        report.append("\n")
+              .append("====== Informe de Top 10 Voluntarios ======\n");
+    
+        int volunteerCount = volunteers.size();
+    
+        if (volunteerCount == 0) {
+            report.append("====================================\n");
+            report.append("== No hay voluntarios registrados ==\n");
+            report.append("====================================\n");
+        } else {
+            report.append("\n");
+            
+            // Ordenar los voluntarios en base a las horas trabajadas de mayor a menor
+            volunteers.sort(Comparator.comparingInt(Volunteer::getHoursWorked).reversed());
+    
+            // Limitar el número de voluntarios a 10 o menos si no hay suficientes
+            int topVolunteersCount = Math.min(10, volunteerCount);
+            for (int i = 0; i < topVolunteersCount; i++) {
+                report.append((i + 1) + ".\n");
+                report.append(volunteers.get(i).toString()).append("\n");
+            }
+        }
+        return report.toString();
+    }
+
+    
+
+    /**
      * Permite buscar el adoptante del animal
      * 
      * @param animal Animal del cual buscamos el adoptante
