@@ -11,7 +11,7 @@
  * 
  * @author Daniela Navas
  * Fecha de creación: 16/09/2024 
- * Última modificación: 2/11/2024
+ * Última modificación: 03/11/2024
  */
 
 import java.time.DateTimeException;
@@ -110,26 +110,8 @@ public class MainPage {
             case 4:
                 main.registerAdoption(sc);       // Registrar una adopción
                 break;
-                case 5: // Reporte de Adoptantes por Cantidad de Animales Adoptados
-                try {
-                    System.out.println("\n=== Filtrar por período de tiempo ===");
-                    System.out.println("¿Desea filtrar por período? (S/N): ");
-                    String response = sc.nextLine();
-                    
-                    if (response.equalsIgnoreCase("S")) {
-                        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
-                        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
-                        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                        System.out.println(report.generateTopAdoptersReport(startDate, endDate));
-                    } else {
-                        System.out.println(report.generateTopAdoptersReport(null, null));
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Error: Formato de fecha inválido");
-                }
+            case 5: 
+                main.addResource(sc);       // Registrar un recurso
                 break;
             case 6:
                 main.updateResourceQuantity(sc); // Cambiar Cantidad de un Recurso
@@ -212,7 +194,26 @@ public class MainPage {
                 System.out.println(report.generateAdoptersReport());   
                 break;
             case 5: // Reporte de Adoptantes por Cantidad de Animales Adoptados
-                System.out.println(report.generateTopAdoptersReport());
+                //System.out.println(report.generateTopAdoptersReport());
+                try {
+                    System.out.println("\n=== Filtrar por período de tiempo ===");
+                    System.out.println("¿Desea filtrar por período? (S/N): ");
+                    String response = sc.nextLine();
+                    
+                    if (response.equalsIgnoreCase("S")) {
+                        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
+                        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
+                        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        System.out.println(report.generateTopAdoptersReport(startDate, endDate));
+                    } else {
+                        System.out.println(report.generateTopAdoptersReport(null, null));
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error: Formato de fecha inválido");
+                }
                 break;
             case 6: // Reporte General de Voluntarios
                 System.out.println(report.generateVolunteerReport());  
