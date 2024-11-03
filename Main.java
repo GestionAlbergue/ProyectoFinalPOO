@@ -737,64 +737,70 @@ public class Main {
             System.out.println("==================================");
             System.out.println("===     VER REGISTRO MÉDICO    ===");
             System.out.println("==================================");
-            System.out.println(" "); 
+            System.out.println(" ");
+            
             // Solicita al usuario que ingrese el ID del animal
             System.out.print("Ingrese el ID del animal: ");
-            int animalId = Integer.parseInt(sc.nextLine());  // Lee y convierte el ID a un número entero
+            int animalId = Integer.parseInt(sc.nextLine());
             
-            // Busca el animal en la base de datos usando el ID
             Animal animal = findAnimalById(animalId);
-
-            // Verifica si el animal fue encontrado
             if (animal == null) {
-                // Muestra un mensaje de error si el animal no se encuentra
                 System.out.println(" ");
-                System.out.println("==================================");
-                System.out.println("===             ERROR          ===");
-                System.out.println("== Animal no encontrado         ==");
-                System.out.println("==================================");
+                System.out.println("=== ERROR: Animal no encontrado ===");
                 System.out.println(" ");
-                return;  // Sale del método si el animal no se encuentra
+                return;
             }
-
-            // Busca el historial médico del animal
+    
             MedicalHistory medicalHistory = findMedicalHistoryByAnimal(animal);
-
-            // Verifica si el historial médico fue encontrado
             if (medicalHistory == null) {
-                // Muestra un mensaje de error si el historial médico no se encuentra
                 System.out.println(" ");
-                System.out.println("==================================");
-                System.out.println("===             ERROR          ===");
-                System.out.println("= Historial médico no Encontrado =");
-                System.out.println("==================================");
+                System.out.println("=== ERROR: Historial médico no encontrado ===");
                 System.out.println(" ");
-                
-                return;  // Sale del método si el historial médico no se encuentra
+                return;
             }
-
-            // Obtiene el historial médico como un String y lo muestra en la consola
-            System.out.println(medicalHistory);
-
+    
+            System.out.println("Seleccione el periodo para ver los registros:");
+            System.out.println("1. Semanal");
+            System.out.println("2. Mensual");
+            System.out.println("3. Anual");
+            System.out.print("Opción: ");
+            
+            int option = Integer.parseInt(sc.nextLine());
+            LocalDate now = LocalDate.now();
+            LocalDate filterDate = null;
+    
+            switch (option) {
+                case 1:
+                    filterDate = now.minusDays(7); // Filtro de la última semana
+                    break;
+                case 2:
+                    filterDate = now.minusMonths(1); // Filtro del último mes
+                    break;
+                case 3:
+                    filterDate = now.minusYears(1); // Filtro del último año
+                    break;
+            }
+    
+            System.out.println("=== Registros médicos filtrados ===");
+            boolean recordsFound = false;
+            
+            for (MedicalRecord record : medicalHistory.getRecords()) {
+                if (record.getDate().isAfter(filterDate) || record.getDate().isEqual(filterDate)) {
+                    System.out.println(record);
+                    recordsFound = true;
+                }
+            }
+            
+            if (!recordsFound) {
+                System.out.println("No se encontraron registros médicos para el periodo seleccionado.");
+            }
+    
         } catch (NumberFormatException e) {
-            // Maneja el error si el ID ingresado no es un número entero
-            System.out.println(" ");
-            System.out.println("==================================");
-            System.out.println("===             ERROR          ===");
-            System.out.println("= El ID debe ser un número       =");
-            System.out.println("= entero.                        =");
-            System.out.println("==================================");
-            System.out.println(" ");
+            System.out.println("=== ERROR: El ID debe ser un número entero ===");
         } catch (Exception e) {
-            // Maneja cualquier otra excepción inesperada
-            System.out.println(" ");
-            System.out.println("==================================");
-            System.out.println("===             ERROR          ===");
-            System.out.println("= " + e.getMessage());
-            System.out.println("==================================");
-            System.out.println(" ");
+            System.out.println("=== ERROR: " + e.getMessage() + " ===");
         }
-    }
+    }    
 
     /**
      * Muestra una lista numerada de recursos y permite al usuario seleccionar uno para actualizar su cantidad.
