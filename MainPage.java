@@ -14,12 +14,16 @@
  * Última modificación: 2/11/2024
  */
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainPage {
 
-    /** Objeto de la clase Report utilizado para generar informes. */
+    private Scanner sc;/** Objeto de la clase Report utilizado para generar informes. */
     private Report report;
 
     /**
@@ -50,7 +54,9 @@ public class MainPage {
         System.out.println("** 9. Ingresar un Nuevo Registro Médico           **");
         System.out.println("** 10. Visualizar Record Médico                   **");
         System.out.println("** 11. Reportes del Albergue                      **");
-        System.out.println("** 12. Salir                                      **");
+        System.out.println("** 12. Reporte de Adopciones por Período          **");
+        System.out.println("** 13. Estadísticas Mensuales de Adopciones       **");
+        System.out.println("** 14. Salir                                      **");
         System.out.println("****************************************************");
         System.out.print("Seleccione una opción: ");
     }
@@ -148,7 +154,7 @@ public class MainPage {
                 } while (reportOption != 12);  // Repite mientras no se elija la opción de regresar (7)
 
                 break;
-            case 12:
+            case 14:
                 main.saveAllData();
                 System.out.println(" ");
                 System.out.println("=============================");
@@ -208,9 +214,35 @@ public class MainPage {
             case 11: // Reporte de Tareas sin Completar
                 System.out.println(report.generateNoCompleteTaskReport());
                 break;
-            case 12:
+            case 14:
                 // Regresar al menú principal
                 break;
+            case 12:
+    try {
+        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
+        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
+        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.println(report.generateAdoptionReportByDate(startDate, endDate));
+    } catch (DateTimeParseException e) {
+        System.out.println("Error: Formato de fecha inválido");
+    }
+    break;
+case 13:
+    try {
+        System.out.print("Ingrese año: ");
+        int year = Integer.parseInt(sc.nextLine());
+        System.out.print("Ingrese mes (1-12): ");
+        int month = Integer.parseInt(sc.nextLine());
+        System.out.println(report.generateMonthlyAdoptionStats(year, month));
+    } catch (NumberFormatException e) {
+        System.out.println("Error: Ingrese números válidos");
+    } catch (DateTimeException e) {
+        System.out.println("Error: Fecha inválida");
+    }
+    break;
             default:
                 System.out.println(" ");
                 System.out.println("==========================");
