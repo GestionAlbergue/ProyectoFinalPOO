@@ -767,34 +767,29 @@ public class Main {
             
             int option = Integer.parseInt(sc.nextLine());
             LocalDate now = LocalDate.now();
-            LocalDate filterDate;
+            LocalDate filterDate = null;
     
-            switch (option) {
-                case 1:
-                    filterDate = now.minusWeeks(1);
-                    break;
-                case 2:
-                    filterDate = now.minusMonths(1);
-                    break;
-                case 3:
-                    filterDate = now.minusYears(1);
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-                    return;
-            }
-    
+            
             System.out.println("=== Registros médicos filtrados ===");
-            medicalHistory.getRecords().stream()
-                .filter(record -> record.getDate().isAfter(filterDate))
-                .forEach(record -> System.out.println(record));
+            boolean recordsFound = false;
+            
+            for (MedicalRecord record : medicalHistory.getRecords()) {
+                if (record.getDate().isAfter(filterDate) || record.getDate().isEqual(filterDate)) {
+                    System.out.println(record);
+                    recordsFound = true;
+                }
+            }
+            
+            if (!recordsFound) {
+                System.out.println("No se encontraron registros médicos para el periodo seleccionado.");
+            }
     
         } catch (NumberFormatException e) {
             System.out.println("=== ERROR: El ID debe ser un número entero ===");
         } catch (Exception e) {
             System.out.println("=== ERROR: " + e.getMessage() + " ===");
         }
-    }
+    }    
     
     /**
      * Muestra una lista numerada de recursos y permite al usuario seleccionar uno para actualizar su cantidad.
