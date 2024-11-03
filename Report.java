@@ -14,6 +14,9 @@
 
 import java.util.List;
 import java.util.Comparator;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class Report {
@@ -43,6 +46,88 @@ public class Report {
         this.adoptionCandidates = adoptionCandidates;
         this.adoptions = adoptions;
     }
+
+    /**
+ * Método para filtrar adopciones por rango de fechas.
+ * @param startDate Fecha de inicio del período
+ * @param endDate Fecha de fin del período
+ * @return Lista de adopciones dentro del rango de fechas especificado
+ */
+private List<Adoption> filterAdoptionsByDateRange(LocalDate startDate, LocalDate endDate) {
+    List<Adoption> filteredAdoptions = new ArrayList<>();
+    for (Adoption adoption : adoptions) {
+        LocalDate adoptionDate = adoption.getAdoptionDate();
+        if ((adoptionDate.isEqual(startDate) || adoptionDate.isAfter(startDate)) && 
+            (adoptionDate.isEqual(endDate) || adoptionDate.isBefore(endDate))) {
+            filteredAdoptions.add(adoption);
+        }
+    }
+    return filteredAdoptions;
+}
+
+/**
+ * Genera un informe de adopciones para un período específico.
+ * @param startDate Fecha de inicio del período
+ * @param endDate Fecha de fin del período
+ * @return String con el informe de adopciones del período
+ */
+public String generateAdoptionReportByDate(LocalDate startDate, LocalDate endDate) {
+    List<Adoption> filteredAdoptions = filterAdoptionsByDateRange(startDate, endDate);
+    StringBuilder report = new StringBuilder();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    report.append("\n=== Informe de Adopciones ===\n")
+          .append("Período: ").append(startDate.format(formatter))
+          .append(" - ").append(endDate.format(formatter)).append("\n")
+          .append("Total de adopciones en el período: ").append(filteredAdoptions.size()).append("\n")
+          .append("================================\n");
+
+    if (filteredAdoptions.isEmpty()) {
+        report.append("No se registraron adopciones en este período.\n");
+    } else {
+        for (Adoption adoption : filteredAdoptions) {
+            Animal animal = adoption.getAnimal();
+            AdoptionCandidate adopter = adoption.getAdopter();
+            report.append("Fecha: ").append(adoption.getAdoptionDate().format(formatter)).append("\n")
+                  .append("Animal: ").append(animal.getName())
+                  .append(" (").append(animal.getBreed()).append(")\n")
+                  .append("Adoptante: ").append(adopter.getName())
+                  .append(", Contacto: ").append(adopter.getContactInfo()).append("\n")
+                  .append("--------------------------------\n");
+        }
+    }
+
+    return report.toString();
+}
+
+/**
+ * Genera estadísticas mensuales de adopciones.
+ * @param year Año para generar estadísticas
+ * @param month Mes para generar estadísticas
+ * @return String con las estadísticas mensuales
+ */
+public String generateMonthlyAdoptionStats(int year, int month) {
+    LocalDate startDate = LocalDate.of(year, month, 1);
+    LocalDate endDate = startDate.plusMonths(1).minusDays(1);
+    List<Adoption> monthAdoptions = filterAdoptionsByDateRange(startDate, endDate);
+    
+    StringBuilder stats = new StringBuilder();
+    stats.append("\n=== Estadísticas de Adopciones ===\n")
+         .append("Mes: ").append(startDate.getMonth()).append(" ").append(year).append("\n")
+         .append("Total de adopciones: ").append(monthAdoptions.size()).append("\n");
+
+    // Estadísticas adicionales
+    long dangerousAnimals = monthAdoptions.stream()
+        .filter(a -> a.getAnimal().getDangerLevel())
+        .count();
+
+    stats.append("Animales peligrosos adoptados: ").append(dangerousAnimals).append("\n")
+         .append("Porcentaje de animales peligrosos: ")
+         .append(monthAdoptions.isEmpty() ? 0 : (dangerousAnimals * 100.0 / monthAdoptions.size()))
+         .append("%\n");
+
+    return stats.toString();
+}
 
     /**
      * Genera un informe sobre las adopciones realizadas en el albergue.
