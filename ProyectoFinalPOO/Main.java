@@ -773,6 +773,9 @@ public class Main {
                 case 1:
                     filterDate = now.minusDays(7); // Filtro de la última semana
                     break;
+                case 2:
+                    filterDate = now.minusMonths(1); // Filtro del último mes
+                    break;
             }
     
             System.out.println("=== Registros médicos filtrados ===");
