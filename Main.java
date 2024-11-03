@@ -81,7 +81,7 @@ public class Main {
                 sc.nextLine();  // Limpia el buffer en caso de excepción
             }
             
-        } while (option != 12);  // Repite mientras no se elija la opción de salir (12)
+        } while (option != 14);  // Repite mientras no se elija la opción de salir (12)
     }
 
 

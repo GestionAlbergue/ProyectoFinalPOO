@@ -87,8 +87,6 @@ public class MainPage {
         System.out.print("Seleccione una opción: ");
     }
 
-    
-
     /**
      * Navega entre las opciones del menú principal y ejecuta las acciones correspondientes.
      *
@@ -150,10 +148,10 @@ public class MainPage {
                         sc.nextLine();  // Limpia el buffer en caso de excepción
                     }
                     
-                } while (reportOption != 12);  // Repite mientras no se elija la opción de regresar (7)
+                } while (reportOption != 12);  // Repite mientras no se elija la opción de regresar (12)
                 break;
             case 12: // Reporte de Adopciones por Período
-                try {
+                /*try {
                     System.out.println("\n=== Filtrar por período de tiempo ===");
                     System.out.println("¿Desea filtrar por período? (Si/No): ");
                     String response = sc.nextLine();
@@ -172,9 +170,42 @@ public class MainPage {
                 } catch (DateTimeParseException e) {
                     System.out.println("Error: Formato de fecha inválido");
                 }
+                break;*/
+            
+                try {
+                    System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
+                    String inputStartDate = sc.nextLine().trim(); // Trim to remove extra spaces
+                    LocalDate startDate = LocalDate.parse(inputStartDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+                    System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
+                    String inputEndDate = sc.nextLine().trim();
+                    LocalDate endDate = LocalDate.parse(inputEndDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+                    // Ensure startDate is not after endDate
+                    if (startDate.isAfter(endDate)) {
+                        System.out.println("Error: La fecha inicial no puede ser posterior a la fecha final.");
+                    } else {
+                        System.out.println(report.generateAdoptionReportByDate(startDate, endDate));
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error: Formato de fecha inválido");
+                } catch (Exception e) {
+                    System.out.println("Error inesperado: " + e.getMessage());
+                    e.printStackTrace(); // For debugging purposes
+                }  
                 break;
-            case 13: // Estadísticas Mensuales de Adopciones
-                System.out.println(" EN PROCESO"); 
+            case 13:
+                try {
+                    System.out.print("Ingrese año: ");
+                    int year = Integer.parseInt(sc.nextLine());
+                    System.out.print("Ingrese mes (1-12): ");
+                    int month = Integer.parseInt(sc.nextLine());
+                    System.out.println(report.generateMonthlyAdoptionStats(year, month));
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: Ingrese números válidos");
+                } catch (DateTimeException e) {
+                    System.out.println("Error: Fecha inválida");
+                }
                 break;
             case 14:
                 main.saveAllData();
@@ -236,35 +267,9 @@ public class MainPage {
             case 11: // Reporte de Tareas sin Completar
                 System.out.println(report.generateNoCompleteTaskReport());
                 break;
-            case 14:
+            case 12:
                 // Regresar al menú principal
                 break;
-            case 12:
-    try {
-        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
-        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
-        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.println(report.generateAdoptionReportByDate(startDate, endDate));
-    } catch (DateTimeParseException e) {
-        System.out.println("Error: Formato de fecha inválido");
-    }
-    break;
-case 13:
-    try {
-        System.out.print("Ingrese año: ");
-        int year = Integer.parseInt(sc.nextLine());
-        System.out.print("Ingrese mes (1-12): ");
-        int month = Integer.parseInt(sc.nextLine());
-        System.out.println(report.generateMonthlyAdoptionStats(year, month));
-    } catch (NumberFormatException e) {
-        System.out.println("Error: Ingrese números válidos");
-    } catch (DateTimeException e) {
-        System.out.println("Error: Fecha inválida");
-    }
-    break;
             default:
                 System.out.println(" ");
                 System.out.println("==========================");
