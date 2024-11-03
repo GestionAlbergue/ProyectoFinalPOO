@@ -779,6 +779,9 @@ public class Main {
                 case 3:
                     filterDate = now.minusYears(1); // Filtro del último año
                     break;
+                default:
+                    System.out.println("Opción no válida.");
+                    return;
             }
     
             System.out.println("=== Registros médicos filtrados ===");
