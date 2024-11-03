@@ -769,7 +769,12 @@ public class Main {
             LocalDate now = LocalDate.now();
             LocalDate filterDate = null;
     
-            
+            switch (option) {
+                case 1:
+                    filterDate = now.minusDays(7); // Filtro de la última semana
+                    break;
+            }
+    
             System.out.println("=== Registros médicos filtrados ===");
             boolean recordsFound = false;
             
