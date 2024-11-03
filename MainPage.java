@@ -22,7 +22,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainPage {
-    private Scanner sc; /** Objeto de la clase Report utilizado para generar informes. */
+    // private Scanner sc; /** Objeto de la clase Report utilizado para generar informes. */
     private Report report;
 
     /**
