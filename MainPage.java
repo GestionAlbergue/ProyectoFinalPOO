@@ -111,7 +111,7 @@ public class MainPage {
                 main.registerAdoption(sc);       // Registrar una adopción
                 break;
             case 5: 
-                main.addResource(sc);       // Registrar un recurso
+                main.addResource(sc);            // Registrar un recurso
                 break;
             case 6:
                 main.updateResourceQuantity(sc); // Cambiar Cantidad de un Recurso
@@ -130,7 +130,6 @@ public class MainPage {
                 break;
             case 11:
                 int reportOption = 0;           
-
                 do {                             // Bucle principal para mostrar el menú hasta que el usuario seleccione la opción de regresar
                     this.displayOptionsReport(); // Muestra el menú de opciones
                     
@@ -152,7 +151,30 @@ public class MainPage {
                     }
                     
                 } while (reportOption != 12);  // Repite mientras no se elija la opción de regresar (7)
-
+                break;
+            case 12: // Reporte de Adopciones por Período
+                try {
+                    System.out.println("\n=== Filtrar por período de tiempo ===");
+                    System.out.println("¿Desea filtrar por período? (Si/No): ");
+                    String response = sc.nextLine();
+                    
+                    if (response.equalsIgnoreCase("Si")) {
+                        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
+                        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
+                        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        System.out.println(report.generateTopAdoptersReport(startDate, endDate));
+                    } else {
+                        System.out.println(report.generateTopAdoptersReport(null, null));
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error: Formato de fecha inválido");
+                }
+                break;
+            case 13: // Estadísticas Mensuales de Adopciones
+                System.out.println(" EN PROCESO"); 
                 break;
             case 14:
                 main.saveAllData();
@@ -194,26 +216,7 @@ public class MainPage {
                 System.out.println(report.generateAdoptersReport());   
                 break;
             case 5: // Reporte de Adoptantes por Cantidad de Animales Adoptados
-                //System.out.println(report.generateTopAdoptersReport());
-                try {
-                    System.out.println("\n=== Filtrar por período de tiempo ===");
-                    System.out.println("¿Desea filtrar por período? (S/N): ");
-                    String response = sc.nextLine();
-                    
-                    if (response.equalsIgnoreCase("S")) {
-                        System.out.print("Ingrese fecha inicial (DD/MM/YYYY): ");
-                        LocalDate startDate = LocalDate.parse(sc.nextLine(), 
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                        System.out.print("Ingrese fecha final (DD/MM/YYYY): ");
-                        LocalDate endDate = LocalDate.parse(sc.nextLine(), 
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                        System.out.println(report.generateTopAdoptersReport(startDate, endDate));
-                    } else {
-                        System.out.println(report.generateTopAdoptersReport(null, null));
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Error: Formato de fecha inválido");
-                }
+                System.out.println(report.generateTopAdoptersReport());
                 break;
             case 6: // Reporte General de Voluntarios
                 System.out.println(report.generateVolunteerReport());  
