@@ -13,6 +13,7 @@
  */
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,6 +47,128 @@ public class Report {
         this.adoptionCandidates = adoptionCandidates;
         this.adoptions = adoptions;
     }
+
+    /**
+ * Genera un informe detallado de adoptantes ordenado por cantidad de adopciones.
+ * Incluye filtros por fecha y estadísticas adicionales.
+ * 
+ * @param startDate Fecha inicial para el filtrado (opcional, puede ser null)
+ * @param endDate Fecha final para el filtrado (opcional, puede ser null)
+ * @return String con el informe detallado
+ */
+public String generateTopAdoptersReport(LocalDate startDate, LocalDate endDate) {
+    StringBuilder report = new StringBuilder();
+    report.append("\n=== Informe de Adoptantes por Cantidad de Adopciones ===\n\n");
+
+    // Crear una lista temporal de adoptantes con sus adopciones en el período
+    List<AdoptionCandidate> filteredAdopters = new ArrayList<>(adoptionCandidates);
+    
+    // Ordenar adoptantes por cantidad de animales adoptados (de mayor a menor)
+    Collections.sort(filteredAdopters, new Comparator<AdoptionCandidate>() {
+        @Override
+        public int compare(AdoptionCandidate a1, AdoptionCandidate a2) {
+            int adopciones1 = getAdoptionCountInPeriod(a1, startDate, endDate);
+            int adopciones2 = getAdoptionCountInPeriod(a2, startDate, endDate);
+            return Integer.compare(adopciones2, adopciones1);
+        }
+    });
+
+    // Estadísticas generales
+    int totalAdoptions = 0;
+    int totalDangerousAnimals = 0;
+    
+    // Generar el informe detallado
+    for (AdoptionCandidate adopter : filteredAdopters) {
+        List<Animal> adoptedAnimals = getAdoptedAnimalsInPeriod(adopter, startDate, endDate);
+        int adoptionCount = adoptedAnimals.size();
+        
+        if (adoptionCount > 0) {
+            report.append("ID Adoptante: ").append(adopter.getId()).append("\n");
+            report.append("Nombre: ").append(adopter.getName()).append("\n");
+            report.append("Contacto: ").append(adopter.getContactInfo()).append("\n");
+            report.append("Total de adopciones: ").append(adoptionCount).append("\n");
+            
+            // Detalles de los animales adoptados
+            report.append("Animales adoptados:\n");
+            int dangerousCount = 0;
+            
+            for (Animal animal : adoptedAnimals) {
+                Adoption adoption = findAdoptionByAnimal(animal);
+                if (adoption != null) {
+                    report.append("  - ").append(animal.getName())
+                          .append(" (").append(animal.getBreed()).append(")")
+                          .append(", Adoptado el: ").append(adoption.getAdoptionDate())
+                          .append(", Peligrosidad: ").append(animal.getDangerLevelDescription())
+                          .append("\n");
+                    
+                    if (animal.getDangerLevel()) {
+                        dangerousCount++;
+                        totalDangerousAnimals++;
+                    }
+                }
+            }
+            
+            // Estadísticas del adoptante
+            report.append("Animales peligrosos adoptados: ").append(dangerousCount)
+                  .append(" (").append(String.format("%.1f", (dangerousCount * 100.0 / adoptionCount)))
+                  .append("%)\n");
+            
+            report.append("Voluntario asignado: ")
+                  .append(adopter.getVolunteer().getName())
+                  .append("\n");
+            
+            report.append("----------------------------------------\n");
+            totalAdoptions += adoptionCount;
+        }
+    }
+    
+    // Estadísticas globales
+    report.append("\n=== Estadísticas Globales ===\n");
+    report.append("Total de adoptantes activos: ").append(filteredAdopters.size()).append("\n");
+    report.append("Total de adopciones: ").append(totalAdoptions).append("\n");
+    if (totalAdoptions > 0) {
+        report.append("Porcentaje de animales peligrosos adoptados: ")
+              .append(String.format("%.1f", (totalDangerousAnimals * 100.0 / totalAdoptions)))
+              .append("%\n");
+    }
+    
+    return report.toString();
+}
+
+/**
+ * Método auxiliar para obtener el número de adopciones de un adoptante en un período específico
+ */
+private int getAdoptionCountInPeriod(AdoptionCandidate adopter, LocalDate startDate, LocalDate endDate) {
+    if (startDate == null || endDate == null) {
+        return adopter.getAnimals().size();
+    }
+    
+    return (int) adoptions.stream()
+        .filter(adoption -> adoption.getAdopter().equals(adopter))
+        .filter(adoption -> {
+            LocalDate adoptionDate = adoption.getAdoptionDate();
+            return !adoptionDate.isBefore(startDate) && !adoptionDate.isAfter(endDate);
+        })
+        .count();
+}
+
+/**
+ * Método auxiliar para obtener los animales adoptados en un período específico
+ */
+private List<Animal> getAdoptedAnimalsInPeriod(AdoptionCandidate adopter, LocalDate startDate, LocalDate endDate) {
+    if (startDate == null || endDate == null) {
+        return adopter.getAnimals();
+    }
+    
+    return adoptions.stream()
+        .filter(adoption -> adoption.getAdopter().equals(adopter))
+        .filter(adoption -> {
+            LocalDate adoptionDate = adoption.getAdoptionDate();
+            return !adoptionDate.isBefore(startDate) && !adoptionDate.isAfter(endDate);
+        })
+        .map(Adoption::getAnimal)
+        .collect(Collectors.toList());
+}
 
     /**
  * Método para filtrar adopciones por rango de fechas.
