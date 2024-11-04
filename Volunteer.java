@@ -16,6 +16,7 @@
  import java.io.*;
  import java.util.ArrayList;
  import java.util.List;
+ import java.util.stream.Collectors;
 
 public class Volunteer {
     private String name,         // Nombre del voluntario
@@ -159,6 +160,20 @@ public class Volunteer {
             }
         }
         return volunteers;
+    }
+
+    /**
+     * Filtra una lista de voluntarios para incluir solo aquellos que han trabajado
+     * un número mínimo de horas especificado.
+     *
+     * @param volunteers la lista de voluntarios a filtrar
+     * @param minHours el número mínimo de horas trabajadas que debe tener un voluntario
+     * @return una lista de voluntarios que han trabajado al menos {@code minHours} horas
+     */
+    public static List<Volunteer> filterVolunteersByHours(List<Volunteer> volunteers, int minHours) {
+        return volunteers.stream()
+                .filter(volunteer -> volunteer.getHoursWorked() >= minHours)
+                .collect(Collectors.toList());
     }
     
     /**
