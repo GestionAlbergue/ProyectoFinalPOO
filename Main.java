@@ -1257,5 +1257,43 @@ public void viewVolunteerTaskHistory(Scanner sc) {
         System.out.println(" ");
     }
 }
+
+public void viewFilteredResourcesByDate(Scanner sc) {
+    System.out.println("Seleccione el período para filtrar recursos:");
+    System.out.println("1. Último año");
+    System.out.println("2. Último mes");
+    System.out.println("3. Última semana");
+    System.out.print("Seleccione una opción: ");
+    
+    int option = sc.nextInt();
+    sc.nextLine(); // Limpiar el buffer
+
+    List<Resource> filteredResources = new ArrayList<>();
+    
+    switch (option) {
+        case 1:
+            filteredResources = Resource.filterUpdatedInLastYear(resources);
+            break;
+        case 2:
+            filteredResources = Resource.filterUpdatedInLastMonth(resources);
+            break;
+        case 3:
+            filteredResources = Resource.filterUpdatedInLastWeek(resources);
+            break;
+        default:
+            System.out.println("Opción no válida.");
+            return;
+    }
+
+    // Mostrar los recursos filtrados
+    if (filteredResources.isEmpty()) {
+        System.out.println("No se encontraron recursos actualizados en el período seleccionado.");
+    } else {
+        System.out.println("Recursos actualizados:");
+        for (Resource resource : filteredResources) {
+            System.out.println("Nombre: " + resource.getResourceName() + ", Cantidad: " + resource.getQuantity());
+        }
+    }
+}
 }
  
