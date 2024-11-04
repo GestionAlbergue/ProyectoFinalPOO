@@ -160,4 +160,15 @@ public class Volunteer {
         }
         return volunteers;
     }
+/**
+ * Genera un informe detallado de los voluntarios filtrados por una cantidad mínima de horas trabajadas.
+ *
+ * @param volunteers La lista de voluntarios a filtrar.
+ * @param minHours La cantidad mínima de horas trabajadas para incluir en el informe.
+ * @return Un string con el informe de los voluntarios que cumplen con el criterio.
+ */
+public static String generateVolunteerReport(List<Volunteer> volunteers, int minHours) {
+ List<Volunteer> filteredVolunteers = filterVolunteersByHours(volunteers, minHours);
+ StringBuilder report = new StringBuilder("Informe de Voluntarios con al menos " + minHours + " horas trabajadas:\n");
+ 
 }
