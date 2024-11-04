@@ -745,8 +745,10 @@ public class Main {
             
             Animal animal = findAnimalById(animalId);
             if (animal == null) {
-                System.out.println(" ");
-                System.out.println("=== ERROR: Animal no encontrado ===");
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Animal no encontrado           =");
+                System.out.println("==================================");
                 System.out.println(" ");
                 return;
             }
@@ -754,15 +756,19 @@ public class Main {
             MedicalHistory medicalHistory = findMedicalHistoryByAnimal(animal);
             if (medicalHistory == null) {
                 System.out.println(" ");
-                System.out.println("=== ERROR: Historial médico no encontrado ===");
+                System.out.println("==================================");
+                System.out.println("===             ERROR          ===");
+                System.out.println("= Historial médico no encontrado =");
+                System.out.println("==================================");
                 System.out.println(" ");
                 return;
             }
-    
-            System.out.println("Seleccione el periodo para ver los registros:");
-            System.out.println("1. Semanal");
-            System.out.println("2. Mensual");
-            System.out.println("3. Anual");
+
+            System.out.println(" ");
+            System.out.println("** Seleccione el período para ver los registros: **");
+            System.out.println("* 1. Semanal                                      *");
+            System.out.println("* 2. Mensual                                      *");
+            System.out.println("* 3. Anual                                         *");
             System.out.print("Opción: ");
             
             int option = Integer.parseInt(sc.nextLine());
@@ -780,11 +786,17 @@ public class Main {
                     filterDate = now.minusYears(1); // Filtro del último año
                     break;
                 default:
-                    System.out.println("Opción no válida.");
+                    System.out.println("==================================");
+                    System.out.println("===             ERROR          ===");
+                    System.out.println("= Opción no Válida               =");
+                    System.out.println("==================================");
+                    System.out.println(" ");
                     return;
             }
-    
-            System.out.println("=== Registros médicos filtrados ===");
+
+            System.out.println(" ");
+            System.out.println("=== Registros médicos Filtrados ===");
+            System.out.println(" ");
             boolean recordsFound = false;
             
             for (MedicalRecord record : medicalHistory.getRecords()) {
@@ -795,13 +807,28 @@ public class Main {
             }
             
             if (!recordsFound) {
-                System.out.println("No se encontraron registros médicos para el periodo seleccionado.");
+                System.out.println(" ");
+                System.out.println("=======================================");
+                System.out.println("= No se encontraron registros médicos =");
+                System.out.println("= para el periodo seleccionado.       =");
+                System.out.println("=======================================");
+                System.out.println(" ");
             }
     
         } catch (NumberFormatException e) {
-            System.out.println("=== ERROR: El ID debe ser un número entero ===");
+            System.out.println(" ");
+            System.out.println("===================================");
+            System.out.println("===             ERROR           ===");
+            System.out.println("= El ID debe ser un número entero =");
+            System.out.println("===================================");
+            System.out.println(" ");
         } catch (Exception e) {
-            System.out.println("=== ERROR: " + e.getMessage() + " ===");
+            System.out.println(" ");
+            System.out.println("===================================");
+            System.out.println("===             ERROR           ===");
+            System.out.println("=== " + e.getMessage() + " ===");
+            System.out.println("===================================");
+            System.out.println(" ");
         }
     }    
 
