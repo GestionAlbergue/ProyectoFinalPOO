@@ -205,5 +205,20 @@ public class Resource {
         }
         return filteredList;
     }
-
+    /**
+     * Filtra los recursos actualizados en la última semana.
+     *
+     * @param resources Lista de recursos a filtrar.
+     * @return Una lista de recursos actualizados en la última semana.
+     */
+    public static List<Resource> filterUpdatedInLastWeek(List<Resource> resources) {
+        List<Resource> filteredList = new ArrayList<>();
+        LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
+        for (Resource resource : resources) {
+            if (resource.getLastUpdated().isAfter(oneWeekAgo)) {
+                filteredList.add(resource);
+            }
+        }
+        return filteredList;
+    }
 }
