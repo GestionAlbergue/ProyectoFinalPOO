@@ -581,6 +581,42 @@ public String generateMonthlyAdoptionStats(int year, int month) {
         return report.toString();
     }
 
+    
+    /**
+     * Genera un informe sobre los adoptantes registrados en el albergue, ordenados del que tiene mayor cantidad de adoptantes.
+     * 
+     * @return Un String que contiene el informe de los adoptantes con más animales adoptados
+     */
+    public String generateTopAdoptersReport() {
+        StringBuilder report = new StringBuilder();
+    
+        // Agregar la cantidad de adoptantes registrados
+        report.append("=== Informe de Adoptantes con más Animales Adoptados ===\n");
+        report.append("\n");
+    
+        // Verificar si hay adoptantes registrados
+        if (adoptionCandidates.isEmpty()) {
+            report.append("No se han registrado adoptantes.\n");
+        } else {
+            // Ordenar la lista de adoptantes por la cantidad de animales adoptados (de mayor a menor)
+            Collections.sort(adoptionCandidates, new Comparator<AdoptionCandidate>() {
+                @Override
+                public int compare(AdoptionCandidate a1, AdoptionCandidate a2) {
+                    return Integer.compare(a2.getAnimals().size(), a1.getAnimals().size());
+                }
+            });
+    
+            // Detallar cada adoptante usando su método toString()
+            for (AdoptionCandidate candidate : adoptionCandidates) {
+                report.append(candidate.getCantidadAdoptados()).append("\n");
+                report.append("=========================================\n");
+            }
+        }
+    
+        return report.toString();
+    }
+
+    
     /**
      * Genera un informe sobre los adoptantes registrados en el albergue, ordenados del que tiene mayor cantidad de adoptantes.
      * 
