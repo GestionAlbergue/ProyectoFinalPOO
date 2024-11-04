@@ -14,6 +14,7 @@
  * Última modificación: 03/11/2024
  */
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.io.IOException;
 
 public class Main {
     private List<Animal> animals;                       // Lista de animales del albergue
@@ -1133,5 +1133,129 @@ public class Main {
         System.out.println("===============================================================");
         System.out.println("");
     }
+    
+    /**
+ * Muestra el historial de tareas de un voluntario específico.
+ * @param sc Scanner para entrada de usuario
+ */
+public void viewVolunteerTaskHistory(Scanner sc) {
+    try {
+        if (volunteers.isEmpty()) {
+            System.out.println(" ");
+            System.out.println("=======================================");
+            System.out.println("= No hay voluntarios registrados     =");
+            System.out.println("=======================================");
+            System.out.println(" ");
+            return;
+        }
+
+        // Mostrar lista de voluntarios
+        System.out.println(" ");
+        System.out.println("====================================");
+        System.out.println("===     HISTORIAL DE TAREAS      ===");
+        System.out.println("====================================");
+        System.out.println("Voluntarios disponibles:");
+        for (Volunteer volunteer : volunteers) {
+            System.out.println("ID: " + volunteer.getId() + " - Nombre: " + volunteer.getName());
+        }
+
+        // Solicitar ID del voluntario
+        System.out.print("\nIngrese el ID del voluntario: ");
+        int volunteerId = Integer.parseInt(sc.nextLine());
+
+        // Buscar el voluntario
+        Volunteer selectedVolunteer = findVolunteerById(volunteerId);
+
+        if (selectedVolunteer == null) {
+            System.out.println(" ");
+            System.out.println("====================================");
+            System.out.println("===           ERROR             ===");
+            System.out.println("= Voluntario no encontrado         =");
+            System.out.println("====================================");
+            System.out.println(" ");
+            return;
+        }
+
+        // Filtrar tareas del voluntario
+        List<Task> volunteerTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getVolunteer() != null && 
+                task.getVolunteer().getId() == selectedVolunteer.getId()) {
+                volunteerTasks.add(task);
+            }
+        }
+
+        // Mostrar resultados
+        System.out.println("\n=== Historial de Tareas ===");
+        System.out.println("Voluntario: " + selectedVolunteer.getName());
+        System.out.println("ID: " + selectedVolunteer.getId());
+        System.out.println("Horas Trabajadas: " + selectedVolunteer.getHoursWorked());
+        System.out.println("------------------------");
+
+        if (volunteerTasks.isEmpty()) {
+            System.out.println("Este voluntario no tiene tareas asignadas.");
+        } else {
+            // Mostrar tareas completadas
+            System.out.println("\nTareas Completadas:");
+            boolean hasCompletedTasks = false;
+            for (Task task : volunteerTasks) {
+                if (task.isCompleted()) {
+                    System.out.println("- " + task.getTaskName());
+                    System.out.println("  Descripción: " + task.getDescription());
+                    System.out.println("------------------------");
+                    hasCompletedTasks = true;
+                }
+            }
+            if (!hasCompletedTasks) {
+                System.out.println("No hay tareas completadas.");
+            }
+
+            // Mostrar tareas pendientes
+            System.out.println("\nTareas Pendientes:");
+            boolean hasPendingTasks = false;
+            for (Task task : volunteerTasks) {
+                if (!task.isCompleted()) {
+                    System.out.println("- " + task.getTaskName());
+                    System.out.println("  Descripción: " + task.getDescription());
+                    System.out.println("------------------------");
+                    hasPendingTasks = true;
+                }
+            }
+            if (!hasPendingTasks) {
+                System.out.println("No hay tareas pendientes.");
+            }
+
+            // Mostrar estadísticas
+            int totalTasks = volunteerTasks.size();
+            long completedTasks = volunteerTasks.stream()
+                .filter(Task::isCompleted)
+                .count();
+            
+            System.out.println("\nEstadísticas:");
+            System.out.println("Total de tareas: " + totalTasks);
+            System.out.println("Tareas completadas: " + completedTasks + 
+                " (" + String.format("%.1f", (double)completedTasks/totalTasks * 100) + "%)");
+            System.out.println("Tareas pendientes: " + (totalTasks - completedTasks) + 
+                " (" + String.format("%.1f", (double)(totalTasks - completedTasks)/totalTasks * 100) + "%)");
+            System.out.println("Promedio de horas por tarea: " + 
+                String.format("%.2f", (double)selectedVolunteer.getHoursWorked()/totalTasks));
+        }
+
+    } catch (NumberFormatException e) {
+        System.out.println(" ");
+        System.out.println("====================================");
+        System.out.println("===           ERROR             ===");
+        System.out.println("= El ID debe ser un número entero  =");
+        System.out.println("====================================");
+        System.out.println(" ");
+    } catch (Exception e) {
+        System.out.println(" ");
+        System.out.println("====================================");
+        System.out.println("===           ERROR             ===");
+        System.out.println("= " + e.getMessage() + " =");
+        System.out.println("====================================");
+        System.out.println(" ");
+    }
+}
 }
  
