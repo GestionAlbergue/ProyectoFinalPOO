@@ -999,6 +999,29 @@ public class Main {
     }
 
     /**
+     * Solicita al usuario una fecha válida a través de un objeto {@code Scanner}.
+     * El método sigue solicitando la fecha hasta que el usuario ingrese una en el formato correcto.
+     *
+     * @param scanner el objeto {@code Scanner} utilizado para leer la entrada del usuario
+     * @return un objeto {@code LocalDate} que representa la fecha ingresada por el usuario
+     */
+    public LocalDate getValidDateFromUser(Scanner scanner) {
+        LocalDate date = null;
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("Ingrese la fecha para filtrar los recursos (formato: YYYY-MM-DD): ");
+                String dateInput = scanner.nextLine();
+                date = LocalDate.parse(dateInput);
+                valid = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato de fecha inválido. Por favor, intente de nuevo.");
+            }
+        }
+        return date;
+    }
+
+    /**
      * Carga toda la información desde archivos CSV al iniciar el programa.
      * 
      * Este método se encarga de leer los archivos CSV y cargar la información
