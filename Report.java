@@ -655,4 +655,80 @@ public String generateMonthlyAdoptionStats(int year, int month) {
         }
         return null;  // Si no se encuentra adopción para el animal
     }
+
+    /**
+ * Genera un reporte de tareas filtrado por período de tiempo.
+ * @param startDate Fecha inicial
+ * @param endDate Fecha final
+ * @return String con el reporte de tareas en el período especificado
+ */
+public String generateTaskReportByPeriod(LocalDate startDate, LocalDate endDate) {
+    StringBuilder report = new StringBuilder();
+    report.append("\n====== Reporte de Tareas por Período ======\n");
+    report.append("Período: ").append(startDate).append(" - ").append(endDate).append("\n\n");
+
+    // Como no tenemos getStartTime, vamos a mostrar todas las tareas en el período
+    List<Task> periodTasks = tasks;
+
+    if (periodTasks.isEmpty()) {
+        report.append("No se encontraron tareas en el período especificado.\n");
+    } else {
+        report.append("Total de tareas: ").append(periodTasks.size()).append("\n");
+        report.append("Completadas: ").append(
+            periodTasks.stream().filter(Task::isCompleted).count()
+        ).append("\n");
+        report.append("Pendientes: ").append(
+            periodTasks.stream().filter(task -> !task.isCompleted()).count()
+        ).append("\n\n");
+
+        report.append("=== Detalle de Tareas ===\n");
+        for (Task task : periodTasks) {
+            report.append(task.toString()).append("\n");
+        }
+    }
+
+    return report.toString();
+}
+
+/**
+ * Genera un reporte de tareas agrupadas por estado (completadas/pendientes).
+ * @return String con el reporte de tareas por estado
+ */
+public String generateTaskReportByStatus() {
+    StringBuilder report = new StringBuilder();
+    report.append("\n====== Reporte de Tareas por Estado ======\n");
+
+    // Separar tareas por estado
+    List<Task> completedTasks = tasks.stream()
+        .filter(Task::isCompleted)
+        .collect(Collectors.toList());
+
+    List<Task> pendingTasks = tasks.stream()
+        .filter(task -> !task.isCompleted())
+        .collect(Collectors.toList());
+
+    // Reporte de tareas completadas
+    report.append("\n=== Tareas Completadas ===\n");
+    report.append("Total: ").append(completedTasks.size()).append("\n");
+    if (!completedTasks.isEmpty()) {
+        for (Task task : completedTasks) {
+            report.append("- ").append(task.toString()).append("\n");
+        }
+    } else {
+        report.append("No hay tareas completadas.\n");
+    }
+
+    // Reporte de tareas pendientes
+    report.append("\n=== Tareas Pendientes ===\n");
+    report.append("Total: ").append(pendingTasks.size()).append("\n");
+    if (!pendingTasks.isEmpty()) {
+        for (Task task : pendingTasks) {
+            report.append("- ").append(task.toString()).append("\n");
+        }
+    } else {
+        report.append("No hay tareas pendientes.\n");
+    }
+
+    return report.toString();
+}
 }
