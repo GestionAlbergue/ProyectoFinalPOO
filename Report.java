@@ -504,6 +504,7 @@ public String generateMonthlyAdoptionStats(int year, int month) {
                 stats.append(animal).append("\n");
             }
         }
+        stats.append("\n");
         stats.append("=== Animales No Peligros: ===\n");
         for (Animal animal : animals) {
             if (!animal.getDangerLevel()) {
@@ -580,7 +581,6 @@ public String generateMonthlyAdoptionStats(int year, int month) {
         return report.toString();
     }
 
-    
     /**
      * Genera un informe sobre los adoptantes registrados en el albergue, ordenados del que tiene mayor cantidad de adoptantes.
      * 
