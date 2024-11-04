@@ -33,6 +33,7 @@ public class Main {
     private List<AdoptionCandidate> adoptionCandidates; // Lista de Adoptantes en el sistema
     private Report report;                              // Referencia al objeto Report para generar informes
     private MainPage mainPage;                          // Referencia a la clase MainPage para navegar en el sistema
+    private ResourceManager resourceManager;            // Clase para manejar informe de recursos
 
     /**
      * Método principal que inicia el programa.
@@ -51,6 +52,7 @@ public class Main {
         this.loadAllData();     // Cargar toda la data desde los CSV
         this.report = new Report(animals, volunteers, resources, tasks, adoptionCandidates, adoptions);  // Crea el objeto Report
         this.mainPage = new MainPage(report);  // Crea el objeto MainPage para la navegación
+        this.resourceManager = new ResourceManager(resources);
     }
 
     /**
@@ -1020,6 +1022,28 @@ public class Main {
         }
         return date;
     }
+
+    /**
+     * Solicita al usuario una fecha válida, filtra los recursos de acuerdo con esa fecha,
+     * y muestra los recursos filtrados en la consola.
+     *
+     * @param sc el objeto {@code Scanner} utilizado para leer la entrada del usuario
+     * @param resourceManager el objeto {@code ResourceManager} que gestiona los recursos
+     */
+    public void displayFilteredResourcesByDate(Scanner sc, ResourceManager resourceManager) {
+        // Solicita una fecha válida al usuario
+        LocalDate date = getValidDateFromUser(sc);
+
+        // Filtra los recursos por la fecha ingresada
+        List<Resource> filteredResources = resourceManager.filterResourcesByDate(date);
+
+        // Muestra los recursos filtrados
+        System.out.println("Recursos filtrados por la fecha " + date + ":");
+        for (Resource resource : filteredResources) {
+            System.out.println(resource);
+        }
+    }
+
 
     /**
      * Carga toda la información desde archivos CSV al iniciar el programa.
