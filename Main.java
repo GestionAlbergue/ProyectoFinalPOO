@@ -770,7 +770,7 @@ public class Main {
             System.out.println("** Seleccione el período para ver los registros: **");
             System.out.println("* 1. Semanal                                      *");
             System.out.println("* 2. Mensual                                      *");
-            System.out.println("* 3. Anual                                         *");
+            System.out.println("* 3. Anual                                        *");
             System.out.print("Opción: ");
             
             int option = Integer.parseInt(sc.nextLine());

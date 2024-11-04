@@ -303,7 +303,7 @@ public String generateMonthlyAdoptionStats(int year, int month) {
         StringBuilder report = new StringBuilder();  // Usar StringBuilder para construir el informe
     
         // Agregar la cantidad de adoptantes registrados
-        report.append("=== Informe de Adoptantes Registrados ===\n");
+        report.append("\n=== Informe de Adoptantes Registrados ===\n");
         report.append("Cantidad de adoptantes: ").append(adoptionCandidates.size()).append("\n");
         report.append("=========================================\n");
     
@@ -498,17 +498,25 @@ public String generateMonthlyAdoptionStats(int year, int month) {
              .append("\n");
     
         // Agregar detalles de cada animal
-        stats.append("=== Animales Peligros: ===\n");
-        for (Animal animal : animals) {
-            if (animal.getDangerLevel()) {
-                stats.append(animal).append("\n");
+        stats.append("=== Animales Peligrosos: ===\n");
+        if (dangerAnimals == 0) {
+            stats.append("\nNo hay animales peligrosos.\n");
+        } else {
+            for (Animal animal : animals) {
+                if (animal.getDangerLevel()) {
+                    stats.append(animal).append("\n");
+                }
             }
         }
-        stats.append("\n");
-        stats.append("=== Animales No Peligros: ===\n");
-        for (Animal animal : animals) {
-            if (!animal.getDangerLevel()) {
-                stats.append(animal).append("\n");
+
+        stats.append("\n=== Animales No Peligrosos: ===\n");
+        if (noDangerAnimals == 0) {
+            stats.append("\nNo hay animales no peligrosos.\n");
+        } else {
+            for (Animal animal : animals) {
+                if (!animal.getDangerLevel()) {
+                    stats.append(animal).append("\n");
+                }
             }
         }
         return stats.toString();  // Retornar el reporte como String
