@@ -173,4 +173,20 @@ public class Resource {
         }
         return resources;
     }
+    /**
+     * Filtra los recursos actualizados en el último año.
+     *
+     * @param resources Lista de recursos a filtrar.
+     * @return Una lista de recursos actualizados en el último año.
+     */
+    public static List<Resource> filterUpdatedInLastYear(List<Resource> resources) {
+        List<Resource> filteredList = new ArrayList<>();
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+        for (Resource resource : resources) {
+            if (resource.getLastUpdated().isAfter(oneYearAgo)) {
+                filteredList.add(resource);
+            }
+        }
+        return filteredList;
+    }
 }
