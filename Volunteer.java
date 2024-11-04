@@ -174,9 +174,10 @@ public static String generateVolunteerReport(List<Volunteer> volunteers, int min
  if (filteredVolunteers.isEmpty()) {
    report.append("No se encontraron voluntarios con las horas mínimas requeridas.\n");
   } else {
-    for(Volunteer volunteer: filteredVolunteers) {
-     report.append(volunteer.toString()).append("\n");
+     for (Volunteer volunteer: filteredVolunteers) {
+       report.append(volunteer.toString()).append("\n");
+     }
    }
+   return report.toString();
   }
- }
 }
