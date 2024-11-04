@@ -20,10 +20,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.time.LocalDate;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class Resource {
     private String resourceName;  // Nombre del recurso
@@ -197,7 +198,7 @@ public class Resource {
         List<Resource> filteredList = new ArrayList<>();
         LocalDate oneYearAgo = LocalDate.now().minusYears(1);
         for (Resource resource : resources) {
-            if (resource.getLastUpdated().isAfter(oneYearAgo)) {
+            if (resource.getDate().isAfter(oneYearAgo)) {
                 filteredList.add(resource);
             }
         }
@@ -213,7 +214,7 @@ public class Resource {
         List<Resource> filteredList = new ArrayList<>();
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         for (Resource resource : resources) {
-            if (resource.getLastUpdated().isAfter(oneMonthAgo)) {
+            if (resource.getDate().isAfter(oneMonthAgo)) {
                 filteredList.add(resource);
             }
         }
@@ -229,10 +230,50 @@ public class Resource {
         List<Resource> filteredList = new ArrayList<>();
         LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
         for (Resource resource : resources) {
-            if (resource.getLastUpdated().isAfter(oneWeekAgo)) {
+            if (resource.getDate().isAfter(oneWeekAgo)) {
                 filteredList.add(resource);
             }
         }
         return filteredList;
     }
+
+    /**
+     * Parsea una línea de texto en formato CSV y crea un objeto {@code Resource}.
+     *
+     * @param line la línea de texto en formato CSV que representa un recurso
+     * @return un objeto {@code Resource} creado a partir de la línea de texto
+     */
+    private Resource parseResource(String line) {
+        // Implementa la lógica para parsear una línea CSV a un objeto Resource
+        return new Resource(); // Ejemplo de retorno
+    }
+    public Resource() {
+    }
+
+
+    /**
+     * Carga una lista de recursos desde un archivo CSV especificado por la ruta.
+     * Lee cada línea del archivo, parsea los datos y crea objetos {@code Resource}
+     * que se agregan a la lista de recursos.
+     *
+     * @param filePath la ruta del archivo CSV que contiene los datos de los recursos
+     * @return una lista de objetos {@code Resource} cargados desde el archivo CSV;
+     *         si ocurre un error de E/S, se devuelve una lista vacía
+     */
+    public List<Resource> loadResourcesFromCSV(String filePath) {
+        List<Resource> resources = new ArrayList<>();
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            for (String line : lines) {
+                // Parsear cada línea y agregar a la lista de recursos
+                Resource resource = parseResource(line);
+                resources.add(resource);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return resources;
+    }
+    
+    
 }
