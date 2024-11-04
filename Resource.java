@@ -21,11 +21,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Resource {
     private String resourceName;  // Nombre del recurso
     private int quantity;         // Cantidad del recurso disponible
     private String description;   // Descripción del recurso
     private int threshold = 10;   // Alerta de Recurso Bajo
+    private LocalDate date;
 
     /**
      * Constructor para inicializar un recurso con su nombre, cantidad y descripción.
@@ -65,6 +70,15 @@ public class Resource {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Devuelve la fecha de modificacion del Recurso
+     *
+     * @return La fecha de modificacion del Recurso
+     */
+    public LocalDate getDate() {
+        return date;
     }
 
     /**
