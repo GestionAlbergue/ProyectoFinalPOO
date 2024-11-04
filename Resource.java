@@ -189,4 +189,21 @@ public class Resource {
         }
         return filteredList;
     }
+     /**
+     * Filtra los recursos actualizados en el último mes.
+     *
+     * @param resources Lista de recursos a filtrar.
+     * @return Una lista de recursos actualizados en el último mes.
+     */
+    public static List<Resource> filterUpdatedInLastMonth(List<Resource> resources) {
+        List<Resource> filteredList = new ArrayList<>();
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+        for (Resource resource : resources) {
+            if (resource.getLastUpdated().isAfter(oneMonthAgo)) {
+                filteredList.add(resource);
+            }
+        }
+        return filteredList;
+    }
+
 }
