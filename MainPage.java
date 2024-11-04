@@ -256,7 +256,7 @@ public class MainPage {
             case 8: // Reporte General de Recursos
                 System.out.println(report.generateResourceReport());  
                 break;
-            case 9: // Reporte de Recursos Bajos en Cantidad
+            case 9: // Reporte de Recursos Bajos en Cantidad (Menos 10 como se definió en Threshold)
                 System.out.println(report.generateLowResourceReport());
                 break;
             case 10: // Reporte General de Tareas
