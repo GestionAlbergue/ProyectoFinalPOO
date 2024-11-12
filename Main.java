@@ -33,7 +33,6 @@ public class Main {
     private List<AdoptionCandidate> adoptionCandidates; // Lista de Adoptantes en el sistema
     private Report report;                              // Referencia al objeto Report para generar informes
     private MainPage mainPage;                          // Referencia a la clase MainPage para navegar en el sistema
-    private ResourceManager resourceManager;            // Clase para manejar informe de recursos
 
     /**
      * Método principal que inicia el programa.
@@ -52,7 +51,6 @@ public class Main {
         this.loadAllData();     // Cargar toda la data desde los CSV
         this.report = new Report(animals, volunteers, resources, tasks, adoptionCandidates, adoptions);  // Crea el objeto Report
         this.mainPage = new MainPage(report);  // Crea el objeto MainPage para la navegación
-        this.resourceManager = new ResourceManager(resources);
     }
 
     /**
