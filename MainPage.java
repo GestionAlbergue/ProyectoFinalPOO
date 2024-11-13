@@ -44,7 +44,7 @@ public class MainPage {
         final String RED = "\u001B[31m";
         final String GREEN = "\u001B[32m";
         final String YELLOW = "\u001B[33m";
-        final String BLUE = "\u001B[34m";
+        // final String BLUE = "\u001B[34m";
         final String CYAN = "\u001B[36m";
         final String WHITE_BOLD = "\u001B[1;37m";
     
@@ -52,7 +52,7 @@ public class MainPage {
         System.out.println(" ");
         System.out.println(CYAN + "====================================================" + RESET);
         System.out.println(CYAN + "||                                                ||" + RESET);
-        System.out.println(CYAN + "||" + WHITE_BOLD + "               ** PÁGINA PRINCIPAL **           " + CYAN + "||" + RESET);
+        System.out.println(CYAN + "||" + WHITE_BOLD + "             ** PÁGINA PRINCIPAL **             " + CYAN + "||" + RESET);
         System.out.println(CYAN + "||                                                ||" + RESET);
         System.out.println(CYAN + "====================================================" + RESET);
         System.out.println(GREEN + "||  " + RESET + "1. Registrar Animal                           " + GREEN + "||" + RESET);
