@@ -9,8 +9,8 @@
  * métodos para filtrar y acceder a esos recursos según ciertos criterios.
  * 
  * @author Angel Higueros
- * Fecha de creación: 03/1q/2024 
- * Última modificación: 03/11/2024
+ * Fecha de creación: 03/11/2024 
+ * Última modificación: 13/11/2024
  */
 
 import java.time.LocalDate;
@@ -28,17 +28,5 @@ public class ResourceManager {
      */
     public ResourceManager(List<Resource> resources) {
         this.resources = resources;
-    }
-
-    /**
-     * Filtra los recursos por una fecha específica.
-     *
-     * @param date la fecha para filtrar los recursos
-     * @return una lista de recursos cuya fecha coincide con la especificada
-     */
-    public List<Resource> filterResourcesByDate(LocalDate date) {
-        return resources.stream()
-                .filter(resource -> resource.getDate().isEqual(date))
-                .collect(Collectors.toList());
     }
 }    
