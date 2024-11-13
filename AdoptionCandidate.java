@@ -151,6 +151,14 @@ public class AdoptionCandidate {
     }
 
     /**
+     * Añade el voluntario que gestiona el contacto con el adoptante.
+     * @param volunteer El voluntario encargado del proceso de adopción.
+     */
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+    }
+
+    /**
      * Añade un animal a la lista del adoptante.
      */
     public void addAnimal(Animal animal) {
@@ -160,7 +168,6 @@ public class AdoptionCandidate {
         animals.add(animal);  // Agregar el animal a la lista
     }
 
-    
 
     /**
      * Convierte un objeto AdoptionCandidate en una línea de texto en formato CSV.
