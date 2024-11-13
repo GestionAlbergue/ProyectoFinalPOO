@@ -29,4 +29,16 @@ public class ResourceManager {
     public ResourceManager(List<Resource> resources) {
         this.resources = resources;
     }
+
+    /**
+     * Filtra los recursos por una fecha específica.
+     *
+     * @param date la fecha para filtrar los recursos
+     * @return una lista de recursos cuya fecha coincide con la especificada
+     */
+    public List<Resource> filterResourcesByDate(LocalDate date) {
+        return resources.stream()
+                .filter(resource -> resource.getDate().isEqual(date))
+                .collect(Collectors.toList());
+    }
 }    
