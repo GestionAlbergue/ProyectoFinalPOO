@@ -39,26 +39,40 @@ public class MainPage {
      * Muestra las opciones principales del menú en la página principal.
      */
     public void displayOptions() {
+        // Códigos ANSI para colores
+        final String RESET = "\u001B[0m";
+        final String RED = "\u001B[31m";
+        final String GREEN = "\u001B[32m";
+        final String YELLOW = "\u001B[33m";
+        final String BLUE = "\u001B[34m";
+        final String CYAN = "\u001B[36m";
+        final String WHITE_BOLD = "\u001B[1;37m";
+    
+        // Impresión del menú
         System.out.println(" ");
-        System.out.println("****************************************************");
-        System.out.println("***               PÁGINA PRINCIPAL               ***");
-        System.out.println("** 1. Registrar Animal                            **");
-        System.out.println("** 2. Registrar Voluntario                        **");
-        System.out.println("** 3. Registrar Adoptante                         **");
-        System.out.println("** 4. Registrar Adopción                          **");
-        System.out.println("** 5. Registrar Recurso                           **");
-        System.out.println("** 6. Actualizar Cantidad de Recurso              **");
-        System.out.println("** 7. Registrar Tarea                             **");
-        System.out.println("** 8. Marcar como completa una Tarea              **");
-        System.out.println("** 9. Ingresar un Nuevo Registro Médico           **");
-        System.out.println("** 10. Visualizar Record Médico                   **");
-        System.out.println("** 11. Reportes del Albergue                      **");
-        System.out.println("** 12. Reporte de Adopciones por Período          **");
-        System.out.println("** 13. Estadísticas Mensuales de Adopciones       **");
-        System.out.println("** 14. Salir                                      **");
-        System.out.println("****************************************************");
-        System.out.print("Seleccione una opción: ");
+        System.out.println(CYAN + "====================================================" + RESET);
+        System.out.println(CYAN + "||                                                ||" + RESET);
+        System.out.println(CYAN + "||" + WHITE_BOLD + "               ** PÁGINA PRINCIPAL **           " + CYAN + "||" + RESET);
+        System.out.println(CYAN + "||                                                ||" + RESET);
+        System.out.println(CYAN + "====================================================" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "1. Registrar Animal                           " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "2. Registrar Voluntario                       " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "3. Registrar Adoptante                        " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "4. Registrar Adopción                         " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "5. Registrar Recurso                          " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "6. Actualizar Cantidad de Recurso             " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "7. Registrar Tarea                            " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "8. Marcar como completa una Tarea             " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "||  " + RESET + "9. Ingresar un Nuevo Registro Médico          " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "|| " + RESET + "10. Visualizar Record Médico                   " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "|| " + RESET + "11. Reportes del Albergue                      " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "|| " + RESET + "12. Reporte de Adopciones por Período          " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "|| " + RESET + "13. Estadísticas Mensuales de Adopciones       " + GREEN + "||" + RESET);
+        System.out.println(GREEN + "|| " + RESET + "14. " + RED + "Salir                                      " + GREEN + "||" + RESET);
+        System.out.println(CYAN + "====================================================" + RESET);
+        System.out.print(YELLOW + "Seleccione una opción: " + RESET);
     }
+    
 
     /**
      * Muestra las opciones del menú de reportes.
